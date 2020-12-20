@@ -1,0 +1,6 @@
+node_modules
+.env
+uploads/resized/post*
+uploads/resized/avatar*
+!uploads/resized/post/.gitkeep
+!uploads/resized/avatar/.gitkeep
