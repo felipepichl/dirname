@@ -4,5 +4,11 @@
   "port": 5432,
   "username": "postgres",
   "password": "docker",
-  "database": "gomakee"
+  "database": "gomakee",
+  "migrations": [
+    "./src/database/migrations/*.ts"
+  ],
+  "cli": {
+    "migrationsDir": "./src/database/migrations/"
+  }
 }
