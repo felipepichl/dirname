@@ -5,6 +5,9 @@
   "username": "postgres",
   "password": "docker",
   "database": "gomakee",
+  "entities": [
+    "./src/app/models/*.ts"
+  ],
   "migrations": [
     "./src/database/migrations/*.ts"
   ],
