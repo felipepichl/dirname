@@ -6,6 +6,6 @@ import userRouter from './users.routes';
 const router = Router();
 
 router.use('/appointments', appointmentRouter);
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 
 export default router;
