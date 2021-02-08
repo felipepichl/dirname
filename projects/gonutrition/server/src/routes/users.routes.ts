@@ -16,7 +16,7 @@ usersRouter.post('/', async (request, response) => {
       password,
     });
 
-    console.log(user);
+    delete user.password;
 
     return response.json(user);
   } catch (err) {
