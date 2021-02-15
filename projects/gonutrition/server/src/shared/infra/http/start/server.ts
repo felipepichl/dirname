@@ -4,11 +4,10 @@ import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
 import uploadConfig from '@config/upload';
-import routes from '../routes';
+import AppError from '@shared/errors/AppError';
+import routes from '@shared/infra/http/routes';
 
-import AppError from '../errors/AppError';
-
-import '../database';
+import '@shared/infra/typeorm';
 
 const app = express();
 
@@ -23,6 +22,8 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
       message: err.message,
     });
   }
+
+  console.error(err);
 
   return response.status(500).json({
     status: 'error',

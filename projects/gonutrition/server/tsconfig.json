@@ -16,9 +16,9 @@
     /* Module Resolution Options */
     "baseUrl": "./src",
     "paths": {
+      "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@controller/*": ["app/controllers/*"],
-      "@models/*": ["app/models/*"]
+      "@shared/*": ["shared/*"]
     },
     "typeRoots": [
       "./node_modules/@types",
