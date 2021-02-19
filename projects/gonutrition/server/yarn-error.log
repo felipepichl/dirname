@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /home/felipe/.yarn/releases/yarn-1.22.10.js add @types/uuid4 -D
+  /usr/bin/node /home/felipe/.yarn/releases/yarn-1.22.10.js add @types/uuid5 -D
 
 PATH: 
   /home/felipe/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fuuid4: Not found
+  Error: https://registry.yarnpkg.com/@types%2fuuid5: Not found
       at Request.params.callback [as _callback] (/home/felipe/.yarn/releases/yarn-1.22.10.js:78518:18)
       at Request.self.callback (/home/felipe/.yarn/releases/yarn-1.22.10.js:135160:22)
       at Request.emit (events.js:314:20)
@@ -46,7 +46,8 @@ npm manifest:
       "reflect-metadata": "^0.1.13",
       "tsyringe": "^4.4.0",
       "typeorm": "^0.2.30",
-      "uuid4": "^2.0.2"
+      "uuidv4": "^6.2.6",
+      "uuidv5": "^1.0.0"
     },
     "devDependencies": {
       "@types/bcryptjs": "^2.4.2",
@@ -805,7 +806,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
     integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
   
-  "@types/uuid@^8.3.0":
+  "@types/uuid@8.3.0":
     version "8.3.0"
     resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
     integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
@@ -5797,20 +5798,28 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
     integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
   
-  uuid4@^2.0.2:
-    version "2.0.2"
-    resolved "https://registry.yarnpkg.com/uuid4/-/uuid4-2.0.2.tgz#d33169f4a8fe84b217f50a0f28f971cd9ff56216"
-    integrity sha512-TzsQS8sN1B2m9WojyNp0X/3JL8J2RScnrAJnooNPL6lq3lA02/XdoWysyUgI6rAif0DzkkWk51N6OggujPy2RA==
+  uuid@8.3.2, uuid@^8.3.0:
+    version "8.3.2"
+    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
+    integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   
   uuid@^3.3.2:
     version "3.4.0"
     resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
     integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
   
-  uuid@^8.3.0:
-    version "8.3.2"
-    resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
-    integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
+  uuidv4@^6.2.6:
+    version "6.2.6"
+    resolved "https://registry.yarnpkg.com/uuidv4/-/uuidv4-6.2.6.tgz#c37c764b578114b60bdd5460e5578d7d99383ad1"
+    integrity sha512-vFyL4jugB/ln1ux1gXLlBMBv424Dn86EaBMoqUH1K6XI3XuriaWLeRUzH4iWwPu+BOJiw4hc4TjvrPmk+H+ZBQ==
+    dependencies:
+      "@types/uuid" "8.3.0"
+      uuid "8.3.2"
+  
+  uuidv5@^1.0.0:
+    version "1.0.0"
+    resolved "https://registry.yarnpkg.com/uuidv5/-/uuidv5-1.0.0.tgz#af98e9befcb462c0ab6c752edd082cb52fb530a0"
+    integrity sha1-r5jpvvy0YsCrbHUu3QgstS+1MKA=
   
   v8-compile-cache@^2.0.3:
     version "2.2.0"
