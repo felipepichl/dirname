@@ -17,7 +17,7 @@ interface IRequest {
 @injectable()
 class ListProviderAppointmentsService {
   constructor(
-    @inject('AppointmentRepository')
+    @inject('AppointmentsRepository')
     private appointmentRepository: IAppointmentsRepository,
 
     @inject('CacheProvider')
@@ -38,6 +38,8 @@ class ListProviderAppointmentsService {
         day,
       },
     );
+
+    await this.cacheProvider.save('asd', 'asd');
 
     return appointments;
   }

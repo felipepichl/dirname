@@ -20,7 +20,9 @@ class RedisCacheProvider implements ICacheProvider {
     return data;
   }
 
-  public async invalidate(key: string): Promise<void> {}
+  public async invalidate(key: string): Promise<void> {
+    console.log(key);
+  }
 }
 
 export default RedisCacheProvider;
