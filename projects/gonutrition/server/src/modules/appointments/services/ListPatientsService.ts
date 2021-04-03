@@ -32,8 +32,6 @@ class ListPatientsService {
         except_user_id: user_id,
       });
 
-      console.log('Database');
-
       await this.cacheProvider.save(
         `patients-list:${user_id}`,
         classToClass(users),
