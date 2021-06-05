@@ -34,8 +34,14 @@ class CreateAppointmentService {
     date,
   }: IRequest): Promise<Appointment> {
     const appointmentDate = startOfHour(date);
+    const dateNow = startOfHour(Date.now());
 
-    if (isBefore(appointmentDate, Date.now())) {
+    console.log(appointmentDate);
+    console.log(dateNow);
+
+    console.log(Date.now());
+
+    if (isBefore(appointmentDate, dateNow)) {
       throw new AppError('You cannot create an appointment on a past date');
     }
 
