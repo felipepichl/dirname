@@ -1,11 +1,15 @@
 import { container } from 'tsyringe';
+import mailConfig from '@config/mailConfig';
 
 import IMailProvider from './models/IMailProvider';
 
 import EtherealMailProvider from './implementations/EtherealMailProvider';
 
 const providers = {
-  ethereal: EtherealMailProvider,
+  ethereal: container.resolve(EtherealMailProvider),
 };
 
-container.registerSingleton<IMailProvider>('MailProvider', providers.ethereal);
+container.registerInstance<IMailProvider>(
+  'MailProvider',
+  providers[mailConfig.driver],
+);
