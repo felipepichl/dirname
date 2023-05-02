@@ -8,7 +8,7 @@ import {
 export function Home() {
   return (
     <Container>
-      <Title>HOME</Title>
+      <Title>HOMER</Title>
     </Container>
   )
 }
