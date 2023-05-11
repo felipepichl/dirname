@@ -1,9 +1,17 @@
 import React from 'react';
+import { StatusBar } from 'react-native';
 
 import { Container } from './styles';
 
 export function Header() {
   return (
-    <Container />
+    <>
+      <StatusBar 
+        translucent
+        barStyle='light-content'
+        backgroundColor='transparent'
+        />
+      <Container />
+    </>
   )
 }
