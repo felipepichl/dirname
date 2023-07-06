@@ -7,6 +7,13 @@ interface IUserProps {
   email: string;
   password: string;
   avatar?: string;
+  phoneNumber: string;
+  isPresent: boolean;
+  role: string;
+  level: string;
+  lodge: string;
+  address: string;
+  startDate: Date;
   createdAt?: Date
   updatedAt?: Date
 }
@@ -37,6 +44,13 @@ class User extends AggregateRoot<IUserProps> {
     email,
     password,
     avatar,
+    phoneNumber,
+    isPresent,
+    role,
+    level,
+    lodge,
+    address,
+    startDate,
     createdAt,
     updatedAt,
   }: IUserProps): User {
@@ -45,6 +59,13 @@ class User extends AggregateRoot<IUserProps> {
       email,
       password,
       avatar,
+      phoneNumber,
+      isPresent,
+      role,
+      level,
+      lodge,
+      address,
+      startDate,
       createdAt,
       updatedAt,
     }
