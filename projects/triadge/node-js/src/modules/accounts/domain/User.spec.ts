@@ -1,4 +1,4 @@
-import { User } from './User'
+import { User } from './User';
 
 describe('Create a new User', () => {
   it('should be able to create a new instance of user', () => {
@@ -14,9 +14,9 @@ describe('Create a new User', () => {
       lodge: 'lodge',
       address: 'address',
       startDate: new Date(),
-    })
+    });
 
-    expect(user instanceof User).toBe(true)
-    expect(user).toBeTruthy()
-  })
-})
+    expect(user instanceof User).toBe(true);
+    expect(user).toBeTruthy();
+  });
+});

@@ -1,5 +1,5 @@
-import { AggregateRoot } from '@shared/core/domain/AggregateRoot'
-import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
+import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
+import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
 interface IUserProps {
   id?: string;
@@ -14,29 +14,29 @@ interface IUserProps {
   lodge: string;
   address: string;
   startDate: Date;
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 class User extends AggregateRoot<IUserProps> {
   constructor(props: IUserProps, id?: UniqueEntityID) {
-    super(props, id)
+    super(props, id);
   }
 
   get name(): string {
-    return this.props.name
+    return this.props.name;
   }
 
   get email(): string {
-    return this.props.email
+    return this.props.email;
   }
 
   get password(): string {
-    return this.props.password
+    return this.props.password;
   }
 
   get avatar(): string {
-    return this.props.avatar
+    return this.props.avatar;
   }
 
   public static createUser({
@@ -68,10 +68,10 @@ class User extends AggregateRoot<IUserProps> {
       startDate,
       createdAt,
       updatedAt,
-    }
+    };
 
-    return AggregateRoot.create({ props: userProps }, User)
+    return AggregateRoot.create({ props: userProps }, User);
   }
 }
 
-export { User }
+export { User };

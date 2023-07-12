@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { User } from '@modules/accounts/domain/User';
 import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 
@@ -9,7 +9,6 @@ import { CreateUserUseCase } from './CreateUserUseCase';
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let hashProviderInMemory: HashProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
-let user: ICreateUserDTO;
 
 describe('Create a user', () => {
   beforeEach(() => {
@@ -19,25 +18,48 @@ describe('Create a user', () => {
       usersRepositoryInMemory,
       hashProviderInMemory,
     );
-
-    user = {
-      name: 'John Due',
-      email: 'jonhdue@example.com',
-      password: 'hsh123',
-    };
   });
 
   it('should be able to create a new user', async () => {
+    const user = User.createUser({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
+      password: 'hash123',
+      avatar: 'avatar_url',
+      phoneNumber: '51999999999',
+      isPresent: true,
+      role: 'role',
+      level: 'level',
+      lodge: 'lodge',
+      address: 'address',
+      startDate: new Date(),
+    });
+
     await createUserUseCase.execute(user);
 
-    const { email } = user;
+    const { id } = user;
 
-    const userCreated = await usersRepositoryInMemory.findByEmail(email);
+    const userCreated = await usersRepositoryInMemory.findById(id.toString());
 
-    expect(userCreated).toHaveProperty('id');
+    expect(userCreated).toBeDefined();
+    expect(userCreated?.name).toEqual(user.email);
   });
 
   it('should not be able to create a new user with same email another', async () => {
+    const user = User.createUser({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
+      password: 'hash123',
+      avatar: 'avatar_url',
+      phoneNumber: '51999999999',
+      isPresent: true,
+      role: 'role',
+      level: 'level',
+      lodge: 'lodge',
+      address: 'address',
+      startDate: new Date(),
+    });
+
     await createUserUseCase.execute(user);
 
     await expect(createUserUseCase.execute(user)).rejects.toBeInstanceOf(
