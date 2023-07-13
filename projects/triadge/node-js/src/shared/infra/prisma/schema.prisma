@@ -8,17 +8,27 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  name     String
-  email    String  @unique
-  password String
-  avatar   String?
+  id          String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  password    String
+  avatar      String?
+  phoneNumber String
+  role        String
+  level       String
+  startDate   DateTime
 
-  created_at DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   UsersTokens UserTokens[]
+  Attendance  Attendance[]
 
-  @@map("users")
+  Lodge       Lodge? @relation(fields: [fk_lodge_id], references: [id])
+  fk_lodge_id String
+
+  Address       Address? @relation(fields: [fk_address_id], references: [id])
+  fk_address_id String?
 }
 
 model UserTokens {
@@ -31,5 +41,57 @@ model UserTokens {
   users      User   @relation(fields: [fk_user_id], references: [id])
   fk_user_id String
 
-  @@map("users_tokens")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attendance {
+  id      String   @id @default(uuid())
+  date    DateTime
+  present Boolean
+
+  users      User   @relation(fields: [fk_user_id], references: [id])
+  fk_user_id String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lodge {
+  id          String @id @default(uuid())
+  name        String
+  description String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  User     User[]
+  Meetings Meeting[]
+}
+
+model Meeting {
+  id          String   @id @default(uuid())
+  date        DateTime
+  description String
+
+  lodge       Lodge  @relation(fields: [fk_lodge_id], references: [id])
+  fk_lodge_id String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Address {
+  id           String  @id @default(uuid())
+  zipCode      String
+  street       String
+  number       String
+  city         String
+  neighborhood String
+  complement   String?
+
+  users User[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
