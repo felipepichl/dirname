@@ -11,11 +11,10 @@ interface IRequest {
   password: string;
   avatar?: string;
   phoneNumber: string;
-  isPresent: boolean;
   role: string;
   level: string;
-  lodge: string;
-  address: string;
+  fk_lodge_id: string;
+  fk_address_id: string;
   startDate: Date;
 }
 
@@ -34,11 +33,10 @@ class CreateUserUseCase {
     password,
     avatar,
     phoneNumber,
-    isPresent,
     role,
     level,
-    lodge,
-    address,
+    fk_lodge_id,
+    fk_address_id,
     startDate,
   }: IRequest): Promise<void> {
     const userAllReadyExists = await this.usersRepository.findByEmail(email);
@@ -55,11 +53,10 @@ class CreateUserUseCase {
       password: hashedPassword,
       avatar,
       phoneNumber,
-      isPresent,
       role,
       level,
-      lodge,
-      address,
+      fk_lodge_id,
+      fk_address_id,
       startDate,
     });
 
