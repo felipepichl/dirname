@@ -2,7 +2,6 @@ import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
 interface IUserProps {
-  id?: string;
   name: string;
   email: string;
   password: string;
@@ -13,8 +12,6 @@ interface IUserProps {
   fk_lodge_id: string;
   fk_address_id: string;
   startDate: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
 }
 
 class User extends AggregateRoot<IUserProps> {
@@ -73,8 +70,6 @@ class User extends AggregateRoot<IUserProps> {
     fk_lodge_id,
     fk_address_id,
     startDate,
-    createdAt,
-    updatedAt,
   }: IUserProps): User {
     const userProps = {
       name,
@@ -87,8 +82,6 @@ class User extends AggregateRoot<IUserProps> {
       fk_lodge_id,
       fk_address_id,
       startDate,
-      createdAt,
-      updatedAt,
     };
 
     return AggregateRoot.create({ props: userProps }, User);

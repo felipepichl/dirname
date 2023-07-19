@@ -27,22 +27,21 @@ describe('Create a user', () => {
       password: 'hash123',
       avatar: 'avatar_url',
       phoneNumber: '51999999999',
-      isPresent: true,
       role: 'role',
       level: 'level',
-      lodge: 'lodge',
-      address: 'address',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
       startDate: new Date(),
     });
 
     await createUserUseCase.execute(user);
 
-    const { id } = user;
+    const { email } = user;
 
-    const userCreated = await usersRepositoryInMemory.findById(id.toString());
+    const userCreated = await usersRepositoryInMemory.findByEmail(email);
 
     expect(userCreated).toBeDefined();
-    expect(userCreated?.name).toEqual(user.email);
+    expect(userCreated?.email).toEqual(user.email);
   });
 
   it('should not be able to create a new user with same email another', async () => {
@@ -52,11 +51,10 @@ describe('Create a user', () => {
       password: 'hash123',
       avatar: 'avatar_url',
       phoneNumber: '51999999999',
-      isPresent: true,
       role: 'role',
       level: 'level',
-      lodge: 'lodge',
-      address: 'address',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
       startDate: new Date(),
     });
 

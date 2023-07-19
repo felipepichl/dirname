@@ -8,11 +8,10 @@ describe('Create a new User', () => {
       password: 'hash123',
       avatar: 'avatar_url',
       phoneNumber: '51999999999',
-      isPresent: true,
       role: 'role',
       level: 'level',
-      lodge: 'lodge',
-      address: 'address',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
       startDate: new Date(),
     });
 
