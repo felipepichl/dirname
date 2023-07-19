@@ -58,6 +58,10 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.fk_address_id;
   }
 
+  get startDate(): Date {
+    return this.props.startDate;
+  }
+
   public static createUser({
     name,
     email,
