@@ -8,11 +8,10 @@ interface IUserProps {
   password: string;
   avatar?: string;
   phoneNumber: string;
-  isPresent: boolean;
   role: string;
   level: string;
-  lodge: string;
-  address: string;
+  fk_lodge_id: string;
+  fk_address_id: string;
   startDate: Date;
   createdAt?: Date;
   updatedAt?: Date;
@@ -43,10 +42,6 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.phoneNumber;
   }
 
-  get isPresent(): boolean {
-    return this.props.isPresent;
-  }
-
   get role(): string {
     return this.props.role;
   }
@@ -55,12 +50,12 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.level;
   }
 
-  get lodge(): string {
-    return this.props.lodge;
+  get fk_lodge_id(): string {
+    return this.props.fk_lodge_id;
   }
 
-  get address(): string {
-    return this.props.address;
+  get fk_address_id(): string {
+    return this.props.fk_address_id;
   }
 
   public static createUser({
@@ -69,11 +64,10 @@ class User extends AggregateRoot<IUserProps> {
     password,
     avatar,
     phoneNumber,
-    isPresent,
     role,
     level,
-    lodge,
-    address,
+    fk_lodge_id,
+    fk_address_id,
     startDate,
     createdAt,
     updatedAt,
@@ -84,11 +78,10 @@ class User extends AggregateRoot<IUserProps> {
       password,
       avatar,
       phoneNumber,
-      isPresent,
       role,
       level,
-      lodge,
-      address,
+      fk_lodge_id,
+      fk_address_id,
       startDate,
       createdAt,
       updatedAt,

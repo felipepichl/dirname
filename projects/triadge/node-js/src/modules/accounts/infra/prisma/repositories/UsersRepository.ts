@@ -6,8 +6,10 @@ import { getPrismaClient } from '@shared/infra/prisma';
 import { UserMappers } from '../mappers/UserMappers';
 
 class UsersRepository implements IUsersRepository {
-  create({}: User): Promise<void> {
-    throw new Error('Method not implemented.');
+  async create({ name, email, password }: User): Promise<void> {
+    await getPrismaClient().user.create({
+      data: { name, email, password },
+    });
   }
   findByEmail(email: string): Promise<User> {
     throw new Error('Method not implemented.');
