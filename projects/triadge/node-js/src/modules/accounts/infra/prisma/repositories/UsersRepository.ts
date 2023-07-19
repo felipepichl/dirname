@@ -1,38 +1,19 @@
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { User } from '@modules/accounts/domain/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { PrismaClient, User } from '@prisma/client';
+
+import { getPrismaClient } from '@shared/infra/prisma';
+
+import { UserMappers } from '../mappers/UserMappers';
 
 class UsersRepository implements IUsersRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
+  create({}: User): Promise<void> {
+    throw new Error('Method not implemented.');
   }
-
-  async create(data: ICreateUserDTO): Promise<void> {
-    await this.prisma.user.create({
-      data,
-    });
+  findByEmail(email: string): Promise<User> {
+    throw new Error('Method not implemented.');
   }
-
-  async findByEmail(email: string): Promise<User> {
-    const result = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    return result;
-  }
-
-  async findById(user_id: string): Promise<User> {
-    const result = await this.prisma.user.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
-
-    return result;
+  findById(user_id: string): Promise<User> {
+    throw new Error('Method not implemented.');
   }
 }
 

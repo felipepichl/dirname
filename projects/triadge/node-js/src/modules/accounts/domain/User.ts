@@ -39,6 +39,30 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.avatar;
   }
 
+  get phoneNumber(): string {
+    return this.props.phoneNumber;
+  }
+
+  get isPresent(): boolean {
+    return this.props.isPresent;
+  }
+
+  get role(): string {
+    return this.props.role;
+  }
+
+  get level(): string {
+    return this.props.level;
+  }
+
+  get lodge(): string {
+    return this.props.lodge;
+  }
+
+  get address(): string {
+    return this.props.address;
+  }
+
   public static createUser({
     name,
     email,
