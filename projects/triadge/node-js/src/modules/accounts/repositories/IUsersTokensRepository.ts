@@ -1,9 +1,7 @@
-import { UserTokens } from '@prisma/client';
-
-import { ICreateUserTokensDTO } from '../dtos/ICreateUserTokensDTO';
+import { UserTokens } from '../domain/UserTokens';
 
 interface IUsersTokensRepository {
-  create(data: ICreateUserTokensDTO): Promise<UserTokens>;
+  create(userTokens: UserTokens): Promise<UserTokens>;
   findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string,
