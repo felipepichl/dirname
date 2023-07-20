@@ -6,7 +6,6 @@ describe('Create a new User', () => {
       name: 'Jonh Due',
       email: 'johndue@example.com',
       password: 'hash123',
-      avatar: 'avatar_url',
       phoneNumber: '51999999999',
       role: 'role',
       level: 'level',

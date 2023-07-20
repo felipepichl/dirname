@@ -3,13 +3,13 @@ import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/I
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { inject, injectable } from 'tsyringe';
 
+import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
   name: string;
   email: string;
   password: string;
-  avatar?: string;
   phoneNumber: string;
   role: string;
   level: string;
@@ -19,7 +19,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateUserUseCase {
+class CreateUserUseCase implements IUseCase<IRequest, void> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -31,7 +31,6 @@ class CreateUserUseCase {
     name,
     email,
     password,
-    avatar,
     phoneNumber,
     role,
     level,
@@ -51,7 +50,6 @@ class CreateUserUseCase {
       name,
       email,
       password: hashedPassword,
-      avatar,
       phoneNumber,
       role,
       level,
