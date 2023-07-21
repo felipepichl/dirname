@@ -1,5 +1,6 @@
 import 'reflect-metadata';
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+
+import { User } from '@modules/accounts/domain/User';
 import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { UsersTokenRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersTokenRepositoryInMemory';
@@ -37,11 +38,18 @@ describe('Authenticate User', () => {
   });
 
   it('should be able to authenticate an user', async () => {
-    const user: ICreateUserDTO = {
-      name: 'John Due',
-      email: 'jonh.due@example.com',
+    const user = User.createUser({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
       password: 'hash123',
-    };
+      avatar: 'avatar_url',
+      phoneNumber: '51999999999',
+      role: 'role',
+      level: 'level',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
+      startDate: new Date(),
+    });
 
     await createUserUseCase.execute(user);
 
@@ -65,11 +73,18 @@ describe('Authenticate User', () => {
   });
 
   it('should not be able to authenticate with wrong password', async () => {
-    const user: ICreateUserDTO = {
-      name: 'John Due',
-      email: 'jonh.due@example.com',
+    const user = User.createUser({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
       password: 'hash123',
-    };
+      avatar: 'avatar_url',
+      phoneNumber: '51999999999',
+      role: 'role',
+      level: 'level',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
+      startDate: new Date(),
+    });
 
     await createUserUseCase.execute(user);
 

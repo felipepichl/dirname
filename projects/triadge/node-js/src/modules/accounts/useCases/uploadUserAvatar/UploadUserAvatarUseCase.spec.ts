@@ -1,4 +1,4 @@
-import { ICreateUserDTO } from '@modules/accounts/dtos/ICreateUserDTO';
+import { User } from '@modules/accounts/domain/User';
 import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase';
@@ -30,11 +30,18 @@ describe('Upload Avatar', () => {
   });
 
   it('should be able to upload an user avatar', async () => {
-    const user: ICreateUserDTO = {
-      name: 'John Due',
+    const user = User.createUser({
+      name: 'Jonh Due',
       email: 'johndue@example.com',
       password: 'hash123',
-    };
+      avatar: 'avatar_url',
+      phoneNumber: '51999999999',
+      role: 'role',
+      level: 'level',
+      fk_lodge_id: 'fk_lodge_id',
+      fk_address_id: 'fk_address_id',
+      startDate: new Date(),
+    });
 
     await createUserUseCase.execute(user);
 
@@ -42,10 +49,10 @@ describe('Upload Avatar', () => {
 
     const userCreated = await usersRepositoryInMemory.findByEmail(email);
 
-    const { id: user_id } = userCreated;
+    const { id } = userCreated;
 
     await uploadUserAvatarUseCase.execute({
-      user_id,
+      user_id: id.toString(),
       avatar_file: 'avatar.jpg',
     });
 

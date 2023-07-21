@@ -59,6 +59,10 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.startDate;
   }
 
+  setAvatar(avatar: string): void {
+    this.avatar = avatar;
+  }
+
   public static createUser({
     name,
     email,
