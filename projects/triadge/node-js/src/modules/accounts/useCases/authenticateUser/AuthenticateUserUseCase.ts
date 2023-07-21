@@ -1,4 +1,5 @@
 import { authConfig } from '@config/auth';
+import { UserTokens } from '@modules/accounts/domain/UserTokens';
 import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
@@ -59,12 +60,12 @@ class AuthenticateUserUseCase {
     } = authConfig;
 
     const token = sign({}, secret_token, {
-      subject: user.id,
+      subject: user.id.toString(),
       expiresIn: expires_in_token,
     });
 
     const refresh_token = sign({ email }, secret_refresh_token, {
-      subject: user.id,
+      subject: user.id.toString(),
       expiresIn: expires_in_refresh_token,
     });
 
@@ -72,11 +73,13 @@ class AuthenticateUserUseCase {
       expires_refresh_token_days,
     );
 
-    await this.usersTokensRepository.create({
-      user_id: user.id,
-      refresh_token,
+    const userTokens = UserTokens.createUserTokens({
+      user_id: user.id.toString(),
       expires_date: refresh_token_expires_date,
+      refresh_token,
     });
+
+    await this.usersTokensRepository.create(userTokens);
 
     const { name } = user;
 
