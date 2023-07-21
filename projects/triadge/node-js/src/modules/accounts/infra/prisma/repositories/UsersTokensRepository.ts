@@ -19,16 +19,22 @@ class UsersTokensRepository implements IUsersTokensRepository {
       },
     });
 
-    // return UserTokensMappers.g;
+    return UserTokensMappers.getMapper().toDomain(result);
   }
-  findByUserIdAndRefreshToken(
+  async findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string,
   ): Promise<UserTokens> {
-    throw new Error('Method not implemented.');
+    const result = await getPrismaClient().userTokens.findFirst({
+      where: { fk_user_id: user_id, refresh_token },
+    });
+
+    return UserTokensMappers.getMapper().toDomain(result);
   }
-  deleteById(id: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async deleteById(id: string): Promise<void> {
+    await getPrismaClient().userTokens.delete({
+      where: { id },
+    });
   }
 }
 
