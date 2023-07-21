@@ -1,43 +1,34 @@
-import { ICreateUserTokensDTO } from '@modules/accounts/dtos/ICreateUserTokensDTO';
+import { UserTokens } from '@modules/accounts/domain/UserTokens';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
-import { PrismaClient, UserTokens } from '@prisma/client';
+
+import { getPrismaClient } from '@shared/infra/prisma';
+
+import { UserTokensMappers } from '../mappers/UserTokensMappers';
 
 class UsersTokensRepository implements IUsersTokensRepository {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
-
   async create({
-    refresh_token,
-    expires_date,
     user_id,
-  }: ICreateUserTokensDTO): Promise<UserTokens> {
-    const result = await this.prisma.userTokens.create({
+    expires_date,
+    refresh_token,
+  }: UserTokens): Promise<UserTokens> {
+    const result = await getPrismaClient().userTokens.create({
       data: {
-        refresh_token,
-        expires_date,
         fk_user_id: user_id,
+        expires_date,
+        refresh_token,
       },
     });
 
-    return result;
+    // return UserTokensMappers.g;
   }
-  async findByUserIdAndRefreshToken(
+  findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string,
   ): Promise<UserTokens> {
-    const result = await this.prisma.userTokens.findFirst({
-      where: { fk_user_id: user_id, refresh_token },
-    });
-
-    return result;
+    throw new Error('Method not implemented.');
   }
-  async deleteById(id: string): Promise<void> {
-    await this.prisma.userTokens.delete({
-      where: { id },
-    });
+  deleteById(id: string): Promise<void> {
+    throw new Error('Method not implemented.');
   }
 }
 

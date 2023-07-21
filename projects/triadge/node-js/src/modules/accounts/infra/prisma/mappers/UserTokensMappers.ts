@@ -21,6 +21,10 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
   getMapper(): IMapper<UserTokens, RawUserTokens> {
     return new UserTokensMappers();
   }
+
+  static getMapper(): UserTokensMappers {
+    return new UserTokensMappers();
+  }
 }
 
 export { UserTokensMappers };
