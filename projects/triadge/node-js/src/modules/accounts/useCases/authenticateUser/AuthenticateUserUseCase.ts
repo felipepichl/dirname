@@ -7,6 +7,7 @@ import { sign } from 'jsonwebtoken';
 import { inject, injectable } from 'tsyringe';
 
 import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
+import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
@@ -23,7 +24,7 @@ interface IResponse {
 }
 
 @injectable()
-class AuthenticateUserUseCase {
+class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,

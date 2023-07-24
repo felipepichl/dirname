@@ -1,8 +1,8 @@
-import { User } from '@modules/accounts/domain/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { injectable, inject } from 'tsyringe';
 
 import { IStorageProvider } from '@shared/container/providers/StorageProvider/models/IStorageProvider';
+import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
@@ -11,7 +11,7 @@ interface IRequest {
 }
 
 @injectable()
-class UploadUserAvatarUseCase {
+class UploadUserAvatarUseCase implements IUseCase<IRequest, void> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
