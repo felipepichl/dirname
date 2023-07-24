@@ -59,10 +59,6 @@ class User extends AggregateRoot<IUserProps> {
     return this.props.startDate;
   }
 
-  setAvatar(avatar: string): void {
-    this.avatar = avatar;
-  }
-
   public static createUser({
     name,
     email,
@@ -89,6 +85,10 @@ class User extends AggregateRoot<IUserProps> {
     };
 
     return AggregateRoot.create({ props: userProps }, User);
+  }
+
+  public updateAvatar(avatar: string): void {
+    this.props.avatar = avatar;
   }
 }
 

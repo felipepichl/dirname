@@ -1,3 +1,4 @@
+import { User } from '@modules/accounts/domain/User';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { injectable, inject } from 'tsyringe';
 
@@ -31,7 +32,7 @@ class UploadUserAvatarUseCase {
 
     const filename = await this.storageProvider.saveFile(avatar_file, 'avatar');
 
-    user.avatar = filename;
+    user.updateAvatar(filename);
 
     await this.usersRepository.create(user);
   }
