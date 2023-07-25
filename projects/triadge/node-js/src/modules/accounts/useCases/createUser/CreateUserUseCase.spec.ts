@@ -27,11 +27,6 @@ describe('Create a user', () => {
       password: 'hash123',
       avatar: 'avatar_url',
       phoneNumber: '51999999999',
-      role: 'role',
-      level: 'level',
-      fk_lodge_id: 'fk_lodge_id',
-      fk_address_id: 'fk_address_id',
-      startDate: new Date(),
     });
 
     await createUserUseCase.execute(user);
@@ -51,11 +46,6 @@ describe('Create a user', () => {
       password: 'hash123',
       avatar: 'avatar_url',
       phoneNumber: '51999999999',
-      role: 'role',
-      level: 'level',
-      fk_lodge_id: 'fk_lodge_id',
-      fk_address_id: 'fk_address_id',
-      startDate: new Date(),
     });
 
     await createUserUseCase.execute(user);

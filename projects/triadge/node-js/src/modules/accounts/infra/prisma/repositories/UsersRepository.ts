@@ -12,11 +12,6 @@ class UsersRepository implements IUsersRepository {
     password,
     avatar,
     phoneNumber,
-    role,
-    level,
-    fk_lodge_id,
-    fk_address_id,
-    startDate,
   }: User): Promise<void> {
     await getPrismaClient().user.create({
       data: {
@@ -25,11 +20,6 @@ class UsersRepository implements IUsersRepository {
         password,
         avatar,
         phoneNumber,
-        role,
-        level,
-        fk_lodge_id,
-        fk_address_id,
-        startDate,
       },
     });
   }

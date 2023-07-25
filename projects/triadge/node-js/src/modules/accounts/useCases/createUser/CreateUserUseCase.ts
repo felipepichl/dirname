@@ -11,11 +11,6 @@ interface IRequest {
   email: string;
   password: string;
   phoneNumber: string;
-  role: string;
-  level: string;
-  fk_lodge_id: string;
-  fk_address_id: string;
-  startDate: Date;
 }
 
 @injectable()
@@ -32,11 +27,6 @@ class CreateUserUseCase implements IUseCase<IRequest, void> {
     email,
     password,
     phoneNumber,
-    role,
-    level,
-    fk_lodge_id,
-    fk_address_id,
-    startDate,
   }: IRequest): Promise<void> {
     const userAllReadyExists = await this.usersRepository.findByEmail(email);
 
@@ -51,11 +41,6 @@ class CreateUserUseCase implements IUseCase<IRequest, void> {
       email,
       password: hashedPassword,
       phoneNumber,
-      role,
-      level,
-      fk_lodge_id,
-      fk_address_id,
-      startDate,
     });
 
     await this.usersRepository.create(user);
