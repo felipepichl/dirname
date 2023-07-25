@@ -5,13 +5,13 @@ interface IUserProps {
   name: string;
   email: string;
   password: string;
-  avatar?: string;
   phoneNumber: string;
-  role: string;
-  level: string;
-  fk_lodge_id: string;
-  fk_address_id: string;
-  startDate: Date;
+  avatar?: string;
+  role?: string;
+  level?: string;
+  fk_lodge_id?: string;
+  fk_address_id?: string;
+  startDate?: Date;
 }
 
 class User extends AggregateRoot<IUserProps> {
@@ -65,11 +65,6 @@ class User extends AggregateRoot<IUserProps> {
     password,
     avatar,
     phoneNumber,
-    role,
-    level,
-    fk_lodge_id,
-    fk_address_id,
-    startDate,
   }: IUserProps): User {
     const userProps = {
       name,
@@ -77,11 +72,6 @@ class User extends AggregateRoot<IUserProps> {
       password,
       avatar,
       phoneNumber,
-      role,
-      level,
-      fk_lodge_id,
-      fk_address_id,
-      startDate,
     };
 
     return AggregateRoot.create({ props: userProps }, User);
