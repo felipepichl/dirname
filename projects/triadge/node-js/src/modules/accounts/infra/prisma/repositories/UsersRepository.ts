@@ -6,19 +6,12 @@ import { getPrismaClient } from '@shared/infra/prisma';
 import { UserMappers } from '../mappers/UserMappers';
 
 class UsersRepository implements IUsersRepository {
-  async create({
-    name,
-    email,
-    password,
-    avatar,
-    phoneNumber,
-  }: User): Promise<void> {
+  async create({ name, email, password, phoneNumber }: User): Promise<void> {
     await getPrismaClient().user.create({
       data: {
         name,
         email,
         password,
-        avatar,
         phoneNumber,
       },
     });
@@ -27,6 +20,10 @@ class UsersRepository implements IUsersRepository {
     const result = await getPrismaClient().user.findFirst({
       where: { email },
     });
+
+    if (!result) {
+      return null;
+    }
 
     return UserMappers.getMapper().toDomain(result);
   }
