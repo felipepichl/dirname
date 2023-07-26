@@ -80,6 +80,8 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
       refresh_token,
     });
 
+    console.log(userTokens);
+
     await this.usersTokensRepository.create(userTokens);
 
     const { name } = user;

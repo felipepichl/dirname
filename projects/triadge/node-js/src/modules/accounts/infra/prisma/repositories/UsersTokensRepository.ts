@@ -12,15 +12,15 @@ class UsersTokensRepository implements IUsersTokensRepository {
     refresh_token,
   }: UserTokens): Promise<UserTokens> {
     console.log('here');
-    const result = await getPrismaClient.getInstance().userTokens.create({
-      data: {
-        fk_user_id: user_id,
-        expires_date,
-        refresh_token,
-      },
-    });
+    // const result = await getPrismaClient.getInstance().userTokens.create({
+    //   data: {
+    //     fk_user_id: user_id,
+    //     expires_date,
+    //     refresh_token,
+    //   },
+    // });
 
-    return UserTokensMappers.getMapper().toDomain(result);
+    return null;
   }
   async findByUserIdAndRefreshToken(
     user_id: string,
