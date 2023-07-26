@@ -10,5 +10,6 @@ describe('Create a new UserTokens', () => {
 
     expect(userTokens instanceof UserTokens).toBe(true);
     expect(userTokens).toBeTruthy();
+    expect(userTokens.user_id).toBe('user_id');
   });
 });

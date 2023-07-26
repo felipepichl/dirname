@@ -24,7 +24,6 @@ app.use(
       return response.status(err.statusCode).json({ message: err.message });
     }
 
-    console.log(err.message);
     return response.status(500).json({
       message: `Internal server error ${err.message}`,
     });

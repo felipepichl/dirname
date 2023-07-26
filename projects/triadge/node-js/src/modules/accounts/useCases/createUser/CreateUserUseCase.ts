@@ -43,6 +43,9 @@ class CreateUserUseCase implements IUseCase<IRequest, void> {
       phoneNumber,
     });
 
+    console.log(user.name);
+    console.log(user);
+
     await this.usersRepository.create(user);
   }
 }

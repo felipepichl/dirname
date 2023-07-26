@@ -19,17 +19,26 @@ class PrismaSingleton {
 
     return PrismaSingleton.instance;
   }
-}
 
-function closePrismaConnection(): void {
-  const prisma = PrismaSingleton.getInstance();
-  if (prisma) {
-    prisma.$disconnect();
+  public static async closeConnection(): Promise<void> {
+    if (PrismaSingleton.instance) {
+      await PrismaSingleton.instance.$disconnect();
+    }
   }
 }
 
-process.on('beforeExit', closePrismaConnection);
-process.on('SIGINT', closePrismaConnection);
-process.on('SIGTERM', closePrismaConnection);
+process.on('beforeExit', async () => {
+  await PrismaSingleton.closeConnection();
+});
 
-export { PrismaSingleton as getPrismaClient, closePrismaConnection };
+process.on('SIGINT', async () => {
+  await PrismaSingleton.closeConnection();
+  process.exit();
+});
+
+process.on('SIGTERM', async () => {
+  await PrismaSingleton.closeConnection();
+  process.exit();
+});
+
+export { PrismaSingleton };

@@ -1,11 +1,7 @@
 import { UserTokens } from '../domain/UserTokens';
 
 interface IUsersTokensRepository {
-  create({
-    user_id,
-    expires_date,
-    refresh_token,
-  }: UserTokens): Promise<UserTokens>;
+  create(userTokens: UserTokens): Promise<UserTokens>;
   findByUserIdAndRefreshToken(
     user_id: string,
     refresh_token: string,
