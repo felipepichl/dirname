@@ -1,20 +1,14 @@
-import { hash } from 'bcrypt';
 import request from 'supertest';
 
 import { app } from '@shared/infra/http/start/app';
-import { getPrismaClient } from '@shared/infra/prisma';
 
 describe('[E2E] = Authenticate User', () => {
-  beforeAll(async () => {
-    const passwordHash = await hash('hash123', 8);
-
-    await getPrismaClient().user.create({
-      data: {
-        name: 'Jonh Due',
-        email: 'johndue@example.com',
-        password: passwordHash,
-        phoneNumber: '51999999999',
-      },
+  beforeEach(async () => {
+    await request(app).post('/users').send({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
+      password: 'hash123',
+      phoneNumber: '51999999999',
     });
   });
 
@@ -23,8 +17,6 @@ describe('[E2E] = Authenticate User', () => {
       email: 'johndue@example.com',
       password: 'hash123',
     });
-
-    console.log(responseToken.body);
 
     expect(responseToken.status).toBe(200);
     expect(responseToken.body).toHaveProperty('token');

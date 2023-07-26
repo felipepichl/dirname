@@ -36,8 +36,6 @@ model UserTokens {
   refresh_token String
   expires_date  DateTime
 
-  created_at DateTime @default(now())
-
   users      User   @relation(fields: [fk_user_id], references: [id])
   fk_user_id String
 

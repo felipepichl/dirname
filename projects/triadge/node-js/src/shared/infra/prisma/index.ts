@@ -5,17 +5,24 @@ dotenv.config({
   path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
 });
 
-let prisma: PrismaClient;
+class PrismaSingleton {
+  private static instance: PrismaClient;
 
-function getPrismaClient(): PrismaClient {
-  if (!prisma) {
-    prisma = new PrismaClient();
+  private constructor() {
+    // Prevent direct constructor calls with the `new` operator.
   }
 
-  return prisma;
+  public static getInstance(): PrismaClient {
+    if (!PrismaSingleton.instance) {
+      PrismaSingleton.instance = new PrismaClient();
+    }
+
+    return PrismaSingleton.instance;
+  }
 }
 
 function closePrismaConnection(): void {
+  const prisma = PrismaSingleton.getInstance();
   if (prisma) {
     prisma.$disconnect();
   }
@@ -25,4 +32,4 @@ process.on('beforeExit', closePrismaConnection);
 process.on('SIGINT', closePrismaConnection);
 process.on('SIGTERM', closePrismaConnection);
 
-export { getPrismaClient, closePrismaConnection };
+export { PrismaSingleton as getPrismaClient, closePrismaConnection };

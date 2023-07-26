@@ -11,7 +11,8 @@ class UsersTokensRepository implements IUsersTokensRepository {
     expires_date,
     refresh_token,
   }: UserTokens): Promise<UserTokens> {
-    const result = await getPrismaClient().userTokens.create({
+    console.log('here');
+    const result = await getPrismaClient.getInstance().userTokens.create({
       data: {
         fk_user_id: user_id,
         expires_date,
@@ -25,14 +26,14 @@ class UsersTokensRepository implements IUsersTokensRepository {
     user_id: string,
     refresh_token: string,
   ): Promise<UserTokens> {
-    const result = await getPrismaClient().userTokens.findFirst({
+    const result = await getPrismaClient.getInstance().userTokens.findFirst({
       where: { fk_user_id: user_id, refresh_token },
     });
 
     return UserTokensMappers.getMapper().toDomain(result);
   }
   async deleteById(id: string): Promise<void> {
-    await getPrismaClient().userTokens.delete({
+    await getPrismaClient.getInstance().userTokens.delete({
       where: { id },
     });
   }
