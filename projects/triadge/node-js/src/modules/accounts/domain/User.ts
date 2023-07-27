@@ -65,15 +65,15 @@ class User extends AggregateRoot<IUserProps> {
     name,
     email,
     password,
-    avatar,
     phoneNumber,
+    avatar,
   }: IUserProps): User {
     const userProps = {
       name,
       email,
       password,
-      avatar,
       phoneNumber,
+      avatar,
     };
 
     return AggregateRoot.create({ props: userProps, id }, User);
