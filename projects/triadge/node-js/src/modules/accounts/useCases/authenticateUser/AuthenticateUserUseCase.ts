@@ -40,6 +40,8 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
   async execute({ email, password }: IRequest): Promise<IResponse> {
     const user = await this.usersRepository.findByEmail(email);
 
+    console.log(user);
+
     if (!user) {
       throw new AppError('Incorret email/password combination');
     }

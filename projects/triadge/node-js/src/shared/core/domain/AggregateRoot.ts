@@ -9,16 +9,16 @@ abstract class AggregateRoot<T> extends Entity<T> {
 
   public static create<T, U>(
     params: ICreateProps<U>,
-    Clazz: new (props: U) => T,
+    Clazz: new (props: U, id?: UniqueEntityID) => T,
   ) {
-    const { props } = params;
+    const { props, id } = params;
     const updatedProps = {
       ...props,
       created_at: props.created_at ?? new Date(),
       updated_at: props.updated_at ?? new Date(),
     } as U;
 
-    const instance = new Clazz(updatedProps);
+    const instance = new Clazz(updatedProps, id);
 
     return instance;
   }

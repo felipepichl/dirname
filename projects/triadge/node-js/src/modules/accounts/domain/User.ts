@@ -2,6 +2,7 @@ import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
 interface IUserProps {
+  id?: string;
   name: string;
   email: string;
   password: string;
@@ -60,6 +61,7 @@ class User extends AggregateRoot<IUserProps> {
   }
 
   public static createUser({
+    id,
     name,
     email,
     password,
@@ -74,7 +76,10 @@ class User extends AggregateRoot<IUserProps> {
       phoneNumber,
     };
 
-    return AggregateRoot.create({ props: userProps }, User);
+    return AggregateRoot.create(
+      { props: userProps, id: id ? new UniqueEntityID(id) : undefined },
+      User,
+    );
   }
 
   public updateAvatar(avatar: string): void {
