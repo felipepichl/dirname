@@ -76,10 +76,7 @@ class User extends AggregateRoot<IUserProps> {
       phoneNumber,
     };
 
-    return AggregateRoot.create(
-      { props: userProps, id: id ? new UniqueEntityID(id) : undefined },
-      User,
-    );
+    return AggregateRoot.create({ props: userProps, id }, User);
   }
 
   public updateAvatar(avatar: string): void {
