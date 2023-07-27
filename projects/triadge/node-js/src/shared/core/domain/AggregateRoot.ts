@@ -9,7 +9,7 @@ abstract class AggregateRoot<T> extends Entity<T> {
 
   public static create<T, U>(
     params: ICreateProps<U>,
-    Clazz: new (props: U, id?: UniqueEntityID) => T,
+    Clazz: new (props: U, id?: UniqueEntityID | string) => T,
   ) {
     const { props, id } = params;
 
@@ -19,7 +19,7 @@ abstract class AggregateRoot<T> extends Entity<T> {
       updated_at: props.updated_at ?? new Date(),
     } as U;
 
-    const uniqueId = id ? new UniqueEntityID(id) : undefined;
+    const uniqueId = id;
 
     const instance = new Clazz(updatedProps, uniqueId);
 
