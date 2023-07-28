@@ -9,6 +9,10 @@ class AttendanceRepositoryInMemory implements IAttendanceRepository {
   async create(attenance: Attendance): Promise<void> {
     this.attendances.push(attenance);
   }
+  async listAll(): Promise<Attendance[]> {
+    return this.attendances;
+  }
+
   async listByUserId(user_id: string): Promise<User> {
     const result = this.attendances.find(
       attendance => attendance.user.id.toString() === user_id,
