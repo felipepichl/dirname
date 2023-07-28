@@ -8,7 +8,7 @@ interface IAttendanceProps {
   date: Date;
   isPresent: boolean;
   user_id: string;
-  user: User;
+  user?: User;
 }
 
 class Attendance extends AggregateRoot<IAttendanceProps> {
