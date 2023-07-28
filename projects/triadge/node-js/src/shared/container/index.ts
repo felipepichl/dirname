@@ -5,6 +5,7 @@ import { UsersRepository } from '@modules/accounts/infra/prisma/repositories/Use
 import { UsersTokensRepository } from '@modules/accounts/infra/prisma/repositories/UsersTokensRepository';
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
+// import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
 import { container } from 'tsyringe';
 
 container.registerSingleton<IUsersRepository>(
@@ -16,3 +17,8 @@ container.registerSingleton<IUsersTokensRepository>(
   'UsersTokensRepository',
   UsersTokensRepository,
 );
+
+// container.registerSingleton<IAttendanceRepository>(
+//   'AttendanceRepository',
+//   AttendanceRepository,
+// );
