@@ -27,6 +27,11 @@ class AttendanceRepositoryInMemory implements IAttendanceRepository {
 
     return result.map(attendances => attendances.user);
   }
+  async listInDateRange(startDate: Date, endDate: Date): Promise<Attendance[]> {
+    return this.attendances.filter(
+      attendance => attendance.date >= startDate && attendance.date <= endDate,
+    );
+  }
 }
 
 export { AttendanceRepositoryInMemory };

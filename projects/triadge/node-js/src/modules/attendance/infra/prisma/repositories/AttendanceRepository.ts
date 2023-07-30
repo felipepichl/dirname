@@ -44,6 +44,21 @@ class AttendanceRepository implements IAttendanceRepository {
 
     return result.map(raw => mapper.toDomain(raw.users));
   }
+  async listInDateRange(startDate: Date, endDate: Date): Promise<Attendance[]> {
+    const result = await PrismaSingleton.getInstance().attendance.findMany({
+      where: {
+        date: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+      include: { users: true },
+    });
+
+    const mapper = AttendanceMappers.getMapper();
+
+    return result.map(raw => mapper.toDomain(raw));
+  }
 }
 
 export { AttendanceRepository };

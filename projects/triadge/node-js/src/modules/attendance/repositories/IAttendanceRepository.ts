@@ -7,6 +7,7 @@ interface IAttendanceRepository {
   listAll(): Promise<Attendance[]>;
   listByUserId(user_id: string): Promise<User>;
   listByDate(date: Date): Promise<User[]>;
+  listInDateRange(startDate: Date, endDate: Date): Promise<Attendance[]>;
 }
 
 export { IAttendanceRepository };
