@@ -13,12 +13,10 @@ class AttendanceRepositoryInMemory implements IAttendanceRepository {
     return this.attendances;
   }
 
-  async listByUserId(user_id: string): Promise<User> {
-    const result = this.attendances.find(
+  async listByUserId(user_id: string): Promise<Attendance[]> {
+    return this.attendances.filter(
       attendance => attendance.user.id.toString() === user_id,
     );
-
-    return result.user;
   }
   async listByDate(date: Date): Promise<User[]> {
     const result = this.attendances.filter(
