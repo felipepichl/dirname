@@ -20,9 +20,7 @@ class AttendanceRepository implements IAttendanceRepository {
   async listAll(): Promise<Attendance[]> {
     const result = await PrismaSingleton.getInstance().attendance.findMany();
 
-    const mapper = AttendanceMappers.getMapper();
-
-    return result.map(raw => mapper.toDomain(raw));
+    return AttendanceMappers.getMapper().toDomainArray(result);
   }
   async listByUserId(user_id: string): Promise<Attendance[]> {
     const result = await PrismaSingleton.getInstance().attendance.findMany({
@@ -55,9 +53,7 @@ class AttendanceRepository implements IAttendanceRepository {
       include: { users: true },
     });
 
-    const mapper = AttendanceMappers.getMapper();
-
-    return result.map(raw => mapper.toDomain(raw));
+    return AttendanceMappers.getMapper().toDomainArray(result);
   }
 }
 

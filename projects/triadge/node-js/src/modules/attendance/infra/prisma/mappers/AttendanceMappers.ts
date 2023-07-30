@@ -14,6 +14,11 @@ class AttendanceMappers implements IMapper<Attendance, RawAttendance> {
       user_id: fk_user_id,
     });
   }
+
+  toDomainArray(rawArray: RawAttendance[]): Attendance[] {
+    return rawArray.map(this.toDomain);
+  }
+
   getMapper(): IMapper<Attendance, RawAttendance> {
     return AttendanceMappers.getMapper();
   }

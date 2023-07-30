@@ -11,6 +11,9 @@ class UserMappers implements IMapper<User, RawUser> {
   toDomain(raw: RawUser): User {
     return User.createUser(raw);
   }
+  toDomainArray(rawArray: RawUser[]): User[] {
+    return rawArray.map(this.toDomain);
+  }
 
   getMapper(): IMapper<User, RawUser> {
     return UserMappers.getMapper();
