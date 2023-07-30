@@ -12,7 +12,6 @@ class AttendanceRepositoryInMemory implements IAttendanceRepository {
   async listAll(): Promise<Attendance[]> {
     return this.attendances;
   }
-
   async listByUserId(user_id: string): Promise<Attendance[]> {
     return this.attendances.filter(
       attendance => attendance.user.id.toString() === user_id,

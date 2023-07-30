@@ -1,6 +1,7 @@
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { Attendance } from '@modules/attendance/domain/Attendance';
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
+import { inject, injectable } from 'tsyringe';
 
 import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
@@ -11,10 +12,13 @@ interface IRequest {
   user_id: string;
 }
 
+@injectable()
 class CreateAttendanceUseCase implements IUseCase<IRequest, void> {
   constructor(
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
-    private attendancesRepositry: IAttendanceRepository,
+    @inject('AttendanceRepository')
+    private attendanceRepositry: IAttendanceRepository,
   ) {}
 
   async execute({ date, isPresent, user_id }: IRequest): Promise<void> {
@@ -30,7 +34,7 @@ class CreateAttendanceUseCase implements IUseCase<IRequest, void> {
       user_id,
     });
 
-    await this.attendancesRepositry.create(attendance);
+    await this.attendanceRepositry.create(attendance);
   }
 }
 

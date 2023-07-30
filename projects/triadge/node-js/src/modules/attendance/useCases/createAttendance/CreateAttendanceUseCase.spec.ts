@@ -10,8 +10,6 @@ import { CreateAttendanceUseCase } from './CreateAttendanceUseCase';
 // import { AppError } from '@shared/error/AppError';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
-// let hashProviderInMemory: HashProviderInMemory;
-// let createUserUseCase: CreateUserUseCase;
 
 let attendancesRepositryInMemory: AttendanceRepositoryInMemory;
 let createAttendanceUseCase: CreateAttendanceUseCase;
@@ -19,11 +17,7 @@ let createAttendanceUseCase: CreateAttendanceUseCase;
 describe('Create an attendance', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
-    // hashProviderInMemory = new HashProviderInMemory();
-    // createUserUseCase = new CreateUserUseCase(
-    //   usersRepositoryInMemory,
-    //   hashProviderInMemory,
-    // );
+    attendancesRepositryInMemory = new AttendanceRepositoryInMemory();
 
     createAttendanceUseCase = new CreateAttendanceUseCase(
       usersRepositoryInMemory,
@@ -40,11 +34,13 @@ describe('Create an attendance', () => {
 
     createAttendanceUseCase.execute(attendance);
 
-    const attenanceCreated = attendancesRepositryInMemory.listAll();
+    const attendanceCreated = await attendancesRepositryInMemory.listAll();
 
-    const first = attenanceCreated[0];
+    const first = attendanceCreated[0];
 
-    console.log(first);
+    expect(attendanceCreated).toHaveLength(1);
+    expect(first.isPresent).toBe(true);
+    expect(first.user_id).toBe('user_id');
   });
 
   // it('should not be able to create a new user with same email another', async () => {
