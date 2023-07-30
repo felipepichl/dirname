@@ -24,7 +24,7 @@ class CreateAttendanceUseCase implements IUseCase<IRequest, void> {
   async execute({ date, isPresent, user_id }: IRequest): Promise<void> {
     const userAllReadyExists = await this.usersRepository.findById(user_id);
 
-    if (userAllReadyExists) {
+    if (!userAllReadyExists) {
       throw new AppError('Users already exists', 400);
     }
 

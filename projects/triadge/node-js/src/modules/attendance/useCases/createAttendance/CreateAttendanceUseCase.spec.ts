@@ -1,13 +1,14 @@
 // import { User } from '@modules/accounts/domain/User';
 // import { HashProviderInMemory } from '@modules/accounts/providers/HashProvider/in-memory/HashProviderInMemory';
+import { User } from '@modules/accounts/domain/User';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 // import { CreateUserUseCase } from '@modules/accounts/useCases/createUser/CreateUserUseCase';
 import { Attendance } from '@modules/attendance/domain/Attendance';
 import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/in-memory/AttendanceRepositoryInMemory';
 
-import { CreateAttendanceUseCase } from './CreateAttendanceUseCase';
+import { AppError } from '@shared/error/AppError';
 
-// import { AppError } from '@shared/error/AppError';
+import { CreateAttendanceUseCase } from './CreateAttendanceUseCase';
 
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 
@@ -32,7 +33,7 @@ describe('Create an attendance', () => {
       user_id: 'user_id',
     });
 
-    createAttendanceUseCase.execute(attendance);
+    await createAttendanceUseCase.execute(attendance);
 
     const attendanceCreated = await attendancesRepositryInMemory.listAll();
 
@@ -43,18 +44,28 @@ describe('Create an attendance', () => {
     expect(first.user_id).toBe('user_id');
   });
 
-  // it('should not be able to create a new user with same email another', async () => {
-  //   const user = User.createUser({
-  //     name: 'Jonh Due',
-  //     email: 'johndue@example.com',
-  //     password: 'hash123',
-  //     phoneNumber: '51999999999',
-  //   });
+  it('should not be able to create a new user with same email another', async () => {
+    const user = User.createUser({
+      name: 'Jonh Due',
+      email: 'johndue@example.com',
+      password: 'hash123',
+      phoneNumber: '51999999999',
+    });
 
-  //   await createUserUseCase.execute(user);
+    await usersRepositoryInMemory.create(user);
 
-  //   await expect(createUserUseCase.execute(user)).rejects.toBeInstanceOf(
-  //     AppError,
-  //   );
-  // });
+    const { id } = user;
+
+    const attendance = Attendance.createAttendance({
+      date: new Date(),
+      isPresent: true,
+      user_id: id.toString(),
+    });
+
+    await createAttendanceUseCase.execute(attendance);
+
+    await expect(
+      createAttendanceUseCase.execute(attendance),
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });
