@@ -20,7 +20,9 @@ class AttendanceRepository implements IAttendanceRepository {
   async listAll(): Promise<Attendance[]> {
     const result = await PrismaSingleton.getInstance().attendance.findMany();
 
-    return AttendanceMappers.getMapper().toDomain(result);
+    const mapper = AttendanceMappers.getMapper();
+
+    return result.map(raw => mapper.toDomain(raw));
   }
   async listByUserId(user_id: string): Promise<User> {
     const result = await PrismaSingleton.getInstance().attendance.findFirst({
@@ -33,14 +35,14 @@ class AttendanceRepository implements IAttendanceRepository {
     return UserMappers.getMapper().toDomain(users);
   }
   async listByDate(date: Date): Promise<User[]> {
-    const result = await PrismaSingleton.getInstance().attendance.findFirst({
+    const result = await PrismaSingleton.getInstance().attendance.findMany({
       where: { date },
       include: { users: true },
     });
 
-    const { users } = result;
+    const mapper = UserMappers.getMapper();
 
-    return UserMappers.getMapper().toDomain(users);
+    return result.map(raw => mapper.toDomain(raw.users));
   }
 }
 
