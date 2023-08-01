@@ -18,6 +18,9 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
       refresh_token,
     });
   }
+  toDomainArray(rawArray: RawUserTokens[]): UserTokens[] {
+    return rawArray.map(this.toDomain);
+  }
   getMapper(): IMapper<UserTokens, RawUserTokens> {
     return new UserTokensMappers();
   }

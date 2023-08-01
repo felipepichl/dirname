@@ -55,14 +55,12 @@ describe('Create an attendance', () => {
     expect(first.user_id).toBe(id.toString());
   });
 
-  it('should not be able to create a new user with same email another', async () => {
+  it('should not be able to create an attendance for a non-existent user', async () => {
     const attendance = Attendance.createAttendance({
       date: new Date(),
       isPresent: true,
       user_id: 'user_not_found',
     });
-
-    await createAttendanceUseCase.execute(attendance);
 
     await expect(
       createAttendanceUseCase.execute(attendance),
