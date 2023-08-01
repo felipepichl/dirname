@@ -25,7 +25,7 @@ class CreateAttendanceUseCase implements IUseCase<IRequest, void> {
     const userAllReadyExists = await this.usersRepository.findById(user_id);
 
     if (!userAllReadyExists) {
-      throw new AppError('Users already exists', 400);
+      throw new AppError('Users not found', 400);
     }
 
     const attendance = Attendance.createAttendance({

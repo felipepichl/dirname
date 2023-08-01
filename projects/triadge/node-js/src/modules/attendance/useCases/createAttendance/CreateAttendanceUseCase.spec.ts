@@ -27,24 +27,6 @@ describe('Create an attendance', () => {
   });
 
   it('should be able to create a new attendance', async () => {
-    const attendance = Attendance.createAttendance({
-      date: new Date(),
-      isPresent: true,
-      user_id: 'user_id',
-    });
-
-    await createAttendanceUseCase.execute(attendance);
-
-    const attendanceCreated = await attendancesRepositryInMemory.listAll();
-
-    const first = attendanceCreated[0];
-
-    expect(attendanceCreated).toHaveLength(1);
-    expect(first.isPresent).toBe(true);
-    expect(first.user_id).toBe('user_id');
-  });
-
-  it('should not be able to create a new user with same email another', async () => {
     const user = User.createUser({
       name: 'Jonh Due',
       email: 'johndue@example.com',
@@ -60,6 +42,24 @@ describe('Create an attendance', () => {
       date: new Date(),
       isPresent: true,
       user_id: id.toString(),
+    });
+
+    await createAttendanceUseCase.execute(attendance);
+
+    const attendanceCreated = await attendancesRepositryInMemory.listAll();
+
+    const first = attendanceCreated[0];
+
+    expect(attendanceCreated).toHaveLength(1);
+    expect(first.isPresent).toBe(true);
+    expect(first.user_id).toBe(id.toString());
+  });
+
+  it('should not be able to create a new user with same email another', async () => {
+    const attendance = Attendance.createAttendance({
+      date: new Date(),
+      isPresent: true,
+      user_id: 'user_not_found',
     });
 
     await createAttendanceUseCase.execute(attendance);
