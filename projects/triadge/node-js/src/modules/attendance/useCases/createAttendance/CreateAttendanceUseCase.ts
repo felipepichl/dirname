@@ -22,10 +22,10 @@ class CreateAttendanceUseCase implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ date, isPresent, user_id }: IRequest): Promise<void> {
-    const userAllReadyExists = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(user_id);
 
-    if (!userAllReadyExists) {
-      throw new AppError('Users not found', 400);
+    if (!user) {
+      throw new AppError(`User not found with id: ${user_id}`, 400);
     }
 
     const attendance = Attendance.createAttendance({

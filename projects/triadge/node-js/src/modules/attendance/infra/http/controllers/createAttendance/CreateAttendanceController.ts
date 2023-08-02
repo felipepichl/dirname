@@ -8,7 +8,7 @@ class CreateAttendanceController {
 
     const createAttendanceUseCase = container.resolve(CreateAttendanceUseCase);
 
-    createAttendanceUseCase.execute({
+    await createAttendanceUseCase.execute({
       date,
       isPresent,
       user_id,
