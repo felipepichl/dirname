@@ -4,6 +4,15 @@ import request from 'supertest';
 
 import { app } from '@shared/infra/http/start/app';
 
+async function authenticateUser() {
+  const response = await request(app).post('/sessions').send({
+    email: 'johndue@example.com',
+    password: 'hash123',
+  });
+  const { token } = response.body;
+  return token;
+}
+
 describe('[E2E] = Create Attendance', () => {
   beforeAll(async () => {
     await request(app).post('/users').send({
@@ -15,13 +24,7 @@ describe('[E2E] = Create Attendance', () => {
   });
 
   it('should be able to create a new attendance', async () => {
-    const responseToken = await request(app).post('/sessions').send({
-      email: 'johndue@example.com',
-      password: 'hash123',
-    });
-
-    const { token } = responseToken.body;
-
+    const token = await authenticateUser();
     const { sub: user_id } = jwt.verify(token, authConfig.secret_token);
 
     const response = await request(app)
@@ -70,12 +73,7 @@ describe('[E2E] = Create Attendance', () => {
   });
 
   it('should not be able to create a new attendance for a non-existent user', async () => {
-    const responseToken = await request(app).post('/sessions').send({
-      email: 'johndue@example.com',
-      password: 'hash123',
-    });
-
-    const { token } = responseToken.body;
+    const token = await authenticateUser();
 
     const nonExistentUserId = 'non-existent-user-id';
 
