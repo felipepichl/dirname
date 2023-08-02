@@ -69,29 +69,31 @@ describe('[E2E] = Create Attendance', () => {
     expect(response.body.message).toBe('Token missing');
   });
 
-  // it('should not be able to create a new attendance for a non-existent user', async () => {
-  //   const responseToken = await request(app).post('/sessions').send({
-  //     email: 'johndue@example.com',
-  //     password: 'hash123',
-  //   });
+  it('should not be able to create a new attendance for a non-existent user', async () => {
+    const responseToken = await request(app).post('/sessions').send({
+      email: 'johndue@example.com',
+      password: 'hash123',
+    });
 
-  //   const { token } = responseToken.body;
+    const { token } = responseToken.body;
 
-  //   const nonExistentUserId = 'non-existent-user-id';
+    const nonExistentUserId = 'non-existent-user-id';
 
-  //   const response = await request(app)
-  //     .post('/attendances')
-  //     .set({
-  //       Authorization: `Bearer ${token}`,
-  //     })
-  //     .send({
-  //       date: new Date(),
-  //       isPresent: true,
-  //       user_id: nonExistentUserId,
-  //     });
+    const response = await request(app)
+      .post('/attendances')
+      .set({
+        Authorization: `Bearer ${token}`,
+      })
+      .send({
+        date: new Date(),
+        isPresent: true,
+        user_id: nonExistentUserId,
+      });
 
-  //   expect(response.status).toBe(400);
-  //   expect(response.body).toHaveProperty('message');
-  //   expect(response.body.message).toBe('Users not found');
-  // });
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body.message).toBe(
+      `User not found with id: ${nonExistentUserId}`,
+    );
+  });
 });

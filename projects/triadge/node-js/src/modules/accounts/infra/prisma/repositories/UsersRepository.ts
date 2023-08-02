@@ -37,6 +37,10 @@ class UsersRepository implements IUsersRepository {
       where: { id: user_id },
     });
 
+    if (!result) {
+      return null;
+    }
+
     return UserMappers.getMapper().toDomain(result);
   }
 }
