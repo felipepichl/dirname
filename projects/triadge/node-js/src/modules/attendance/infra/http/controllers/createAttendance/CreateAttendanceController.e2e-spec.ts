@@ -24,15 +24,13 @@ describe('[E2E] = Create Attendance', () => {
 
     const { sub: user_id } = jwt.verify(token, authConfig.secret_token);
 
-    console.log(user_id);
-
     const response = await request(app)
       .post('/attendances')
       .set({
         Authorization: `Bearer ${token}`,
       })
       .send({
-        data: new Date(),
+        date: new Date(),
         isPresent: true,
         user_id,
       });
