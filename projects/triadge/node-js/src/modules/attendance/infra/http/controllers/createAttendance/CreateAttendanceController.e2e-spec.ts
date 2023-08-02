@@ -32,5 +32,7 @@ describe('[E2E] = Create Attendance', () => {
       });
 
     expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty('message');
+    expect(response.body.message).toBe('Attendance created');
   });
 });
