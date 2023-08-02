@@ -1,3 +1,5 @@
+import { authConfig } from '@config/auth';
+import jwt from 'jsonwebtoken';
 import request from 'supertest';
 
 import { app } from '@shared/infra/http/start/app';
@@ -20,6 +22,10 @@ describe('[E2E] = Create Attendance', () => {
 
     const { token } = responseToken.body;
 
+    const { sub: user_id } = jwt.verify(token, authConfig.secret_token);
+
+    console.log(user_id);
+
     const response = await request(app)
       .post('/attendances')
       .set({
@@ -28,7 +34,7 @@ describe('[E2E] = Create Attendance', () => {
       .send({
         data: new Date(),
         isPresent: true,
-        user_id: 'user_not_found',
+        user_id,
       });
 
     expect(response.status).toBe(201);
