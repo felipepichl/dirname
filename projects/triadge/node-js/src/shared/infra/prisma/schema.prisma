@@ -21,8 +21,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  UsersTokens UserTokens[]
-  Attendance  Attendance[]
+  UsersTokens     UserTokens[]
+  UserAttendances UserAttendance[]
 
   Lodge       Lodge?  @relation(fields: [fk_lodge_id], references: [id])
   fk_lodge_id String?
@@ -44,15 +44,24 @@ model UserTokens {
 }
 
 model Attendance {
-  id      String   @id @default(uuid())
-  date    DateTime
-  present Boolean
-
-  users      User   @relation(fields: [fk_user_id], references: [id])
-  fk_user_id String
+  id   String   @id @default(uuid())
+  date DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  UserAttendances UserAttendance[]
+}
+
+model UserAttendance {
+  present      Boolean
+  userId       String
+  attendanceId String
+
+  user       User       @relation(fields: [userId], references: [id])
+  attendance Attendance @relation(fields: [attendanceId], references: [id])
+
+  @@id([userId, attendanceId])
 }
 
 model Lodge {
