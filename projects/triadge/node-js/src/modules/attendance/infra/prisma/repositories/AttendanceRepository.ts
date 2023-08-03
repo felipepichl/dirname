@@ -18,7 +18,9 @@ class AttendanceRepository implements IAttendanceRepository {
     });
   }
   async listAll(): Promise<Attendance[]> {
-    const result = await PrismaSingleton.getInstance().attendance.findMany();
+    const result = await PrismaSingleton.getInstance().attendance.findMany({
+      include: { users: true },
+    });
 
     return AttendanceMappers.getMapper().toDomainArray(result);
   }
