@@ -4,15 +4,15 @@ import { IAttendanceRepository } from '@modules/attendance/repositories/IAttenda
 
 import { IUseCase } from '@shared/core/domain/IUseCase';
 
-interface IResponse {
-  attendances: Attendance;
-}
+type IResponse = Attendance[];
 
-class ListAllAtendancesUseCase implements IUseCase<void, IResponse[]> {
+class ListAllAtendancesUseCase implements IUseCase<void, IResponse> {
   constructor(private attendancesRepository: IAttendanceRepository) {}
 
-  async execute(): Promise<IResponse[]> {
+  async execute(): Promise<IResponse> {
     const result = await this.attendancesRepository.listAll();
+
+    return AttendanceMappers.getMapper().toDomainArray(result);
   }
 }
 
