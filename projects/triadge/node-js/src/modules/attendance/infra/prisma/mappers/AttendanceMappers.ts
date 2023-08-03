@@ -7,12 +7,8 @@ class AttendanceMappers implements IMapper<Attendance, RawAttendance> {
   toPersistence(object: Attendance): Attendance {
     return object;
   }
-  toDomain({ date, present, fk_user_id }: RawAttendance): Attendance {
-    return Attendance.createAttendance({
-      date,
-      isPresent: present,
-      user_id: fk_user_id,
-    });
+  toDomain(object: RawAttendance): Attendance {
+    return Attendance.createAttendance(object);
   }
 
   toDomainArray(rawArray: RawAttendance[]): Attendance[] {
