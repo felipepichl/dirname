@@ -1,5 +1,3 @@
-import { authConfig } from '@config/auth';
-import jwt from 'jsonwebtoken';
 import request from 'supertest';
 
 import { app } from '@shared/infra/http/start/app';
@@ -25,21 +23,14 @@ describe('[E2E] = List all Attendance', () => {
 
   it('should be able to list all attendance', async () => {
     const token = await authenticateUser();
-    const { sub: user_id } = jwt.verify(token, authConfig.secret_token);
 
     const response = await request(app)
-      .post('/attendances')
+      .get('/attendances')
       .set({
         Authorization: `Bearer ${token}`,
-      })
-      .send({
-        date: new Date(),
-        isPresent: true,
-        user_id,
       });
 
-    expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty('message');
-    expect(response.body.message).toBe('Attendance created');
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body)).toBe(true);
   });
 });
