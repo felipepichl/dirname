@@ -8,9 +8,9 @@ class ListAllAttendancesController {
       ListAllAttendancesUseCase,
     );
 
-    const result = listAllAttendancesUseCase.execute();
+    const result = await listAllAttendancesUseCase.execute();
 
-    return response.json(result);
+    return response.status(200).json(result);
   }
 }
 
