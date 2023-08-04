@@ -16,6 +16,12 @@ class AttendanceRepositoryInMemory implements IAttendanceRepository {
       attendance => attendance.date >= startDate && attendance.date <= endDate,
     );
   }
+  async findByDate(date: Date): Promise<Attendance[]> {
+    return this.attendances.filter(attendance => attendance.date === date);
+  }
+  async findById(id: string): Promise<Attendance> {
+    return this.attendances.find(attendance => attendance.id.toString() === id);
+  }
 }
 
 export { AttendanceRepositoryInMemory };
