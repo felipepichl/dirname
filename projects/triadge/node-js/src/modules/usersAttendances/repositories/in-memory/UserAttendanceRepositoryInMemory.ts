@@ -8,12 +8,14 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
   async create(userAttendance: UserAttendance): Promise<void> {
     this.usersAttendances.push(userAttendance);
   }
-  async findByUserId(user_id: string): Promise<UserAttendance[]> {
+  async findAllByUserId(user_id: string): Promise<UserAttendance[]> {
     return this.usersAttendances.filter(
       userAttendance => userAttendance.user.id.toString() === user_id,
     );
   }
-  async findByAttendanceId(attendance_id: string): Promise<UserAttendance[]> {
+  async findAllByAttendanceId(
+    attendance_id: string,
+  ): Promise<UserAttendance[]> {
     return this.usersAttendances.filter(
       userAttendance =>
         userAttendance.attendances.id.toString() === attendance_id,
@@ -44,8 +46,15 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
       userAttendance => userAttendance.attendances.date === date,
     );
   }
-  listInDateRange(startDate: Date, endDate: Date): Promise<UserAttendance[]> {
-    throw new Error('Method not implemented.');
+  async listInDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<UserAttendance[]> {
+    return this.usersAttendances.filter(
+      userAttendance =>
+        userAttendance.attendances.date >= startDate &&
+        userAttendance.attendances.date <= endDate,
+    );
   }
 }
 
