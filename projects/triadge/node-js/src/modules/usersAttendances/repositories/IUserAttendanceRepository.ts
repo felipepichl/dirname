@@ -1,12 +1,9 @@
-import { User } from '@modules/accounts/domain/User';
-import { Attendance } from '@modules/attendance/domain/Attendance';
-
 import { UserAttendance } from '../domain/UserAttendance';
 
 interface IUserAttendanceRepository {
   create(userAttendance: UserAttendance): Promise<void>;
-  findByUserId(user_id: string): Promise<User>;
-  findByAttendanceId(attendance_id: string): Promise<Attendance>;
+  findByUserId(user_id: string): Promise<UserAttendance[]>;
+  findByAttendanceId(attendance_id: string): Promise<UserAttendance[]>;
   findByUserIdAndAttendanceId(
     user_id: string,
     attendance_id: string,
