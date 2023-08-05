@@ -5,6 +5,7 @@ import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
 interface IUserAttendanceProps {
+  id?: string;
   user_id: string;
   user?: User;
   attendance_id: string;
@@ -24,7 +25,8 @@ class UserAttendances extends AggregateRoot<IUserAttendanceProps> {
     return this.props.attendance;
   }
 
-  static userAttendandeCreate({
+  static createUserAttendance({
+    id,
     user_id,
     attendance_id,
   }: IUserAttendanceProps): UserAttendances {
@@ -34,7 +36,7 @@ class UserAttendances extends AggregateRoot<IUserAttendanceProps> {
     };
 
     return AggregateRoot.create(
-      { props: userAttendancesProps },
+      { props: userAttendancesProps, id },
       UserAttendances,
     );
   }
