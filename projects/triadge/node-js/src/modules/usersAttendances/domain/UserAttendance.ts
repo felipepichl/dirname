@@ -12,7 +12,7 @@ interface IUserAttendanceProps {
   attendance?: Attendance;
 }
 
-class UserAttendances extends AggregateRoot<IUserAttendanceProps> {
+class UserAttendance extends AggregateRoot<IUserAttendanceProps> {
   constructor(props: IUserAttendanceProps, id?: UniqueEntityID) {
     super(props, id);
   }
@@ -29,7 +29,7 @@ class UserAttendances extends AggregateRoot<IUserAttendanceProps> {
     id,
     user_id,
     attendance_id,
-  }: IUserAttendanceProps): UserAttendances {
+  }: IUserAttendanceProps): UserAttendance {
     const userAttendancesProps = {
       user_id,
       attendance_id,
@@ -37,9 +37,9 @@ class UserAttendances extends AggregateRoot<IUserAttendanceProps> {
 
     return AggregateRoot.create(
       { props: userAttendancesProps, id },
-      UserAttendances,
+      UserAttendance,
     );
   }
 }
 
-export { UserAttendances };
+export { UserAttendance };
