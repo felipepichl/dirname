@@ -5,7 +5,7 @@ import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/i
 import { UserAttendanceRepositoryInMemory } from '@modules/usersAttendances/repositories/in-memory/UserAttendanceRepositoryInMemory';
 import { CreateUserAttendance } from '@modules/usersAttendances/useCases/createUserAttendance/CreateUserAttendance';
 
-// import { AppError } from '@shared/error/AppError';
+import { AppError } from '@shared/error/AppError';
 
 let createUserAttendance: CreateUserAttendance;
 let userAttendanceRepositoryInMemory: UserAttendanceRepositoryInMemory;
@@ -64,33 +64,52 @@ describe('Create User Attendance', () => {
     expect(userAttendance.attendance_id).toEqual(attendance_id.toString());
   });
 
-  // it('should not be able to create a UserAttendance with non-existent user', async () => {
-  //   const attendance = await attendanceRepositoryInMemory.create({
-  //     date: new Date(),
-  //   });
+  it('should not be able to create a UserAttendance with non-existent user', async () => {
+    const attendanceDate = new Date();
+    const attendance = Attendance.createAttendance({
+      date: attendanceDate,
+    });
 
-  //   await expect(
-  //     createUserAttendance.execute({
-  //       user_id: 'non-existent user id',
-  //       attendance_id: attendance.id,
-  //     }),
-  //   ).rejects.toEqual(new AppError('User not found', 404));
-  // });
+    await attendanceRepositoryInMemory.create(attendance);
 
-  // it('should not be able to create a UserAttendance with non-existent attendance', async () => {
-  //   const user = await usersRepositoryInMemory.create({
-  //     name: 'Test User',
-  //     email: 'user@test.com',
-  //     password: '123456',
-  //   });
+    const { id } = await attendanceRepositoryInMemory.findByDate(
+      attendanceDate,
+    );
 
-  //   await expect(
-  //     createUserAttendance.execute({
-  //       user_id: user.id,
-  //       attendance_id: 'non-existent attendance id',
-  //     }),
-  //   ).rejects.toEqual(new AppError('Attendance not found', 404));
-  // });
+    await expect(
+      createUserAttendance.execute({
+        user_id: 'non-existent-user_id',
+        attendance_id: id.toString(),
+      }),
+    ).rejects.toEqual(new AppError('User not found', 404));
+  });
+
+  it('should not be able to create a UserAttendance with non-existent attendance', async () => {
+    const user = User.createUser({
+      name: 'Test User',
+      email: 'user@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    });
+
+    await usersRepositoryInMemory.create(user);
+
+    const attendanceDate = new Date();
+    const attendance = Attendance.createAttendance({
+      date: attendanceDate,
+    });
+
+    await attendanceRepositoryInMemory.create(attendance);
+
+    const { id } = await usersRepositoryInMemory.findByEmail('user@test.com');
+
+    await expect(
+      createUserAttendance.execute({
+        user_id: id.toString(),
+        attendance_id: 'non-existent-attendance_id',
+      }),
+    ).rejects.toEqual(new AppError('Attendance not found', 404));
+  });
 
   // it('should not be able to create a UserAttendance if it already exists', async () => {
   //   const user = await usersRepositoryInMemory.create({
