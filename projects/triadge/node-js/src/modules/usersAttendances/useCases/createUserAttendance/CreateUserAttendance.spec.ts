@@ -44,24 +44,24 @@ describe('Create User Attendance', () => {
     const { id: user_id } = await usersRepositoryInMemory.findByEmail(
       'user@test.com',
     );
-    const result = await attendanceRepositoryInMemory.findByDate(
+    const { id: attendance_id } = await attendanceRepositoryInMemory.findByDate(
       attendanceDate,
     );
 
     await createUserAttendance.execute({
       user_id: user_id.toString(),
-      attendance_id: 'attendance.id,',
+      attendance_id: attendance_id.toString(),
     });
 
     const userAttendance =
       await userAttendanceRepositoryInMemory.findByUserIdAndAttendanceId(
         user_id.toString(),
-        'attendance.id',
+        attendance_id.toString(),
       );
 
     expect(userAttendance).toBeTruthy();
-    expect(userAttendance.user.id).toEqual(user_id);
-    expect(userAttendance.attendances.id).toEqual('attendance.id');
+    expect(userAttendance.user_id).toEqual(user_id);
+    expect(userAttendance.attendances.id).toEqual(attendance_id);
   });
 
   // it('should not be able to create a UserAttendance with non-existent user', async () => {

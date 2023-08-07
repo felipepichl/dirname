@@ -21,8 +21,16 @@ class UserAttendance extends AggregateRoot<IUserAttendanceProps> {
     return this.props.user;
   }
 
+  get user_id(): string {
+    return this.props.user_id;
+  }
+
   get attendances(): Attendance {
     return this.props.attendance;
+  }
+
+  get attendance_id(): string {
+    return this.props.attendance_id;
   }
 
   static createUserAttendance({
