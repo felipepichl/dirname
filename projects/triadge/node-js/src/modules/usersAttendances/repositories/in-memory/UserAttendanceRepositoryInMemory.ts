@@ -10,15 +10,14 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
   }
   async findAllByUserId(user_id: string): Promise<UserAttendance[]> {
     return this.usersAttendances.filter(
-      userAttendance => userAttendance.user.id.toString() === user_id,
+      userAttendance => userAttendance.user_id === user_id,
     );
   }
   async findAllByAttendanceId(
     attendance_id: string,
   ): Promise<UserAttendance[]> {
     return this.usersAttendances.filter(
-      userAttendance =>
-        userAttendance.attendances.id.toString() === attendance_id,
+      userAttendance => userAttendance.attendance_id === attendance_id,
     );
   }
   async findByUserIdAndAttendanceId(
