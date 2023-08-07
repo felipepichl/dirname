@@ -60,8 +60,8 @@ describe('Create User Attendance', () => {
       );
 
     expect(userAttendance).toBeTruthy();
-    expect(userAttendance.user_id).toEqual(user_id);
-    expect(userAttendance.attendances.id).toEqual(attendance_id);
+    expect(userAttendance.user_id).toEqual(user_id.toString());
+    expect(userAttendance.attendance_id).toEqual(attendance_id.toString());
   });
 
   // it('should not be able to create a UserAttendance with non-existent user', async () => {

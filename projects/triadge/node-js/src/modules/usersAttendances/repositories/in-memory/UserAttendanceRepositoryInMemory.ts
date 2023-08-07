@@ -27,8 +27,8 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
   ): Promise<UserAttendance> {
     return this.usersAttendances.find(
       userAttendance =>
-        userAttendance.user.id.toString() === user_id &&
-        userAttendance.attendances.id.toString() === attendance_id,
+        userAttendance.user_id === user_id &&
+        userAttendance.attendance_id === attendance_id,
     );
   }
   async findByUserIdAndDate(
