@@ -63,11 +63,11 @@ class UserAttendanceRepository implements IUserAttendanceRepository {
       include: { attendance: true },
     });
 
-    const userAttendance = result.find(
-      object => object.attendance.date === date,
+    const filteredResults = result.find(
+      userAttendance => userAttendance.attendance.date === date,
     );
 
-    return UserAttendanceMapper.getMapper().toDomain(userAttendance);
+    return UserAttendanceMapper.getMapper().toDomain(filteredResults);
   }
   async listByDate(date: Date): Promise<UserAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
@@ -77,11 +77,11 @@ class UserAttendanceRepository implements IUserAttendanceRepository {
       },
     });
 
-    const userAttendance = result.filter(
-      object => object.attendance.date === date,
+    const filteredResults = result.filter(
+      userAttendance => userAttendance.attendance.date === date,
     );
 
-    return UserAttendanceMapper.getMapper().toDomainArray(userAttendance);
+    return UserAttendanceMapper.getMapper().toDomainArray(filteredResults);
   }
   async listInDateRange(
     startDate: Date,
@@ -92,15 +92,15 @@ class UserAttendanceRepository implements IUserAttendanceRepository {
         user: true,
         attendance: true,
       },
-      where: {
-        date: {
-          gte: startDate,
-          lte: endDate,
-        },
-      },
     });
 
-    return UserAttendanceMapper.getMapper().toDomainArray(result);
+    const filteredResults = result.filter(
+      userAttendance =>
+        userAttendance.attendance.date >= startDate &&
+        userAttendance.attendance.date <= endDate,
+    );
+
+    return UserAttendanceMapper.getMapper().toDomainArray(filteredResults);
   }
 }
 
