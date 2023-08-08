@@ -18,27 +18,89 @@ class UserAttendanceRepository implements IUserAttendanceRepository {
   async findAllByUserId(user_id: string): Promise<UserAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
       where: { userId: user_id },
+      include: { user: true, attendance: true },
     });
 
     return UserAttendanceMapper.getMapper().toDomainArray(result);
   }
-  findAllByAttendanceId(attendance_id: string): Promise<UserAttendance[]> {
-    throw new Error('Method not implemented.');
+  async findAllByAttendanceId(
+    attendance_id: string,
+  ): Promise<UserAttendance[]> {
+    const result = await PrismaSingleton.getInstance().userAttendance.findMany({
+      where: { attendanceId: attendance_id },
+      include: { user: true, attendance: true },
+    });
+
+    return UserAttendanceMapper.getMapper().toDomainArray(result);
   }
-  findByUserIdAndAttendanceId(
+  async findByUserIdAndAttendanceId(
     user_id: string,
     attendance_id: string,
   ): Promise<UserAttendance> {
-    throw new Error('Method not implemented.');
+    const result = await PrismaSingleton.getInstance().userAttendance.findFirst(
+      {
+        where: {
+          userId: user_id,
+          attendanceId: attendance_id,
+        },
+        include: {
+          user: true,
+          attendance: true,
+        },
+      },
+    );
+
+    return UserAttendanceMapper.getMapper().toDomain(result);
   }
-  findByUserIdAndDate(user_id: string, date: Date): Promise<UserAttendance> {
-    throw new Error('Method not implemented.');
+  async findByUserIdAndDate(
+    user_id: string,
+    date: Date,
+  ): Promise<UserAttendance> {
+    const result = await PrismaSingleton.getInstance().userAttendance.findMany({
+      where: {
+        userId: user_id,
+      },
+      include: { attendance: true },
+    });
+
+    const userAttendance = result.find(
+      object => object.attendance.date === date,
+    );
+
+    return UserAttendanceMapper.getMapper().toDomain(userAttendance);
   }
-  listByDate(date: Date): Promise<UserAttendance[]> {
-    throw new Error('Method not implemented.');
+  async listByDate(date: Date): Promise<UserAttendance[]> {
+    const result = await PrismaSingleton.getInstance().userAttendance.findMany({
+      include: {
+        user: true,
+        attendance: true,
+      },
+    });
+
+    const userAttendance = result.filter(
+      object => object.attendance.date === date,
+    );
+
+    return UserAttendanceMapper.getMapper().toDomainArray(userAttendance);
   }
-  listInDateRange(startDate: Date, endDate: Date): Promise<UserAttendance[]> {
-    throw new Error('Method not implemented.');
+  async listInDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<UserAttendance[]> {
+    const result = await PrismaSingleton.getInstance().userAttendance.findMany({
+      include: {
+        user: true,
+        attendance: true,
+      },
+      where: {
+        date: {
+          gte: startDate,
+          lte: endDate,
+        },
+      },
+    });
+
+    return UserAttendanceMapper.getMapper().toDomainArray(result);
   }
 }
 
