@@ -7,6 +7,8 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
 import { AttendanceRepository } from '@modules/attendance/infra/prisma/repositories/AttendanceRepository';
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
+import { UserAttendanceRepository } from '@modules/usersAttendances/infra/repositories/UserAttendanceRepository';
+import { IUserAttendanceRepository } from '@modules/usersAttendances/repositories/IUserAttendanceRepository';
 import { container } from 'tsyringe';
 
 container.registerSingleton<IUsersRepository>(
@@ -22,4 +24,9 @@ container.registerSingleton<IUsersTokensRepository>(
 container.registerSingleton<IAttendanceRepository>(
   'AttendanceRepository',
   AttendanceRepository,
+);
+
+container.registerSingleton<IUserAttendanceRepository>(
+  'UserAttendanceRepository',
+  UserAttendanceRepository,
 );

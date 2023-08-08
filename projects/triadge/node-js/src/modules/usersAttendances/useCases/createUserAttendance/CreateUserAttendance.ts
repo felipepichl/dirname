@@ -2,6 +2,7 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
 import { UserAttendance } from '@modules/usersAttendances/domain/UserAttendance';
 import { IUserAttendanceRepository } from '@modules/usersAttendances/repositories/IUserAttendanceRepository';
+import { inject, injectable } from 'tsyringe';
 
 import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
@@ -11,10 +12,14 @@ interface IRequest {
   attendance_id: string;
 }
 
+@injectable()
 class CreateUserAttendance implements IUseCase<IRequest, void> {
   constructor(
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('AttendanceRepository')
     private attendancesRepository: IAttendanceRepository,
+    @inject('UserAttendanceRepository')
     private userAttendance: IUserAttendanceRepository,
   ) {}
 
