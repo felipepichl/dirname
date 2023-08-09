@@ -9,8 +9,8 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
     this.usersAttendances.push(userAttendance);
   }
   async findAllByUserId(user_id: string): Promise<UserAttendance[]> {
-    return this.usersAttendances.filter(
-      userAttendance => userAttendance.user_id === user_id,
+    return this.usersAttendances.filter(userAttendance =>
+      userAttendance.user_ids.includes(user_id),
     );
   }
   async findAllByAttendanceId(
@@ -26,7 +26,7 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
   ): Promise<UserAttendance> {
     return this.usersAttendances.find(
       userAttendance =>
-        userAttendance.user_id === user_id &&
+        userAttendance.user_ids.includes(user_id) &&
         userAttendance.attendance_id === attendance_id,
     );
   }
@@ -36,7 +36,7 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
   ): Promise<UserAttendance> {
     return this.usersAttendances.find(
       userAttendance =>
-        userAttendance.user_id === user_id &&
+        userAttendance.user_ids.includes(user_id) &&
         userAttendance.attendances.date === date,
     );
   }
