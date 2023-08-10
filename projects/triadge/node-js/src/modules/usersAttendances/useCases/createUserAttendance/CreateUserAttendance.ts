@@ -52,6 +52,22 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
     //   throw new AppError('UserAttendance already exists', 409);
     // }
 
+    const promises = user_ids.map(async user_id => {
+      const existingUserAttendance =
+        await this.userAttendance.findByUserIdAndAttendanceId(
+          user_id,
+          attendance_id,
+        );
+      if (existingUserAttendance) {
+        throw new AppError(
+          `UserAttendance for user ID ${user_id} and attendance ID ${attendance_id} already exists`,
+          409,
+        );
+      }
+    });
+
+    await Promise.all(promises);
+
     const userAttendance = UserAttendance.createUserAttendance({
       user_ids,
       attendance_id: attendance.id.toString(),
