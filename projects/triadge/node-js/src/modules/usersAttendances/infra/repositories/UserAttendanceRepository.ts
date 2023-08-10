@@ -6,14 +6,20 @@ import { PrismaSingleton } from '@shared/infra/prisma';
 import { UserAttendanceMapper } from '../mappers/UserAttendanceMapper';
 
 class UserAttendanceRepository implements IUserAttendanceRepository {
-  async create({ user_id, attendance_id }: UserAttendance): Promise<void> {
-    await PrismaSingleton.getInstance().userAttendance.create({
-      data: {
-        userId: user_id,
-        attendanceId: attendance_id,
-        present: true,
-      },
-    });
+  async create({ user_ids, attendance_id }: UserAttendance): Promise<void> {
+    const prismaInstance = PrismaSingleton.getInstance();
+
+    const promises = user_ids.map(userId =>
+      prismaInstance.userAttendance.create({
+        data: {
+          userId,
+          attendanceId: attendance_id,
+          present: true,
+        },
+      }),
+    );
+
+    await Promise.all(promises);
   }
   async findAllByUserId(user_id: string): Promise<UserAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
