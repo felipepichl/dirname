@@ -8,7 +8,7 @@ import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
-  user_id: string;
+  user_id: string[];
   attendance_id: string;
 }
 
@@ -47,7 +47,7 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
     }
 
     const userAttendance = UserAttendance.createUserAttendance({
-      user_id: user.id.toString(),
+      user_ids: [''],
       attendance_id: attendance.id.toString(),
     });
 
