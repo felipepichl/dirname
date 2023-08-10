@@ -8,7 +8,7 @@ import { IUseCase } from '@shared/core/domain/IUseCase';
 import { AppError } from '@shared/error/AppError';
 
 interface IRequest {
-  user_id: string[];
+  user_ids: string[];
   attendance_id: string;
 }
 
@@ -23,12 +23,12 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
     private userAttendance: IUserAttendanceRepository,
   ) {}
 
-  async execute({ user_id, attendance_id }: IRequest): Promise<void> {
-    const users = await this.usersRepository.findByIds(user_id);
+  async execute({ user_ids, attendance_id }: IRequest): Promise<void> {
+    const users = await this.usersRepository.findByIds(user_ids);
 
-    if (users.length !== user_id.length) {
+    if (users.length !== user_ids.length) {
       const foundUserIds = users.map(user => user.id.toString());
-      const notFoundUserIds = user_id.filter(id => !foundUserIds.includes(id));
+      const notFoundUserIds = user_ids.filter(id => !foundUserIds.includes(id));
 
       throw new AppError(
         `Users with IDs ${notFoundUserIds.join(', ')} not found`,
@@ -42,18 +42,19 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
       throw new AppError('Attendance not found', 404);
     }
 
-    const existingUserAttendance =
-      await this.userAttendance.findByUserIdAndAttendanceId(
-        user_id,
-        attendance_id,
-      );
+    // const existingUserAttendance =
+    //   await this.userAttendance.findByUserIdAndAttendanceId(
+    //     user_ids,
+    //     attendance_id,
+    //   );
 
-    if (existingUserAttendance) {
-      throw new AppError('UserAttendance already exists', 409);
-    }
+    // if (existingUserAttendance) {
+    //   throw new AppError('UserAttendance already exists', 409);
+    // }
+    this.userAttendance.findByUserIdAndAttendanceId(user_id, attendance_id);
 
     const userAttendance = UserAttendance.createUserAttendance({
-      user_ids: [''],
+      user_ids,
       attendance_id: attendance.id.toString(),
     });
 
