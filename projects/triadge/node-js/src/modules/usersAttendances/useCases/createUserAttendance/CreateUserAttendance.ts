@@ -24,10 +24,16 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ user_id, attendance_id }: IRequest): Promise<void> {
-    const user = await this.usersRepository.findById(user_id);
+    const users = await this.usersRepository.findByIds(user_id);
 
-    if (!user) {
-      throw new AppError('User not found', 404);
+    if (users.length !== user_id.length) {
+      const foundUserIds = users.map(user => user.id.toString());
+      const notFoundUserIds = user_id.filter(id => !foundUserIds.includes(id));
+
+      throw new AppError(
+        `Users with IDs ${notFoundUserIds.join(', ')} not found`,
+        404,
+      );
     }
 
     const attendance = await this.attendancesRepository.findById(attendance_id);
