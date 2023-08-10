@@ -51,7 +51,6 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
     // if (existingUserAttendance) {
     //   throw new AppError('UserAttendance already exists', 409);
     // }
-    this.userAttendance.findByUserIdAndAttendanceId(user_id, attendance_id);
 
     const userAttendance = UserAttendance.createUserAttendance({
       user_ids,

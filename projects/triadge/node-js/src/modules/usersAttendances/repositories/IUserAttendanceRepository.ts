@@ -8,6 +8,10 @@ interface IUserAttendanceRepository {
     user_id: string,
     attendance_id: string,
   ): Promise<UserAttendance | undefined>;
+  findByUserIdsAndAttendanceId(
+    user_ids: string[],
+    attendance_id: string,
+  ): Promise<UserAttendance[]>;
   findByUserIdAndDate(
     user_id: string,
     date: Date,

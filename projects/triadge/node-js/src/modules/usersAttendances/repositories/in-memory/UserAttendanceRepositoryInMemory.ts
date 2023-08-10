@@ -30,6 +30,16 @@ class UserAttendanceRepositoryInMemory implements IUserAttendanceRepository {
         userAttendance.attendance_id === attendance_id,
     );
   }
+  async findByUserIdsAndAttendanceId(
+    user_ids: string[],
+    attendance_id: string,
+  ): Promise<UserAttendance[]> {
+    return this.usersAttendances.filter(
+      userAttendance =>
+        userAttendance.user_ids.some(uid => user_ids.includes(uid)) &&
+        userAttendance.attendance_id === attendance_id,
+    );
+  }
   async findByUserIdAndDate(
     user_id: string,
     date: Date,

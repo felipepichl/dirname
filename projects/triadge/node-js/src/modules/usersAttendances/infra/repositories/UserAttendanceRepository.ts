@@ -52,6 +52,31 @@ class UserAttendanceRepository implements IUserAttendanceRepository {
 
     return UserAttendanceMapper.getMapper().toDomain(result);
   }
+  async findByUserIdsAndAttendanceId(
+    user_ids: string[],
+    attendance_id: string,
+  ): Promise<UserAttendance[]> {
+    const result = await PrismaSingleton.getInstance().userAttendance.findMany({
+      where: {
+        AND: [
+          {
+            attendanceId: attendance_id,
+          },
+          {
+            userId: {
+              in: user_ids,
+            },
+          },
+        ],
+      },
+      include: {
+        user: true,
+        attendance: true,
+      },
+    });
+
+    return UserAttendanceMapper.getMapper().toDomainArray(result);
+  }
   async findByUserIdAndDate(
     user_id: string,
     date: Date,
