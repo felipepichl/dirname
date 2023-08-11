@@ -67,15 +67,26 @@ describe('Create User Attendance', () => {
       attendance_id: attendance_id.toString(),
     });
 
-    const userAttendance =
+    await userAttendanceRepositoryInMemory.findByUserIdsAndAttendanceId(
+      user_ids,
+      attendance_id.toString(),
+    );
+
+    const userAttendanceRecords =
       await userAttendanceRepositoryInMemory.findByUserIdsAndAttendanceId(
         user_ids,
         attendance_id.toString(),
       );
 
-    expect(userAttendance).toBeTruthy();
-    // expect(userAttendance.user_id).toEqual(user_id.toString());
-    // expect(userAttendance.attendance_id).toEqual(attendance_id.toString());
+    expect(userAttendanceRecords).toHaveLength(1);
+
+    const storedUserIds = userAttendanceRecords.flatMap(ua => ua.user_ids);
+    expect(storedUserIds).toContain(user_id_1.toString());
+    expect(storedUserIds).toContain(user_id_2.toString());
+
+    userAttendanceRecords.forEach(record => {
+      expect(record.attendance_id).toBe(attendance_id.toString());
+    });
   });
 
   // it('should not be able to create a UserAttendance with non-existent user', async () => {
