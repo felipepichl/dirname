@@ -24,7 +24,7 @@ describe('Create User Attendance', () => {
     );
   });
 
-  it('should be able to create a new UserAttendance', async () => {
+  it('should create a new UserAttendance', async () => {
     const user1 = User.createUser({
       name: 'Test User1',
       email: 'user1@test.com',
@@ -89,7 +89,7 @@ describe('Create User Attendance', () => {
     });
   });
 
-  it('should not be able to create a UserAttendance with non-existent user', async () => {
+  it('should reject creating UserAttendance for a non-existent user', async () => {
     const attendanceDate = new Date();
     const attendance = Attendance.createAttendance({
       date: attendanceDate,
@@ -109,53 +109,80 @@ describe('Create User Attendance', () => {
     ).rejects.toEqual(new AppError(`Users with IDs ${''} not found`, 404));
   });
 
-  // it('should not be able to create a UserAttendance with non-existent attendance', async () => {
-  //   const user = User.createUser({
-  //     name: 'Test User',
-  //     email: 'user@test.com',
-  //     password: '123456',
-  //     phoneNumber: '123456789',
-  //   });
+  it('should reject creating UserAttendance for a non-existent attendance', async () => {
+    const user = User.createUser({
+      name: 'Test User',
+      email: 'user@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    });
 
-  //   await usersRepositoryInMemory.create(user);
+    await usersRepositoryInMemory.create(user);
 
-  //   const attendanceDate = new Date();
-  //   const attendance = Attendance.createAttendance({
-  //     date: attendanceDate,
-  //   });
+    const attendanceDate = new Date();
+    const attendance = Attendance.createAttendance({
+      date: attendanceDate,
+    });
 
-  //   await attendanceRepositoryInMemory.create(attendance);
+    await attendanceRepositoryInMemory.create(attendance);
 
-  //   const { id } = await usersRepositoryInMemory.findByEmail('user@test.com');
+    const { id: user_id } = await usersRepositoryInMemory.findByEmail(
+      'user@test.com',
+    );
 
-  //   await expect(
-  //     createUserAttendance.execute({
-  //       user_id: id.toString(),
-  //       attendance_id: 'non-existent-attendance_id',
-  //     }),
-  //   ).rejects.toEqual(new AppError('Attendance not found', 404));
-  // });
+    const user_ids = [user_id.toString()];
 
-  // it('should not be able to create a UserAttendance if it already exists', async () => {
-  //   const user = await usersRepositoryInMemory.create({
-  //     name: 'Test User',
-  //     email: 'user@test.com',
-  //     password: '123456',
-  //   });
-  //   const attendance = await attendanceRepositoryInMemory.create({
-  //     date: new Date(),
-  //   });
+    await expect(
+      createUserAttendance.execute({
+        user_ids,
+        attendance_id: 'non-existent-attendance_id',
+      }),
+    ).rejects.toEqual(new AppError('Attendance not found', 404));
+  });
 
-  //   await createUserAttendance.execute({
-  //     user_id: user.id,
-  //     attendance_id: attendance.id,
-  //   });
+  it('should prevent duplicate UserAttendance creation', async () => {
+    const user = User.createUser({
+      name: 'Test User1',
+      email: 'user1@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    });
 
-  //   await expect(
-  //     createUserAttendance.execute({
-  //       user_id: user.id,
-  //       attendance_id: attendance.id,
-  //     }),
-  //   ).rejects.toEqual(new AppError('UserAttendance already exists', 409));
-  // });
+    await usersRepositoryInMemory.create(user);
+
+    const attendanceDate = new Date();
+
+    const attendance = Attendance.createAttendance({
+      date: attendanceDate,
+    });
+
+    await attendanceRepositoryInMemory.create(attendance);
+
+    const { id: user_id_1 } = await usersRepositoryInMemory.findByEmail(
+      'user1@test.com',
+    );
+
+    const { id: attendance_id } = await attendanceRepositoryInMemory.findByDate(
+      attendanceDate,
+    );
+
+    const user_ids = [user_id_1.toString()];
+
+    await createUserAttendance.execute({
+      user_ids,
+      attendance_id: attendance_id.toString(),
+    });
+
+    await expect(
+      createUserAttendance.execute({
+        user_ids,
+        attendance_id: attendance_id.toString(),
+      }),
+    ).rejects.toEqual(
+      new AppError(
+        `UserAttendance for user ID ${user_ids[0]} and attendance ID ${attendance_id} already exists`,
+        409,
+      ),
+    );
+  });
 });
