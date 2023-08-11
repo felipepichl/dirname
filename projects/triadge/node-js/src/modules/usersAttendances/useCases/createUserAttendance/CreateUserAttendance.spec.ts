@@ -5,7 +5,7 @@ import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/i
 import { UserAttendanceRepositoryInMemory } from '@modules/usersAttendances/repositories/in-memory/UserAttendanceRepositoryInMemory';
 import { CreateUserAttendance } from '@modules/usersAttendances/useCases/createUserAttendance/CreateUserAttendance';
 
-// import { AppError } from '@shared/error/AppError';
+import { AppError } from '@shared/error/AppError';
 
 let createUserAttendance: CreateUserAttendance;
 let userAttendanceRepositoryInMemory: UserAttendanceRepositoryInMemory;
@@ -89,25 +89,25 @@ describe('Create User Attendance', () => {
     });
   });
 
-  // it('should not be able to create a UserAttendance with non-existent user', async () => {
-  //   const attendanceDate = new Date();
-  //   const attendance = Attendance.createAttendance({
-  //     date: attendanceDate,
-  //   });
+  it('should not be able to create a UserAttendance with non-existent user', async () => {
+    const attendanceDate = new Date();
+    const attendance = Attendance.createAttendance({
+      date: attendanceDate,
+    });
 
-  //   await attendanceRepositoryInMemory.create(attendance);
+    await attendanceRepositoryInMemory.create(attendance);
 
-  //   const { id } = await attendanceRepositoryInMemory.findByDate(
-  //     attendanceDate,
-  //   );
+    const { id } = await attendanceRepositoryInMemory.findByDate(
+      attendanceDate,
+    );
 
-  //   await expect(
-  //     createUserAttendance.execute({
-  //       user_id: 'non-existent-user_id',
-  //       attendance_id: id.toString(),
-  //     }),
-  //   ).rejects.toEqual(new AppError('User not found', 404));
-  // });
+    await expect(
+      createUserAttendance.execute({
+        user_ids: [''],
+        attendance_id: id.toString(),
+      }),
+    ).rejects.toEqual(new AppError(`Users with IDs ${''} not found`, 404));
+  });
 
   // it('should not be able to create a UserAttendance with non-existent attendance', async () => {
   //   const user = User.createUser({
