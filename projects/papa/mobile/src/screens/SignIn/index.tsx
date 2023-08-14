@@ -12,7 +12,9 @@ import {
   Content, 
   BrandContainer, 
   Brand, 
-  Title 
+  Title,
+  ForgotPasswordButton,
+  ForgotPasswordLabel 
 } from './styles';
 
 export function SignIn() {
@@ -23,6 +25,10 @@ export function SignIn() {
 
   function handleSignIn() {
     signIn(email, password);
+  }
+
+  function handleForgotPassword() {
+    forgotPassword(email);
   }
   
   return (
@@ -50,6 +56,12 @@ export function SignIn() {
           secureTextEntry
           onChangeText={setPassword}
         />
+
+        <ForgotPasswordButton onPress={handleForgotPassword}>
+          <ForgotPasswordLabel>
+            Esqueci minha senha
+          </ForgotPasswordLabel>
+        </ForgotPasswordButton>
 
         <Button 
           title='Entrar'
