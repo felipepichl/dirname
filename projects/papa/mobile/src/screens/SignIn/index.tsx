@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import brandImg from '@assets/brand.png';
+
+import { useAuth } from '@src/hooks/auth';
 
 import { Input } from '@components/Input';
 
@@ -13,6 +15,15 @@ import {
 } from './styles';
 
 export function SignIn() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  const { signIn, forgotPassword, isLogging } = useAuth();
+
+  function handleSignIn() {
+    signIn(email, password);
+  }
+  
   return (
     <Container>
       <Content>
@@ -30,14 +41,14 @@ export function SignIn() {
         type='secondary'
         autoCorrect={false}
         autoCapitalize='none'
-        // onChangeText={setEmail}
+        onChangeText={setEmail}
       />
 
       <Input 
         placeholder='Senha'
         type='secondary'
         secureTextEntry
-        // onChangeText={setPassword}
+        onChangeText={setPassword}
       />
       </Content>
     </Container>
