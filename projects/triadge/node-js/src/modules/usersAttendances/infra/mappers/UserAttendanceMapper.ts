@@ -11,7 +11,7 @@ class UserAttendanceMapper
   }
   toDomain({ userId, attendanceId }: RawUserAttendance): UserAttendance {
     return UserAttendance.createUserAttendance({
-      user_id: userId,
+      user_ids: [userId],
       attendance_id: attendanceId,
     });
   }
