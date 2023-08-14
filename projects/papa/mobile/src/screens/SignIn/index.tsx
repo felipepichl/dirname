@@ -4,7 +4,13 @@ import brandImg from '@assets/brand.png';
 
 import { Input } from '@components/Input';
 
-import { Container, Content, BrandContainer, Brand, Title } from './styles';
+import { 
+  Container, 
+  Content, 
+  BrandContainer, 
+  Brand, 
+  Title 
+} from './styles';
 
 export function SignIn() {
   return (
