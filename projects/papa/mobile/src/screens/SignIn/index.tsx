@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 
 import brandImg from '@assets/brand.png';
 
-import { useAuth } from '@src/hooks/auth';
+import { useAuth } from '@hooks/auth';
 
 import { Input } from '@components/Input';
+import { Button } from '@components/Button';
 
 import { 
   Container, 
@@ -27,29 +28,35 @@ export function SignIn() {
   return (
     <Container>
       <Content>
+        <BrandContainer>
+          <Brand 
+            source={brandImg}
+          />
+        </BrandContainer>
 
-      <BrandContainer>
-        <Brand 
-          source={brandImg}
+        <Title>Login</Title>
+
+        <Input 
+          placeholder='E-mail'
+          type='secondary'
+          autoCorrect={false}
+          autoCapitalize='none'
+          onChangeText={setEmail}
         />
-      </BrandContainer>
 
-      <Title>Login</Title>
+        <Input 
+          placeholder='Senha'
+          type='secondary'
+          secureTextEntry
+          onChangeText={setPassword}
+        />
 
-      <Input 
-        placeholder='E-mail'
-        type='secondary'
-        autoCorrect={false}
-        autoCapitalize='none'
-        onChangeText={setEmail}
-      />
-
-      <Input 
-        placeholder='Senha'
-        type='secondary'
-        secureTextEntry
-        onChangeText={setPassword}
-      />
+        <Button 
+          title='Entrar'
+          type='secondary'
+          onPress={handleSignIn}
+          isLoading={isLogging}
+        />
       </Content>
     </Container>
   )
