@@ -45,6 +45,8 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     setIsLogging(true);
 
+    console.log(email, password);
+
     // auth()
     //   .signInWithEmailAndPassword(email, password)
     //   .then(account => {
