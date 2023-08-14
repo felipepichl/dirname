@@ -1,13 +1,21 @@
 import React from 'react';
 
-import { Input } from '@components/Input'
+import brandImg from '@assets/brand.png';
 
-import { Container, Content, Title } from './styles';
+import { Input } from '@components/Input';
+
+import { Container, Content, BrandContainer, Brand, Title } from './styles';
 
 export function SignIn() {
   return (
     <Container>
       <Content>
+
+      <BrandContainer>
+        <Brand 
+          source={brandImg}
+        />
+      </BrandContainer>
 
       <Title>Login</Title>
 
