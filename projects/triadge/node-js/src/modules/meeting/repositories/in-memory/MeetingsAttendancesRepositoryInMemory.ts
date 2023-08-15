@@ -2,7 +2,7 @@ import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance';
 
 import { IMeetingsAttendancesRepository } from '../IMeetingsAttendancesRepository';
 
-class IMeetingsAttendancesRepositoryInMemory
+class MeetingsAttendancesRepositoryInMemory
   implements IMeetingsAttendancesRepository
 {
   private meetingsAttendances: MeetingAttendance[] = [];
@@ -68,4 +68,4 @@ class IMeetingsAttendancesRepositoryInMemory
   }
 }
 
-export { IMeetingsAttendancesRepositoryInMemory };
+export { MeetingsAttendancesRepositoryInMemory };
