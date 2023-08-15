@@ -1,6 +1,6 @@
 import { MeetingAttendance } from '../domain/MeetingAttendance';
 
-interface IMeetingAttendanceRepository {
+interface IMeetingsAttendancesRepository {
   create(meetingAttendance: MeetingAttendance): Promise<void>;
   findAllByUserId(user_id: string): Promise<MeetingAttendance[]>;
   findAllByAttendanceId(attendance_id: string): Promise<MeetingAttendance[]>;
@@ -20,4 +20,4 @@ interface IMeetingAttendanceRepository {
   listInDateRange(startDate: Date, endDate: Date): Promise<MeetingAttendance[]>;
 }
 
-export { IMeetingAttendanceRepository };
+export { IMeetingsAttendancesRepository };

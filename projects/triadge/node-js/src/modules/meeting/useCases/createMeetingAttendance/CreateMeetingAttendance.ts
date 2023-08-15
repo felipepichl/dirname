@@ -1,7 +1,7 @@
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
 import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance';
-import { IMeetingAttendanceRepository } from '@modules/meeting/repositories/IMeetingAttendanceRepository';
+import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository';
 import { inject, injectable } from 'tsyringe';
 
 import { IUseCase } from '@shared/core/domain/IUseCase';
@@ -20,7 +20,7 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     @inject('AttendanceRepository')
     private attendancesRepository: IAttendanceRepository,
     @inject('MeetingsAttendancesRepository')
-    private meetingsAttendances: IMeetingAttendanceRepository,
+    private meetingsAttendances: IMeetingsAttendancesRepository,
   ) {}
 
   async execute({ user_ids, attendance_id }: IRequest): Promise<void> {

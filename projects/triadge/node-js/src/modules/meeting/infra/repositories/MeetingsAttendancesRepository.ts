@@ -1,11 +1,11 @@
 import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance';
-import { IMeetingAttendanceRepository } from '@modules/meeting/repositories/IMeetingAttendanceRepository';
+import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository';
 
 import { PrismaSingleton } from '@shared/infra/prisma';
 
 import { MeetingAttendanceMapper } from '../mappers/MeetingAttendanceMapper';
 
-class MeetingAttendanceRepository implements IMeetingAttendanceRepository {
+class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   async create({ user_ids, attendance_id }: MeetingAttendance): Promise<void> {
     const prismaInstance = PrismaSingleton.getInstance();
 
@@ -135,4 +135,4 @@ class MeetingAttendanceRepository implements IMeetingAttendanceRepository {
   }
 }
 
-export { MeetingAttendanceRepository };
+export { MeetingsAttendancesRepository };
