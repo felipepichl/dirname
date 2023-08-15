@@ -1,7 +1,7 @@
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
-import { UserAttendance } from '@modules/usersAttendances/domain/UserAttendance';
-import { IUserAttendanceRepository } from '@modules/usersAttendances/repositories/IUserAttendanceRepository';
+import { UserAttendance } from '@modules/meeting/domain/UserAttendance';
+import { IUserAttendanceRepository } from '@modules/meeting/repositories/IUserAttendanceRepository';
 import { inject, injectable } from 'tsyringe';
 
 import { IUseCase } from '@shared/core/domain/IUseCase';

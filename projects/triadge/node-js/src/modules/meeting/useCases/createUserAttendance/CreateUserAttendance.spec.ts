@@ -2,8 +2,8 @@ import { User } from '@modules/accounts/domain/User';
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory';
 import { Attendance } from '@modules/attendance/domain/Attendance';
 import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/in-memory/AttendanceRepositoryInMemory';
-import { UserAttendanceRepositoryInMemory } from '@modules/usersAttendances/repositories/in-memory/UserAttendanceRepositoryInMemory';
-import { CreateUserAttendance } from '@modules/usersAttendances/useCases/createUserAttendance/CreateUserAttendance';
+import { UserAttendanceRepositoryInMemory } from '@modules/meeting/repositories/in-memory/UserAttendanceRepositoryInMemory';
+import { CreateUserAttendance } from '@modules/meeting/useCases/createUserAttendance/CreateUserAttendance';
 
 import { AppError } from '@shared/error/AppError';
 

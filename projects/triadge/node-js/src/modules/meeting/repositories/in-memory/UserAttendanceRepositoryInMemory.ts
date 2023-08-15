@@ -1,4 +1,4 @@
-import { UserAttendance } from '@modules/usersAttendances/domain/UserAttendance';
+import { UserAttendance } from '@modules/meeting/domain/UserAttendance';
 
 import { IUserAttendanceRepository } from '../IUserAttendanceRepository';
 
