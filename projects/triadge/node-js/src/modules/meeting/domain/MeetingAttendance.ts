@@ -4,7 +4,7 @@ import { Attendance } from '@modules/attendance/domain/Attendance';
 import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
 
-interface IUserAttendanceProps {
+interface IMeetingAttendanceProps {
   id?: string;
   user_ids: string[];
   user?: User[];
@@ -12,8 +12,8 @@ interface IUserAttendanceProps {
   attendance?: Attendance;
 }
 
-class UserAttendance extends AggregateRoot<IUserAttendanceProps> {
-  constructor(props: IUserAttendanceProps, id?: UniqueEntityID) {
+class MeetingAttendance extends AggregateRoot<IMeetingAttendanceProps> {
+  constructor(props: IMeetingAttendanceProps, id?: UniqueEntityID) {
     super(props, id);
   }
 
@@ -33,21 +33,21 @@ class UserAttendance extends AggregateRoot<IUserAttendanceProps> {
     return this.props.attendance_id;
   }
 
-  static createUserAttendance({
+  static createMeetingAttendance({
     id,
     user_ids,
     attendance_id,
-  }: IUserAttendanceProps): UserAttendance {
-    const userAttendancesProps = {
+  }: IMeetingAttendanceProps): MeetingAttendance {
+    const meetingAttendancesProps = {
       user_ids,
       attendance_id,
     };
 
     return AggregateRoot.create(
-      { props: userAttendancesProps, id },
-      UserAttendance,
+      { props: meetingAttendancesProps, id },
+      MeetingAttendance,
     );
   }
 }
 
-export { UserAttendance };
+export { MeetingAttendance };
