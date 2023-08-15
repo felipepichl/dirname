@@ -1,7 +1,7 @@
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
 import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
-import { UserAttendance } from '@modules/meeting/domain/UserAttendance';
-import { IUserAttendanceRepository } from '@modules/meeting/repositories/IUserAttendanceRepository';
+import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance';
+import { IMeetingAttendanceRepository } from '@modules/meeting/repositories/IMeetingAttendanceRepository';
 import { inject, injectable } from 'tsyringe';
 
 import { IUseCase } from '@shared/core/domain/IUseCase';
@@ -13,14 +13,14 @@ interface IRequest {
 }
 
 @injectable()
-class CreateUserAttendance implements IUseCase<IRequest, void> {
+class CreateMeetingAttendance implements IUseCase<IRequest, void> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
     @inject('AttendanceRepository')
     private attendancesRepository: IAttendanceRepository,
-    @inject('UserAttendanceRepository')
-    private userAttendance: IUserAttendanceRepository,
+    @inject('MeetingsAttendancesRepository')
+    private meetingsAttendances: IMeetingAttendanceRepository,
   ) {}
 
   async execute({ user_ids, attendance_id }: IRequest): Promise<void> {
@@ -53,14 +53,14 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
     // }
 
     const promises = user_ids.map(async user_id => {
-      const existingUserAttendance =
-        await this.userAttendance.findByUserIdAndAttendanceId(
+      const existingMeetingAttendance =
+        await this.meetingsAttendances.findByUserIdAndAttendanceId(
           user_id,
           attendance_id,
         );
-      if (existingUserAttendance) {
+      if (existingMeetingAttendance) {
         throw new AppError(
-          `UserAttendance for user ID ${user_id} and attendance ID ${attendance_id} already exists`,
+          `MeetingAttendance for user ID ${user_id} and attendance ID ${attendance_id} already exists`,
           409,
         );
       }
@@ -68,13 +68,13 @@ class CreateUserAttendance implements IUseCase<IRequest, void> {
 
     await Promise.all(promises);
 
-    const userAttendance = UserAttendance.createUserAttendance({
+    const meetingAttendance = MeetingAttendance.createMeetingAttendance({
       user_ids,
       attendance_id: attendance.id.toString(),
     });
 
-    await this.userAttendance.create(userAttendance);
+    await this.meetingsAttendances.create(meetingAttendance);
   }
 }
 
-export { CreateUserAttendance };
+export { CreateMeetingAttendance };
