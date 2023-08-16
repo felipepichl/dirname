@@ -18,7 +18,7 @@ let userTokensInMemory: UsersTokenRepositoryInMemory;
 let createUserUseCase: CreateUserUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 
-describe('Authenticate User', () => {
+describe('[Account] - Authenticate User', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     hashProviderInMemory = new HashProviderInMemory();

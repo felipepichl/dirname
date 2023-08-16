@@ -1,6 +1,6 @@
 import { UserTokens } from './UserTokens';
 
-describe('Create a new UserTokens', () => {
+describe('[Account] - Create a new UserTokens', () => {
   it('should be able to create a new instance of userTokens', () => {
     const userTokens = UserTokens.createUserTokens({
       user_id: 'user_id',

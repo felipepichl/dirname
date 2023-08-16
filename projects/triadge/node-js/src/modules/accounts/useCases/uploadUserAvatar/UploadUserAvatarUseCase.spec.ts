@@ -13,7 +13,7 @@ let storageProvider: StorageProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
 let uploadUserAvatarUseCase: UploadUserAvatarUseCase;
 
-describe('Upload Avatar', () => {
+describe('[Account] - Upload Avatar', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     hashProviderInMemory = new HashProviderInMemory();

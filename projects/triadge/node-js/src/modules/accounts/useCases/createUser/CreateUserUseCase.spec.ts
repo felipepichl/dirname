@@ -10,7 +10,7 @@ let usersRepositoryInMemory: UsersRepositoryInMemory;
 let hashProviderInMemory: HashProviderInMemory;
 let createUserUseCase: CreateUserUseCase;
 
-describe('Create a user', () => {
+describe('[Account] - Create a user', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory();
     hashProviderInMemory = new HashProviderInMemory();

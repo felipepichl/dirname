@@ -1,6 +1,6 @@
 import { User } from './User';
 
-describe('Create a new User', () => {
+describe('[Account] - Create a new User', () => {
   it('should be able to create a new instance of user', () => {
     const user = User.createUser({
       name: 'Jonh Due',
