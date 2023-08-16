@@ -11,7 +11,7 @@ interface IResponse {
   users: User[];
 }
 
-class FindUserByIdsUseCase implements IUseCase<IRequest, IResponse> {
+class FindUsersByIdsUseCase implements IUseCase<IRequest, IResponse> {
   constructor(private usersRepository: IUsersRepository) {}
 
   async execute({ user_ids }: IRequest): Promise<IResponse> {
@@ -23,4 +23,4 @@ class FindUserByIdsUseCase implements IUseCase<IRequest, IResponse> {
   }
 }
 
-export { FindUserByIdsUseCase };
+export { FindUsersByIdsUseCase };
