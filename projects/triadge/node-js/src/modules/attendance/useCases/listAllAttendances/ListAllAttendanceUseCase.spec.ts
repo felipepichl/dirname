@@ -3,7 +3,7 @@ import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/i
 import { CreateAttendanceUseCase } from '../createAttendance/CreateAttendanceUseCase';
 import { ListAllAttendancesUseCase } from './ListAllAttendancesUseCase';
 
-describe('List All Attendances', () => {
+describe('[Attendance] - List All Attendances', () => {
   let createAttendanceUseCase: CreateAttendanceUseCase;
   let listAllAttendancesUseCase: ListAllAttendancesUseCase;
   let attendanceRepositoryInMemory: AttendanceRepositoryInMemory;

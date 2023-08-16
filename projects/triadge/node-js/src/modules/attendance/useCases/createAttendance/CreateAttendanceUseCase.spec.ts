@@ -6,7 +6,7 @@ import { CreateAttendanceUseCase } from './CreateAttendanceUseCase';
 let attendancesRepositryInMemory: AttendanceRepositoryInMemory;
 let createAttendanceUseCase: CreateAttendanceUseCase;
 
-describe('Create an Attendance', () => {
+describe('[Attendance] - Create an Attendance', () => {
   beforeEach(() => {
     attendancesRepositryInMemory = new AttendanceRepositoryInMemory();
 

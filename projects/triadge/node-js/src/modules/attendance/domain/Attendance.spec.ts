@@ -1,6 +1,6 @@
 import { Attendance } from './Attendance';
 
-describe('Create a new Attendance', () => {
+describe('[Attendance] - Create a new Attendance', () => {
   it('should be able to create a new instance of attendance', () => {
     const attendance = Attendance.createAttendance({
       date: new Date(),
