@@ -12,7 +12,7 @@ let meetingsAttendancesRepositoryInMemory: MeetingsAttendancesRepositoryInMemory
 let usersRepositoryInMemory: UsersRepositoryInMemory;
 let attendanceRepositoryInMemory: AttendanceRepositoryInMemory;
 
-describe('Create User Attendance', () => {
+describe('[Meeting] - Create User Attendance', () => {
   beforeEach(() => {
     meetingsAttendancesRepositoryInMemory =
       new MeetingsAttendancesRepositoryInMemory();
