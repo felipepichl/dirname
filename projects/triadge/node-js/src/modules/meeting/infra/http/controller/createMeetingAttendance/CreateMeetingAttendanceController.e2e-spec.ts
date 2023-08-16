@@ -1,5 +1,3 @@
-import { authConfig } from '@config/auth';
-import jwt from 'jsonwebtoken';
 import request from 'supertest';
 
 import { app } from '@shared/infra/http/start/app';
@@ -25,7 +23,6 @@ describe('[E2E] = Create Meeting', () => {
 
   it('should be able to create a new metting', async () => {
     const token = await authenticateUser();
-    const { sub: user_id } = jwt.verify(token, authConfig.secret_token);
 
     const response = await request(app)
       .post('/metting')
@@ -33,9 +30,8 @@ describe('[E2E] = Create Meeting', () => {
         Authorization: `Bearer ${token}`,
       })
       .send({
-        date: new Date(),
-        isPresent: true,
-        user_id,
+        user_ids: ['id_of_user_1', 'id_of_user_2'],
+        // attendance_id,
       });
 
     expect(response.status).toBe(201);
