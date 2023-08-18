@@ -25,7 +25,7 @@ describe('[E2E] = Create Meeting', () => {
     const token = await authenticateUser();
 
     const response = await request(app)
-      .post('/metting')
+      .post('/meeting')
       .set({
         Authorization: `Bearer ${token}`,
       })
@@ -36,6 +36,6 @@ describe('[E2E] = Create Meeting', () => {
 
     expect(response.status).toBe(201);
     expect(response.body).toHaveProperty('message');
-    expect(response.body.message).toBe('Metting created');
+    expect(response.body.message).toBe('Meeting created');
   });
 });

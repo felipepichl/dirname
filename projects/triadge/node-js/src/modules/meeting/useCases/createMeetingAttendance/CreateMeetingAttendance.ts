@@ -24,6 +24,8 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ user_ids, attendance_id }: IRequest): Promise<void> {
+    console.log(user_ids, attendance_id);
+
     const users = await this.usersRepository.findByIds(user_ids);
 
     if (users.length !== user_ids.length) {
@@ -41,6 +43,7 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     if (!attendance) {
       throw new AppError('Attendance not found', 404);
     }
+
 
     // const existingUserAttendance =
     //   await this.userAttendance.findByUserIdAndAttendanceId(

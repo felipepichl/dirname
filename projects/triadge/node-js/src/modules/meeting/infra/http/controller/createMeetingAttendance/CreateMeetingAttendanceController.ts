@@ -8,7 +8,7 @@ class CreateMeetingAttendanceController {
 
     const createMeetingAttendance = container.resolve(CreateMeetingAttendance);
 
-    createMeetingAttendance.execute({
+    await createMeetingAttendance.execute({
       user_ids,
       attendance_id,
     });
