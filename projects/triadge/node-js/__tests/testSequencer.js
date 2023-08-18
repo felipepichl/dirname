@@ -25,9 +25,26 @@ class CustomSequencer extends Sequencer {
     const copyTests = Array.from(tests);
 
     return copyTests.sort((testA, testB) => {
-      const indexA = testOrder.findIndex(order => testA.path.includes(order));
-      const indexB = testOrder.findIndex(order => testB.path.includes(order));
-      return indexA - indexB;
+      const extractModuleNameFromPath = (p) => {
+        const match = p.match(/src\/modules\/(.*?)\//);
+        return match ? match[1] : '';
+      };
+
+      try {
+        const moduleA = extractModuleNameFromPath(testA.path);
+        const moduleB = extractModuleNameFromPath(testB.path);
+
+
+
+        const indexA = testOrder.indexOf(moduleA);
+        const indexB = testOrder.indexOf(moduleB);
+
+
+        return indexA - indexB;
+      } catch (error) {
+          console.error("Sorting error:", error);
+      }
+
     });
   }
 }
