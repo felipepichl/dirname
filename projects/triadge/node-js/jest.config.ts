@@ -10,7 +10,7 @@ export default {
   // Stop running tests after `n` failures
   bail: true,
 
-  testSequencer: './__tests/testSequencer.js',
+  testSequencer: './__tests__/config/testSequencer.js',
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/private/var/folders/fg/x9sfnjmn5xv8tk2cq2qs11900000gn/T/jest_dx",
@@ -160,9 +160,10 @@ export default {
   // testMatch: ['**/*.spec.ts'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  // testPathIgnorePatterns: [
-  //   "/node_modules/"
-  // ],
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/__tests__/config/"
+  ],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],

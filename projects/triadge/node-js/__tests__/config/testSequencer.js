@@ -2,7 +2,7 @@ const Sequencer = require('@jest/test-sequencer').default;
 const fs = require('fs');
 const path = require('path');
 
-const basePath = path.join(__dirname, '../src/modules/');
+const basePath = path.join(__dirname, '../../src/modules/');
 
 function getSortedModuleNames(directory) {
   return fs
