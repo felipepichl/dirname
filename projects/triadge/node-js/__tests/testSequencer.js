@@ -1,50 +1,30 @@
-// customSequencer.js
-
 const Sequencer = require('@jest/test-sequencer').default;
 const fs = require('fs');
 const path = require('path');
 
-// Defina o caminho base de onde os módulos estão localizados.
 const basePath = path.join(__dirname, '../src/modules/');
 
-// Obter todos os nomes dos diretórios dentro da pasta basePath
-function getDirectories(source) {
+function getSortedModuleNames(directory) {
   return fs
-    .readdirSync(source, { withFileTypes: true })
+    .readdirSync(directory, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
-    .map(dirent => dirent.name);
+    .map(dirent => dirent.name)
+    .sort();
 }
 
-// Obtenha todos os módulos (pastas) e ordene-os alfabeticamente
-const testOrder = getDirectories(basePath).sort();
+function extractModuleName(testPath) {
+  const match = testPath.match(/src\/modules\/(.*?)\//);
+  return match ? match[1] : '';
+}
 
-console.log(testOrder)
+const testOrder = getSortedModuleNames(basePath);
 
 class CustomSequencer extends Sequencer {
   sort(tests) {
-    const copyTests = Array.from(tests);
-
-    return copyTests.sort((testA, testB) => {
-      const extractModuleNameFromPath = (p) => {
-        const match = p.match(/src\/modules\/(.*?)\//);
-        return match ? match[1] : '';
-      };
-
-      try {
-        const moduleA = extractModuleNameFromPath(testA.path);
-        const moduleB = extractModuleNameFromPath(testB.path);
-
-
-
-        const indexA = testOrder.indexOf(moduleA);
-        const indexB = testOrder.indexOf(moduleB);
-
-
-        return indexA - indexB;
-      } catch (error) {
-          console.error("Sorting error:", error);
-      }
-
+    return tests.sort((testA, testB) => {
+      const indexA = testOrder.indexOf(extractModuleName(testA.path));
+      const indexB = testOrder.indexOf(extractModuleName(testB.path));
+      return indexA - indexB;
     });
   }
 }
