@@ -10,7 +10,7 @@ export default {
   // Stop running tests after `n` failures
   bail: true,
 
-  testSequencer: './__tests__/testSequencer.ts',
+  testSequencer: './__tests/testSequencer.js',
 
   // The directory where Jest should store its cached dependency information
   // cacheDirectory: "/private/var/folders/fg/x9sfnjmn5xv8tk2cq2qs11900000gn/T/jest_dx",

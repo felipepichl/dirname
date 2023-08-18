@@ -1,25 +1,27 @@
-// customSequencer.ts
+// customSequencer.js
 
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Sequencer from '@jest/test-sequencer';
-import fs from 'fs';
-import path from 'path';
+const Sequencer = require('@jest/test-sequencer').default;
+const fs = require('fs');
+const path = require('path');
 
 // Defina o caminho base de onde os módulos estão localizados.
-const basePath = path.join(__dirname, '../path-to-your-modules-folder'); // Substitua pelo caminho apropriado
+const basePath = path.join(__dirname, '../src/modules/');
 
 // Obter todos os nomes dos diretórios dentro da pasta basePath
-const getDirectories = (source: string) =>
-  fs
+function getDirectories(source) {
+  return fs
     .readdirSync(source, { withFileTypes: true })
     .filter(dirent => dirent.isDirectory())
     .map(dirent => dirent.name);
+}
 
 // Obtenha todos os módulos (pastas) e ordene-os alfabeticamente
 const testOrder = getDirectories(basePath).sort();
 
+console.log(testOrder)
+
 class CustomSequencer extends Sequencer {
-  sort(tests: Array<{ path: string }>): Array<{ path: string }> {
+  sort(tests) {
     const copyTests = Array.from(tests);
 
     return copyTests.sort((testA, testB) => {
@@ -30,4 +32,4 @@ class CustomSequencer extends Sequencer {
   }
 }
 
-export = CustomSequencer;
+module.exports = CustomSequencer;
