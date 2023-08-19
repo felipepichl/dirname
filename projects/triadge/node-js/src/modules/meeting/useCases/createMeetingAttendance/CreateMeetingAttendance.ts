@@ -8,8 +8,8 @@ import { IUseCase } from '@shared/core/domain/IUseCase'
 import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  user_ids: string[]
-  attendance_id: string
+  userIds: string[]
+  attendanceId: string
 }
 
 @injectable()
@@ -23,14 +23,12 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     private meetingsAttendances: IMeetingsAttendancesRepository,
   ) {}
 
-  async execute({ user_ids, attendance_id }: IRequest): Promise<void> {
-    const users = await this.usersRepository.findByIds(user_ids)
+  async execute({ userIds, attendanceId }: IRequest): Promise<void> {
+    const users = await this.usersRepository.findByIds(userIds)
 
-    if (users.length !== user_ids.length) {
+    if (users.length !== userIds.length) {
       const foundUserIds = users.map((user) => user.id.toString())
-      const notFoundUserIds = user_ids.filter(
-        (id) => !foundUserIds.includes(id),
-      )
+      const notFoundUserIds = userIds.filter((id) => !foundUserIds.includes(id))
 
       throw new AppError(
         `Users with IDs ${notFoundUserIds.join(', ')} not found`,
@@ -38,7 +36,7 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
       )
     }
 
-    const attendance = await this.attendancesRepository.findById(attendance_id)
+    const attendance = await this.attendancesRepository.findById(attendanceId)
 
     if (!attendance) {
       throw new AppError('Attendance not found', 404)
@@ -54,15 +52,15 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     //   throw new AppError('UserAttendance already exists', 409);
     // }
 
-    const promises = user_ids.map(async (user_id) => {
+    const promises = userIds.map(async (userId) => {
       const existingMeetingAttendance =
         await this.meetingsAttendances.findByUserIdAndAttendanceId(
-          user_id,
-          attendance_id,
+          userId,
+          attendanceId,
         )
       if (existingMeetingAttendance) {
         throw new AppError(
-          `MeetingAttendance for user ID ${user_id} and attendance ID ${attendance_id} already exists`,
+          `MeetingAttendance for user ID ${userId} and attendance ID ${attendanceId} already exists`,
           409,
         )
       }
@@ -71,8 +69,8 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     await Promise.all(promises)
 
     const meetingAttendance = MeetingAttendance.createMeetingAttendance({
-      user_ids,
-      attendance_id: attendance.id.toString(),
+      userIds,
+      attendanceId: attendance.id.toString(),
     })
 
     await this.meetingsAttendances.create(meetingAttendance)

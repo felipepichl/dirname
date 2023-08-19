@@ -50,40 +50,40 @@ describe('[Meeting] - Create User Attendance', () => {
 
     await attendanceRepositoryInMemory.create(attendance)
 
-    const { id: user_id_1 } =
+    const { id: userId1 } =
       await usersRepositoryInMemory.findByEmail('user1@test.com')
-    const { id: user_id_2 } =
+    const { id: userId2 } =
       await usersRepositoryInMemory.findByEmail('user2@test.com')
 
-    const { id: attendance_id } =
+    const { id: attendanceId } =
       await attendanceRepositoryInMemory.findByDate(attendanceDate)
 
-    const user_ids = [user_id_1.toString(), user_id_2.toString()]
+    const userIds = [userId1.toString(), userId2.toString()]
 
     await createMeetingAttendance.execute({
-      user_ids,
-      attendance_id: attendance_id.toString(),
+      userIds,
+      attendanceId: attendanceId.toString(),
     })
 
     await meetingsAttendancesRepositoryInMemory.findByUserIdsAndAttendanceId(
-      user_ids,
-      attendance_id.toString(),
+      userIds,
+      attendanceId.toString(),
     )
 
     const userAttendanceRecords =
       await meetingsAttendancesRepositoryInMemory.findByUserIdsAndAttendanceId(
-        user_ids,
-        attendance_id.toString(),
+        userIds,
+        attendanceId.toString(),
       )
 
     expect(userAttendanceRecords).toHaveLength(1)
 
-    const storedUserIds = userAttendanceRecords.flatMap((ua) => ua.user_ids)
-    expect(storedUserIds).toContain(user_id_1.toString())
-    expect(storedUserIds).toContain(user_id_2.toString())
+    const storedUserIds = userAttendanceRecords.flatMap((ua) => ua.userIds)
+    expect(storedUserIds).toContain(userId1.toString())
+    expect(storedUserIds).toContain(userId2.toString())
 
     userAttendanceRecords.forEach((record) => {
-      expect(record.attendance_id).toBe(attendance_id.toString())
+      expect(record.attendanceId).toBe(attendanceId.toString())
     })
   })
 
@@ -99,8 +99,8 @@ describe('[Meeting] - Create User Attendance', () => {
 
     await expect(
       createMeetingAttendance.execute({
-        user_ids: [''],
-        attendance_id: id.toString(),
+        userIds: [''],
+        attendanceId: id.toString(),
       }),
     ).rejects.toEqual(new AppError(`Users with IDs ${''} not found`, 404))
   })
@@ -122,15 +122,15 @@ describe('[Meeting] - Create User Attendance', () => {
 
     await attendanceRepositoryInMemory.create(attendance)
 
-    const { id: user_id } =
+    const { id: userId } =
       await usersRepositoryInMemory.findByEmail('user@test.com')
 
-    const user_ids = [user_id.toString()]
+    const userIds = [userId.toString()]
 
     await expect(
       createMeetingAttendance.execute({
-        user_ids,
-        attendance_id: 'non-existent-attendance_id',
+        userIds,
+        attendanceId: 'non-existent-attendance_id',
       }),
     ).rejects.toEqual(new AppError('Attendance not found', 404))
   })
@@ -153,27 +153,27 @@ describe('[Meeting] - Create User Attendance', () => {
 
     await attendanceRepositoryInMemory.create(attendance)
 
-    const { id: user_id_1 } =
+    const { id: userId1 } =
       await usersRepositoryInMemory.findByEmail('user1@test.com')
 
-    const { id: attendance_id } =
+    const { id: attendanceId } =
       await attendanceRepositoryInMemory.findByDate(attendanceDate)
 
-    const user_ids = [user_id_1.toString()]
+    const userIds = [userId1.toString()]
 
     await createMeetingAttendance.execute({
-      user_ids,
-      attendance_id: attendance_id.toString(),
+      userIds,
+      attendanceId: attendanceId.toString(),
     })
 
     await expect(
       createMeetingAttendance.execute({
-        user_ids,
-        attendance_id: attendance_id.toString(),
+        userIds,
+        attendanceId: attendanceId.toString(),
       }),
     ).rejects.toEqual(
       new AppError(
-        `MeetingAttendance for user ID ${user_ids[0]} and attendance ID ${attendance_id} already exists`,
+        `MeetingAttendance for user ID ${userIds[0]} and attendance ID ${attendanceId} already exists`,
         409,
       ),
     )
