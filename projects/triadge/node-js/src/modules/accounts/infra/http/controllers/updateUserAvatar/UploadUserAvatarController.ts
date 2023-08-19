@@ -4,14 +4,14 @@ import { container } from 'tsyringe'
 
 class UploadUserAvatarController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { filename: avatar_file } = request.file
-    const { id: user_id } = request.user
+    const { filename: avatarFile } = request.file
+    const { id: userId } = request.user
 
     const uploadUserAvatarUseCase = container.resolve(UploadUserAvatarUseCase)
 
     await uploadUserAvatarUseCase.execute({
-      avatar_file,
-      user_id,
+      avatarFile,
+      userId,
     })
 
     return response.status(204).send()
