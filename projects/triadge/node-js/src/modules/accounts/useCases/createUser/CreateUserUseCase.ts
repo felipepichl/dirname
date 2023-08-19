@@ -1,16 +1,16 @@
-import { User } from '@modules/accounts/domain/User';
-import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider';
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { inject, injectable } from 'tsyringe';
+import { User } from '@modules/accounts/domain/User'
+import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { inject, injectable } from 'tsyringe'
 
-import { IUseCase } from '@shared/core/domain/IUseCase';
-import { AppError } from '@shared/error/AppError';
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  name: string;
-  email: string;
-  password: string;
-  phoneNumber: string;
+  name: string
+  email: string
+  password: string
+  phoneNumber: string
 }
 
 @injectable()
@@ -28,23 +28,23 @@ class CreateUserUseCase implements IUseCase<IRequest, void> {
     password,
     phoneNumber,
   }: IRequest): Promise<void> {
-    const userAllReadyExists = await this.usersRepository.findByEmail(email);
+    const userAllReadyExists = await this.usersRepository.findByEmail(email)
 
     if (userAllReadyExists) {
-      throw new AppError('Users already exists', 400);
+      throw new AppError('Users already exists', 400)
     }
 
-    const hashedPassword = await this.hashProvider.generateHash(password);
+    const hashedPassword = await this.hashProvider.generateHash(password)
 
     const user = User.createUser({
       name,
       email,
       password: hashedPassword,
       phoneNumber,
-    });
+    })
 
-    await this.usersRepository.create(user);
+    await this.usersRepository.create(user)
   }
 }
 
-export { CreateUserUseCase };
+export { CreateUserUseCase }

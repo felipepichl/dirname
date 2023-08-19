@@ -1,27 +1,28 @@
-import { User } from '@modules/accounts/domain/User';
-import { User as RawUser } from '@prisma/client';
+import { User } from '@modules/accounts/domain/User'
+import { User as RawUser } from '@prisma/client'
 
-import { IMapper } from '@shared/core/infra/Mapper';
+import { IMapper } from '@shared/core/infra/Mapper'
 
 class UserMappers implements IMapper<User, RawUser> {
   toPersistence(object: User): User {
-    return object;
+    return object
   }
 
   toDomain(raw: RawUser): User {
-    return User.createUser(raw);
+    return User.createUser(raw)
   }
+
   toDomainArray(rawArray: RawUser[]): User[] {
-    return rawArray.map(this.toDomain);
+    return rawArray.map(this.toDomain)
   }
 
   getMapper(): IMapper<User, RawUser> {
-    return UserMappers.getMapper();
+    return UserMappers.getMapper()
   }
 
   static getMapper(): UserMappers {
-    return new UserMappers();
+    return new UserMappers()
   }
 }
 
-export { UserMappers };
+export { UserMappers }

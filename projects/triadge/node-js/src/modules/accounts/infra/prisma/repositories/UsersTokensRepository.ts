@@ -1,9 +1,9 @@
-import { UserTokens } from '@modules/accounts/domain/UserTokens';
-import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
+import { UserTokens } from '@modules/accounts/domain/UserTokens'
+import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository'
 
-import { PrismaSingleton } from '@shared/infra/prisma';
+import { PrismaSingleton } from '@shared/infra/prisma'
 
-import { UserTokensMappers } from '../mappers/UserTokensMappers';
+import { UserTokensMappers } from '../mappers/UserTokensMappers'
 
 class UsersTokensRepository implements IUsersTokensRepository {
   async create({
@@ -17,9 +17,9 @@ class UsersTokensRepository implements IUsersTokensRepository {
         expires_date,
         refresh_token,
       },
-    });
+    })
 
-    return UserTokensMappers.getMapper().toDomain(result);
+    return UserTokensMappers.getMapper().toDomain(result)
   }
 
   async findByUserIdAndRefreshToken(
@@ -28,15 +28,16 @@ class UsersTokensRepository implements IUsersTokensRepository {
   ): Promise<UserTokens> {
     const result = await PrismaSingleton.getInstance().userTokens.findFirst({
       where: { fk_user_id: user_id, refresh_token },
-    });
+    })
 
-    return UserTokensMappers.getMapper().toDomain(result);
+    return UserTokensMappers.getMapper().toDomain(result)
   }
+
   async deleteById(id: string): Promise<void> {
     await PrismaSingleton.getInstance().userTokens.delete({
       where: { id },
-    });
+    })
   }
 }
 
-export { UsersTokensRepository };
+export { UsersTokensRepository }

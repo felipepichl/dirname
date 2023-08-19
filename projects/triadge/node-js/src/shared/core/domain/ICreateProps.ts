@@ -1,10 +1,10 @@
-import { Replace } from '@shared/helpers/Replace';
+import { Replace } from '@shared/helpers/Replace'
 
-import { UniqueEntityID } from './UniqueEntityID';
+import { UniqueEntityID } from './UniqueEntityID'
 
 interface ICreateProps<T> {
-  props: Replace<T, { created_at?: Date; updated_at?: Date }>;
-  id?: UniqueEntityID | string;
+  props: Replace<T, { created_at?: Date; updated_at?: Date }>
+  id?: UniqueEntityID | string
 }
 
-export { ICreateProps };
+export { ICreateProps }

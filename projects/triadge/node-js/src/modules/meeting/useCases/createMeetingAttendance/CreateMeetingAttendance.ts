@@ -1,15 +1,15 @@
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository';
-import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance';
-import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository';
-import { inject, injectable } from 'tsyringe';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository'
+import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance'
+import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository'
+import { inject, injectable } from 'tsyringe'
 
-import { IUseCase } from '@shared/core/domain/IUseCase';
-import { AppError } from '@shared/error/AppError';
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  user_ids: string[];
-  attendance_id: string;
+  user_ids: string[]
+  attendance_id: string
 }
 
 @injectable()
@@ -24,26 +24,27 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ user_ids, attendance_id }: IRequest): Promise<void> {
-    console.log(user_ids, attendance_id);
+    console.log(user_ids, attendance_id)
 
-    const users = await this.usersRepository.findByIds(user_ids);
+    const users = await this.usersRepository.findByIds(user_ids)
 
     if (users.length !== user_ids.length) {
-      const foundUserIds = users.map(user => user.id.toString());
-      const notFoundUserIds = user_ids.filter(id => !foundUserIds.includes(id));
+      const foundUserIds = users.map((user) => user.id.toString())
+      const notFoundUserIds = user_ids.filter(
+        (id) => !foundUserIds.includes(id),
+      )
 
       throw new AppError(
         `Users with IDs ${notFoundUserIds.join(', ')} not found`,
         404,
-      );
+      )
     }
 
-    const attendance = await this.attendancesRepository.findById(attendance_id);
+    const attendance = await this.attendancesRepository.findById(attendance_id)
 
     if (!attendance) {
-      throw new AppError('Attendance not found', 404);
+      throw new AppError('Attendance not found', 404)
     }
-
 
     // const existingUserAttendance =
     //   await this.userAttendance.findByUserIdAndAttendanceId(
@@ -55,29 +56,29 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     //   throw new AppError('UserAttendance already exists', 409);
     // }
 
-    const promises = user_ids.map(async user_id => {
+    const promises = user_ids.map(async (user_id) => {
       const existingMeetingAttendance =
         await this.meetingsAttendances.findByUserIdAndAttendanceId(
           user_id,
           attendance_id,
-        );
+        )
       if (existingMeetingAttendance) {
         throw new AppError(
           `MeetingAttendance for user ID ${user_id} and attendance ID ${attendance_id} already exists`,
           409,
-        );
+        )
       }
-    });
+    })
 
-    await Promise.all(promises);
+    await Promise.all(promises)
 
     const meetingAttendance = MeetingAttendance.createMeetingAttendance({
       user_ids,
       attendance_id: attendance.id.toString(),
-    });
+    })
 
-    await this.meetingsAttendances.create(meetingAttendance);
+    await this.meetingsAttendances.create(meetingAttendance)
   }
 }
 
-export { CreateMeetingAttendance };
+export { CreateMeetingAttendance }

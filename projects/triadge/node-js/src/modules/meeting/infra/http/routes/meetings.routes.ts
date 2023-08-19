@@ -1,11 +1,12 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { CreateMeetingAttendanceController } from '../controller/createMeetingAttendance/CreateMeetingAttendanceController';
+import { CreateMeetingAttendanceController } from '../controller/createMeetingAttendance/CreateMeetingAttendanceController'
 
-const meetingRoutes = Router();
+const meetingRoutes = Router()
 
-const createMeetingAttendanceController = new CreateMeetingAttendanceController();
+const createMeetingAttendanceController =
+  new CreateMeetingAttendanceController()
 
-meetingRoutes.post('', createMeetingAttendanceController.handle);
+meetingRoutes.post('', createMeetingAttendanceController.handle)
 
-export { meetingRoutes };
+export { meetingRoutes }

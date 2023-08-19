@@ -1,12 +1,13 @@
-import { UserTokens } from '@modules/accounts/domain/UserTokens';
-import { UserTokens as RawUserTokens } from '@prisma/client';
+import { UserTokens } from '@modules/accounts/domain/UserTokens'
+import { UserTokens as RawUserTokens } from '@prisma/client'
 
-import { IMapper } from '@shared/core/infra/Mapper';
+import { IMapper } from '@shared/core/infra/Mapper'
 
 class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
   toPersistence(object: UserTokens): UserTokens {
-    return object;
+    return object
   }
+
   toDomain({
     fk_user_id,
     expires_date,
@@ -16,18 +17,20 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
       user_id: fk_user_id,
       expires_date,
       refresh_token,
-    });
+    })
   }
+
   toDomainArray(rawArray: RawUserTokens[]): UserTokens[] {
-    return rawArray.map(this.toDomain);
+    return rawArray.map(this.toDomain)
   }
+
   getMapper(): IMapper<UserTokens, RawUserTokens> {
-    return new UserTokensMappers();
+    return new UserTokensMappers()
   }
 
   static getMapper(): UserTokensMappers {
-    return new UserTokensMappers();
+    return new UserTokensMappers()
   }
 }
 
-export { UserTokensMappers };
+export { UserTokensMappers }

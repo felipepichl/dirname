@@ -4,6 +4,6 @@ const authConfig = {
   secret_refresh_token: '3c8f770297c8cd604feba12bb6f52ba0',
   expires_in_refresh_token: '30d',
   expires_refresh_token_days: 30,
-};
+}
 
-export { authConfig };
+export { authConfig }

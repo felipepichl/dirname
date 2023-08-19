@@ -1,27 +1,27 @@
-import { authConfig } from '@config/auth';
-import { UserTokens } from '@modules/accounts/domain/UserTokens';
-import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider';
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository';
-import { sign } from 'jsonwebtoken';
-import { inject, injectable } from 'tsyringe';
+import { authConfig } from '@config/auth'
+import { UserTokens } from '@modules/accounts/domain/UserTokens'
+import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository'
+import { sign } from 'jsonwebtoken'
+import { inject, injectable } from 'tsyringe'
 
-import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider';
-import { IUseCase } from '@shared/core/domain/IUseCase';
-import { AppError } from '@shared/error/AppError';
+import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider'
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 interface IResponse {
   user: {
-    name: string;
-    email: string;
-  };
-  token: string;
-  refresh_token: string;
+    name: string
+    email: string
+  }
+  token: string
+  refresh_token: string
 }
 
 @injectable()
@@ -38,19 +38,19 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
   ) {}
 
   async execute({ email, password }: IRequest): Promise<IResponse> {
-    const user = await this.usersRepository.findByEmail(email);
+    const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      throw new AppError('Incorret email/password combination');
+      throw new AppError('Incorret email/password combination')
     }
 
     const passwordMatch = await this.hashProvider.compareHash(
       password,
       user.password,
-    );
+    )
 
     if (!passwordMatch) {
-      throw new AppError('Incorret email/password combination');
+      throw new AppError('Incorret email/password combination')
     }
 
     const {
@@ -59,31 +59,31 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
       secret_refresh_token,
       expires_in_refresh_token,
       expires_refresh_token_days,
-    } = authConfig;
+    } = authConfig
 
     const token = sign({}, secret_token, {
       subject: user.id.toString(),
       expiresIn: expires_in_token,
-    });
+    })
 
     const refresh_token = sign({ email }, secret_refresh_token, {
       subject: user.id.toString(),
       expiresIn: expires_in_refresh_token,
-    });
+    })
 
     const refresh_token_expires_date = this.dateProvider.addDays(
       expires_refresh_token_days,
-    );
+    )
 
     const userTokens = UserTokens.createUserTokens({
       user_id: user.id.toString(),
       expires_date: refresh_token_expires_date,
       refresh_token,
-    });
+    })
 
-    await this.usersTokensRepository.create(userTokens);
+    await this.usersTokensRepository.create(userTokens)
 
-    const { name } = user;
+    const { name } = user
 
     const returnResponse: IResponse = {
       user: {
@@ -92,10 +92,10 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
       },
       token,
       refresh_token,
-    };
+    }
 
-    return returnResponse;
+    return returnResponse
   }
 }
 
-export { AuthenticateUserUseCase };
+export { AuthenticateUserUseCase }

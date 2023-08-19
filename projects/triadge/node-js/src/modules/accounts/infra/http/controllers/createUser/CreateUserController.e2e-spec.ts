@@ -1,6 +1,6 @@
-import request from 'supertest';
+import request from 'supertest'
 
-import { app } from '@shared/infra/http/start/app';
+import { app } from '@shared/infra/http/start/app'
 
 describe('[E2E] = Create User', () => {
   it('should be able to create a new user', async () => {
@@ -9,8 +9,8 @@ describe('[E2E] = Create User', () => {
       email: 'johndue@example.com',
       password: 'hash123',
       phoneNumber: '51999999999',
-    });
+    })
 
-    expect(response.status).toBe(201);
-  });
-});
+    expect(response.status).toBe(201)
+  })
+})

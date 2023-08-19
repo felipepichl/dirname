@@ -1,31 +1,31 @@
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from 'uuid'
 
 class UniqueEntityID {
-  private value: string;
+  private value: string
 
   constructor(id?: string) {
-    this.value = id || uuid();
+    this.value = id || uuid()
   }
 
   public equals(id?: UniqueEntityID): boolean {
     if (id === null || id === undefined) {
-      return false;
+      return false
     }
 
     if (!(id instanceof UniqueEntityID)) {
-      return false;
+      return false
     }
 
-    return id.toValue() === this.value;
+    return id.toValue() === this.value
   }
 
   toString(): string {
-    return String(this.value);
+    return String(this.value)
   }
 
   toValue(): string {
-    return this.value;
+    return this.value
   }
 }
 
-export { UniqueEntityID };
+export { UniqueEntityID }

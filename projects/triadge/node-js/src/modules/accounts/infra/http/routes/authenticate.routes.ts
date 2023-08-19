@@ -1,11 +1,11 @@
-import { Router } from 'express';
+import { Router } from 'express'
 
-import { AuthenticateUserController } from '../controllers/authenticateUser/AuthenticateUserController';
+import { AuthenticateUserController } from '../controllers/authenticateUser/AuthenticateUserController'
 
-const authenticateRoutes = Router();
+const authenticateRoutes = Router()
 
-const authenticateUserController = new AuthenticateUserController();
+const authenticateUserController = new AuthenticateUserController()
 
-authenticateRoutes.post('', authenticateUserController.handle);
+authenticateRoutes.post('', authenticateUserController.handle)
 
-export { authenticateRoutes };
+export { authenticateRoutes }

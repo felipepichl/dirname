@@ -1,11 +1,11 @@
-import dayjs from 'dayjs';
+import dayjs from 'dayjs'
 
-import { IDateProvider } from '../models/IDateProvider';
+import { IDateProvider } from '../models/IDateProvider'
 
 class DayjsDateProvider implements IDateProvider {
   addDays(days: number): Date {
-    return dayjs().add(days, 'days').toDate();
+    return dayjs().add(days, 'days').toDate()
   }
 }
 
-export { DayjsDateProvider };
+export { DayjsDateProvider }

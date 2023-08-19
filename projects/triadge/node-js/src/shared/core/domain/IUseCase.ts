@@ -1,5 +1,5 @@
 interface IUseCase<IRequest, IResponse> {
-  execute(request?: IRequest): Promise<IResponse>;
+  execute(request?: IRequest): Promise<IResponse>
 }
 
-export { IUseCase };
+export { IUseCase }

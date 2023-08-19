@@ -1,42 +1,42 @@
-import { AggregateRoot } from '@shared/core/domain/AggregateRoot';
-import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID';
+import { AggregateRoot } from '@shared/core/domain/AggregateRoot'
+import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 
 interface IUserTokensProps {
-  user_id: string;
-  expires_date?: Date;
-  refresh_token?: string;
+  userId: string
+  expiresDate?: Date
+  refreshToken?: string
 }
 
 class UserTokens extends AggregateRoot<IUserTokensProps> {
   constructor(props: IUserTokensProps, id?: UniqueEntityID) {
-    super(props, id);
+    super(props, id)
   }
 
-  get user_id(): string {
-    return this.props.user_id;
+  get userId(): string {
+    return this.props.userId
   }
 
-  get expires_date(): Date {
-    return this.props.expires_date;
+  get expiresDate(): Date {
+    return this.props.expiresDate
   }
 
-  get refresh_token(): string {
-    return this.props.refresh_token;
+  get refreshToken(): string {
+    return this.props.refreshToken
   }
 
   public static createUserTokens({
-    user_id,
-    expires_date,
-    refresh_token,
+    userId,
+    expiresDate,
+    refreshToken,
   }: IUserTokensProps): UserTokens {
     const userTokensProps = {
-      user_id,
-      expires_date,
-      refresh_token,
-    };
+      userId,
+      expiresDate,
+      refreshToken,
+    }
 
-    return AggregateRoot.create({ props: userTokensProps }, UserTokens);
+    return AggregateRoot.create({ props: userTokensProps }, UserTokens)
   }
 }
 
-export { UserTokens };
+export { UserTokens }

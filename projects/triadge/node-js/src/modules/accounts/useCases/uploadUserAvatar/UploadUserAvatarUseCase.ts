@@ -1,13 +1,13 @@
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository';
-import { injectable, inject } from 'tsyringe';
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { injectable, inject } from 'tsyringe'
 
-import { IStorageProvider } from '@shared/container/providers/StorageProvider/models/IStorageProvider';
-import { IUseCase } from '@shared/core/domain/IUseCase';
-import { AppError } from '@shared/error/AppError';
+import { IStorageProvider } from '@shared/container/providers/StorageProvider/models/IStorageProvider'
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  user_id: string;
-  avatar_file: string;
+  user_id: string
+  avatar_file: string
 }
 
 @injectable()
@@ -20,22 +20,22 @@ class UploadUserAvatarUseCase implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ user_id, avatar_file }: IRequest): Promise<void> {
-    const user = await this.usersRepository.findById(user_id);
+    const user = await this.usersRepository.findById(user_id)
 
     if (!user) {
-      throw new AppError('Only authenticated can change avatar', 401);
+      throw new AppError('Only authenticated can change avatar', 401)
     }
 
     if (user.avatar) {
-      await this.storageProvider.deleteFile(user.avatar, 'avatar');
+      await this.storageProvider.deleteFile(user.avatar, 'avatar')
     }
 
-    const filename = await this.storageProvider.saveFile(avatar_file, 'avatar');
+    const filename = await this.storageProvider.saveFile(avatar_file, 'avatar')
 
-    user.updateAvatar(filename);
+    user.updateAvatar(filename)
 
-    await this.usersRepository.create(user);
+    await this.usersRepository.create(user)
   }
 }
 
-export { UploadUserAvatarUseCase };
+export { UploadUserAvatarUseCase }

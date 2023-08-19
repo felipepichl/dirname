@@ -1,5 +1,5 @@
 interface IDateProvider {
-  addDays(days: number): Date;
+  addDays(days: number): Date
 }
 
-export { IDateProvider };
+export { IDateProvider }

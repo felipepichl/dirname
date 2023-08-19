@@ -1,15 +1,15 @@
-import { UserTokens } from './UserTokens';
+import { UserTokens } from './UserTokens'
 
 describe('[Account] - Create a new UserTokens', () => {
   it('should be able to create a new instance of userTokens', () => {
     const userTokens = UserTokens.createUserTokens({
-      user_id: 'user_id',
-      expires_date: new Date(),
-      refresh_token: 'refresh_token',
-    });
+      userId: 'userId',
+      expiresDate: new Date(),
+      refreshToken: 'refreshToken',
+    })
 
-    expect(userTokens instanceof UserTokens).toBe(true);
-    expect(userTokens).toBeTruthy();
-    expect(userTokens.user_id).toBe('user_id');
-  });
-});
+    expect(userTokens instanceof UserTokens).toBe(true)
+    expect(userTokens).toBeTruthy()
+    expect(userTokens.userId).toBe('userId')
+  })
+})
