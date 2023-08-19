@@ -15,14 +15,14 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return user
   }
 
-  async findById(user_id: string): Promise<User> {
-    const user = this.users.find((user) => user.id.toString() === user_id)
+  async findById(userId: string): Promise<User> {
+    const user = this.users.find((user) => user.id.toString() === userId)
 
     return user
   }
 
-  async findByIds(user_ids: string[]): Promise<User[]> {
-    return this.users.filter((user) => user_ids.includes(user.id.toString()))
+  async findByIds(userIds: string[]): Promise<User[]> {
+    return this.users.filter((user) => userIds.includes(user.id.toString()))
   }
 }
 

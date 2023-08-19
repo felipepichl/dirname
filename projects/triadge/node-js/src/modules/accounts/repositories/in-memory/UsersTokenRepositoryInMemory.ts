@@ -12,13 +12,13 @@ class UsersTokenRepositoryInMemory implements IUsersTokensRepository {
   }
 
   async findByUserIdAndRefreshToken(
-    user_id: string,
-    refresh_token: string,
+    userId: string,
+    refreshToken: string,
   ): Promise<UserTokens> {
     return this.usersTokens.find(
       (userTokens) =>
-        userTokens.user_id === user_id &&
-        userTokens.refresh_token === refresh_token,
+        userTokens.userId === userId &&
+        userTokens.refreshToken === refreshToken,
     )
   }
 
