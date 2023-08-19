@@ -24,12 +24,12 @@ async function ensureAuthenticated(
 
   const [, token] = authHeader.split(' ')
 
-  const { secret_token } = authConfig
+  const { secretToken } = authConfig
 
   try {
-    const decoded = verify(token, secret_token)
+    const decoded = verify(token, secretToken)
 
-    const { sub: user_id } = decoded as ITokenPayload
+    const { sub: userId } = decoded as ITokenPayload
 
     // const usersRepository = new UsersRepository();
     // const user = await usersRepository.findById(user_id);
@@ -39,7 +39,7 @@ async function ensureAuthenticated(
     // }
 
     request.user = {
-      id: user_id,
+      id: userId,
     }
 
     return next()
