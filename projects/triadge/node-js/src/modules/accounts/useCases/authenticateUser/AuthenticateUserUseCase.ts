@@ -21,7 +21,7 @@ interface IResponse {
     email: string
   }
   token: string
-  refresh_token: string
+  refreshToken: string
 }
 
 @injectable()
@@ -54,31 +54,31 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
     }
 
     const {
-      secret_token,
-      expires_in_token,
-      secret_refresh_token,
-      expires_in_refresh_token,
-      expires_refresh_token_days,
+      secretToken,
+      expiresInToken,
+      secretRefreshToken,
+      expiresInRefreshToken,
+      expiresRefreshTokenDays,
     } = authConfig
 
-    const token = sign({}, secret_token, {
+    const token = sign({}, secretToken, {
       subject: user.id.toString(),
-      expiresIn: expires_in_token,
+      expiresIn: expiresInToken,
     })
 
-    const refresh_token = sign({ email }, secret_refresh_token, {
+    const refreshToken = sign({ email }, secretRefreshToken, {
       subject: user.id.toString(),
-      expiresIn: expires_in_refresh_token,
+      expiresIn: expiresInRefreshToken,
     })
 
-    const refresh_token_expires_date = this.dateProvider.addDays(
-      expires_refresh_token_days,
+    const refreshTokenExpiresDate = this.dateProvider.addDays(
+      expiresRefreshTokenDays,
     )
 
     const userTokens = UserTokens.createUserTokens({
-      user_id: user.id.toString(),
-      expires_date: refresh_token_expires_date,
-      refresh_token,
+      userId: user.id.toString(),
+      expiresDate: refreshTokenExpiresDate,
+      refreshToken,
     })
 
     await this.usersTokensRepository.create(userTokens)
@@ -91,7 +91,7 @@ class AuthenticateUserUseCase implements IUseCase<IRequest, IResponse> {
         email,
       },
       token,
-      refresh_token,
+      refreshToken,
     }
 
     return returnResponse

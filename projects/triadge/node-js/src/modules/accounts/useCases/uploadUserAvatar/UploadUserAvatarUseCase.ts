@@ -6,8 +6,8 @@ import { IUseCase } from '@shared/core/domain/IUseCase'
 import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
-  user_id: string
-  avatar_file: string
+  userId: string
+  avatarFile: string
 }
 
 @injectable()
@@ -19,8 +19,8 @@ class UploadUserAvatarUseCase implements IUseCase<IRequest, void> {
     private storageProvider: IStorageProvider,
   ) {}
 
-  async execute({ user_id, avatar_file }: IRequest): Promise<void> {
-    const user = await this.usersRepository.findById(user_id)
+  async execute({ userId, avatarFile }: IRequest): Promise<void> {
+    const user = await this.usersRepository.findById(userId)
 
     if (!user) {
       throw new AppError('Only authenticated can change avatar', 401)
@@ -30,7 +30,7 @@ class UploadUserAvatarUseCase implements IUseCase<IRequest, void> {
       await this.storageProvider.deleteFile(user.avatar, 'avatar')
     }
 
-    const filename = await this.storageProvider.saveFile(avatar_file, 'avatar')
+    const filename = await this.storageProvider.saveFile(avatarFile, 'avatar')
 
     user.updateAvatar(filename)
 

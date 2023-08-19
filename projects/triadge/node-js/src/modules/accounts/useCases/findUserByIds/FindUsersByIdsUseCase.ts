@@ -4,7 +4,7 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUseCase } from '@shared/core/domain/IUseCase'
 
 interface IRequest {
-  user_ids: string[]
+  userIds: string[]
 }
 
 interface IResponse {
@@ -14,8 +14,8 @@ interface IResponse {
 class FindUsersByIdsUseCase implements IUseCase<IRequest, IResponse> {
   constructor(private usersRepository: IUsersRepository) {}
 
-  async execute({ user_ids }: IRequest): Promise<IResponse> {
-    const users = await this.usersRepository.findByIds(user_ids)
+  async execute({ userIds }: IRequest): Promise<IResponse> {
+    const users = await this.usersRepository.findByIds(userIds)
 
     return {
       users,

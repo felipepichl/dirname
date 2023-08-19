@@ -31,23 +31,23 @@ describe('[Account] - Find users by ids', () => {
     await usersRepositoryInMemory.create(user1)
     await usersRepositoryInMemory.create(user2)
 
-    const { id: user_id_1 } =
+    const { id: userId1 } =
       await usersRepositoryInMemory.findByEmail('user1@test.com')
-    const { id: user_id_2 } =
+    const { id: userId2 } =
       await usersRepositoryInMemory.findByEmail('user2@test.com')
 
     const result = await findUsersByIdsUseCase.execute({
-      user_ids: [user_id_1.toString(), user_id_2.toString()],
+      userIds: [userId1.toString(), userId2.toString()],
     })
 
     expect(result.users).toHaveLength(2)
     expect(result.users).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          id: user_id_1,
+          id: userId1,
         }),
         expect.objectContaining({
-          id: user_id_2,
+          id: userId2,
         }),
       ]),
     )

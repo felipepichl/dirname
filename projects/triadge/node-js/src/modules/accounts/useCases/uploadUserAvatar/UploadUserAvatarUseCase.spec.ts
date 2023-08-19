@@ -46,8 +46,8 @@ describe('[Account] - Upload Avatar', () => {
     const { id } = userCreated
 
     await uploadUserAvatarUseCase.execute({
-      user_id: id.toString(),
-      avatar_file: 'avatar.jpg',
+      userId: id.toString(),
+      avatarFile: 'avatar.jpg',
     })
 
     expect(userCreated.avatar).toBe('avatar.jpg')
@@ -56,8 +56,8 @@ describe('[Account] - Upload Avatar', () => {
   it('should be able to upload avatar a non-existing user', async () => {
     await expect(
       uploadUserAvatarUseCase.execute({
-        user_id: 'non-existing',
-        avatar_file: 'avatar.jpg',
+        userId: 'non-existing',
+        avatarFile: 'avatar.jpg',
       }),
     ).rejects.toBeInstanceOf(AppError)
   })
