@@ -25,7 +25,7 @@ describe('[E2E] = Create Attendance', () => {
 
   it('should be able to create a new attendance', async () => {
     const token = await authenticateUser()
-    const { sub: user_id } = jwt.verify(token, authConfig.secret_token)
+    const { sub: userId } = jwt.verify(token, authConfig.secretToken)
 
     const response = await request(app)
       .post('/attendances')
@@ -35,7 +35,7 @@ describe('[E2E] = Create Attendance', () => {
       .send({
         date: new Date(),
         isPresent: true,
-        user_id,
+        userId,
       })
 
     expect(response.status).toBe(201)
