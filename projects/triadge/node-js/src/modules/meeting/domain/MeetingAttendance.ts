@@ -6,9 +6,9 @@ import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 
 interface IMeetingAttendanceProps {
   id?: string
-  user_ids: string[]
+  userIds: string[]
   user?: User[]
-  attendance_id: string
+  attendanceId: string
   attendance?: Attendance
 }
 
@@ -21,26 +21,26 @@ class MeetingAttendance extends AggregateRoot<IMeetingAttendanceProps> {
     return this.props.user
   }
 
-  get user_ids(): string[] {
-    return this.props.user_ids
+  get userIds(): string[] {
+    return this.props.userIds
   }
 
   get attendances(): Attendance {
     return this.props.attendance
   }
 
-  get attendance_id(): string {
-    return this.props.attendance_id
+  get attendanceId(): string {
+    return this.props.attendanceId
   }
 
   static createMeetingAttendance({
     id,
-    user_ids,
-    attendance_id,
+    userIds,
+    attendanceId,
   }: IMeetingAttendanceProps): MeetingAttendance {
     const meetingAttendancesProps = {
-      user_ids,
-      attendance_id,
+      userIds,
+      attendanceId,
     }
 
     return AggregateRoot.create(
