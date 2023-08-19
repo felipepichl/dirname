@@ -6,14 +6,14 @@ import { PrismaSingleton } from '@shared/infra/prisma'
 import { MeetingAttendanceMapper } from '../mappers/MeetingAttendanceMapper'
 
 class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
-  async create({ user_ids, attendance_id }: MeetingAttendance): Promise<void> {
+  async create({ userIds, attendanceId }: MeetingAttendance): Promise<void> {
     const prismaInstance = PrismaSingleton.getInstance()
 
-    const promises = user_ids.map((userId) =>
+    const promises = userIds.map((userId) =>
       prismaInstance.userAttendance.create({
         data: {
           userId,
-          attendanceId: attendance_id,
+          attendanceId,
           present: true,
         },
       }),
@@ -22,9 +22,9 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
     await Promise.all(promises)
   }
 
-  async findAllByUserId(user_id: string): Promise<MeetingAttendance[]> {
+  async findAllByUserId(userId: string): Promise<MeetingAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
-      where: { userId: user_id },
+      where: { userId },
       include: { user: true, attendance: true },
     })
 
@@ -32,10 +32,10 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   }
 
   async findAllByAttendanceId(
-    attendance_id: string,
+    attendanceId: string,
   ): Promise<MeetingAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
-      where: { attendanceId: attendance_id },
+      where: { attendanceId },
       include: { user: true, attendance: true },
     })
 
@@ -43,14 +43,14 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   }
 
   async findByUserIdAndAttendanceId(
-    user_id: string,
-    attendance_id: string,
+    userId: string,
+    attendanceId: string,
   ): Promise<MeetingAttendance> {
     const result = await PrismaSingleton.getInstance().userAttendance.findFirst(
       {
         where: {
-          userId: user_id,
-          attendanceId: attendance_id,
+          userId,
+          attendanceId,
         },
         include: {
           user: true,
@@ -63,18 +63,18 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   }
 
   async findByUserIdsAndAttendanceId(
-    user_ids: string[],
-    attendance_id: string,
+    userIds: string[],
+    attendanceId: string,
   ): Promise<MeetingAttendance[]> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
       where: {
         AND: [
           {
-            attendanceId: attendance_id,
+            attendanceId,
           },
           {
             userId: {
-              in: user_ids,
+              in: userIds,
             },
           },
         ],
@@ -89,12 +89,12 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   }
 
   async findByUserIdAndDate(
-    user_id: string,
+    userId: string,
     date: Date,
   ): Promise<MeetingAttendance> {
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
       where: {
-        userId: user_id,
+        userId,
       },
       include: { attendance: true },
     })

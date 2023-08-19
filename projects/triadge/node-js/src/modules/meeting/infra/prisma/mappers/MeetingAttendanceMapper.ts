@@ -12,8 +12,8 @@ class MeetingAttendanceMapper
 
   toDomain({ userId, attendanceId }: RawMeetingAttendance): MeetingAttendance {
     return MeetingAttendance.createMeetingAttendance({
-      user_ids: [userId],
-      attendance_id: attendanceId,
+      userIds: [userId],
+      attendanceId,
     })
   }
 
