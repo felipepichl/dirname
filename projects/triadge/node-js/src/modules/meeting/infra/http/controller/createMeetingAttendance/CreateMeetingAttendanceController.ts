@@ -4,13 +4,13 @@ import { container } from 'tsyringe'
 
 class CreateMeetingAttendanceController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { user_ids, attendance_id } = request.body
+    const { userIds, attendanceId } = request.body
 
     const createMeetingAttendance = container.resolve(CreateMeetingAttendance)
 
     await createMeetingAttendance.execute({
-      user_ids,
-      attendance_id,
+      userIds,
+      attendanceId,
     })
 
     return response.status(201).json({ message: 'Meeting created' })
