@@ -1,20 +1,28 @@
+import { Router } from 'express'
+
 import { authenticateRoutes } from '@modules/accounts/infra/http/routes/authenticate.routes'
 import { usersRouter } from '@modules/accounts/infra/http/routes/users.routes'
 import { attendancesRouter } from '@modules/attendance/infra/http/routes/attendances.routes'
 import { meetingRoutes } from '@modules/meeting/infra/http/routes/meetings.routes'
-import { Router } from 'express'
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 
-const router = Router()
+// import {} from '@tests/'
 
-router.use('/users', usersRouter)
+const routes = Router()
 
-router.use('/sessions', authenticateRoutes)
+routes.use('/users', usersRouter)
 
-router.use(ensureAuthenticated)
-router.use('/attendances', attendancesRouter)
+routes.use('/sessions', authenticateRoutes)
 
-router.use('/meeting', meetingRoutes)
+routes.use(ensureAuthenticated)
+routes.use('/attendances', attendancesRouter)
 
-export { router }
+routes.use('/meeting', meetingRoutes)
+
+// if (process.env.NODE_ENV === 'test') {
+//   const testRoutes = require('../../../test-utils/routes/testRoutes');
+//   routes.use('/test', testRoutes);
+// }
+
+export { routes }

@@ -8,3 +8,5 @@ testRoutes.post('/setupUser', async (request: Request, response: Response) => {
 
   return response.json(user)
 })
+
+export { testRoutes }

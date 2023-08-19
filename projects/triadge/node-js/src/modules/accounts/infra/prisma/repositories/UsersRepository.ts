@@ -57,6 +57,12 @@ class UsersRepository implements IUsersRepository {
 
     return UserMappers.getMapper().toDomainArray(result)
   }
+
+  async listAll(): Promise<User[]> {
+    const result = await PrismaSingleton.getInstance().user.findMany()
+
+    return UserMappers.getMapper().toDomainArray(result)
+  }
 }
 
 export { UsersRepository }

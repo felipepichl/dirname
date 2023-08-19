@@ -8,7 +8,7 @@ import 'express-async-errors'
 import '@shared/container'
 
 import sweggerFile from '../../../../../swegger.json'
-import { router } from '../routes'
+import { routes } from '../routes'
 
 const app = express()
 
@@ -16,7 +16,7 @@ app.use(express.json())
 
 app.use('/api-docs', sweggerUi.serve, sweggerUi.setup(sweggerFile))
 
-app.use(router)
+app.use(routes)
 
 app.use(
   (err: Error, request: Request, response: Response, _next: NextFunction) => {

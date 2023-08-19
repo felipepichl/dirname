@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { pathsToModuleNameMapper } from 'ts-jest';
+import { pathsToModuleNameMapper } from 'ts-jest'
 
-import { compilerOptions } from './tsconfig.json';
+import { compilerOptions } from './tsconfig.json'
 
 export default {
   // All imported modules in your tests should be mocked automatically
@@ -160,10 +160,7 @@ export default {
   // testMatch: ['**/*.spec.ts'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
-  testPathIgnorePatterns: [
-    "/node_modules/",
-    "/__tests__/config/"
-  ],
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/config/'],
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
@@ -194,4 +191,4 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}

@@ -24,6 +24,10 @@ class UsersRepositoryInMemory implements IUsersRepository {
   async findByIds(userIds: string[]): Promise<User[]> {
     return this.users.filter((user) => userIds.includes(user.id.toString()))
   }
+
+  async listAll(): Promise<User[]> {
+    return this.users
+  }
 }
 
 export { UsersRepositoryInMemory }

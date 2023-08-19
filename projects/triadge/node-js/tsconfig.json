@@ -25,6 +25,9 @@
       ],
       "@utils/*": [
         "utils/*"
+      ],
+      "@tests/*": [
+        "test-utils/*"
       ]
     },
     "typeRoots": [
