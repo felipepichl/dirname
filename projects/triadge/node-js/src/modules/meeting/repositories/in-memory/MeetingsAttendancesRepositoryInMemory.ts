@@ -11,49 +11,48 @@ class MeetingsAttendancesRepositoryInMemory
     this.meetingsAttendances.push(meetingAttendance)
   }
 
-  async findAllByUserId(user_id: string): Promise<MeetingAttendance[]> {
+  async findAllByUserId(userId: string): Promise<MeetingAttendance[]> {
     return this.meetingsAttendances.filter((object) =>
-      object.user_ids.includes(user_id),
+      object.userIds.includes(userId),
     )
   }
 
   async findAllByAttendanceId(
-    attendance_id: string,
+    attendanceId: string,
   ): Promise<MeetingAttendance[]> {
     return this.meetingsAttendances.filter(
-      (object) => object.attendance_id === attendance_id,
+      (object) => object.attendanceId === attendanceId,
     )
   }
 
   async findByUserIdAndAttendanceId(
-    user_id: string,
-    attendance_id: string,
+    userId: string,
+    attendanceId: string,
   ): Promise<MeetingAttendance> {
     return this.meetingsAttendances.find(
       (object) =>
-        object.user_ids.includes(user_id) &&
-        object.attendance_id === attendance_id,
+        object.userIds.includes(userId) && object.attendanceId === attendanceId,
     )
   }
 
   async findByUserIdsAndAttendanceId(
-    user_ids: string[],
-    attendance_id: string,
+    userIds: string[],
+    attendanceId: string,
   ): Promise<MeetingAttendance[]> {
     return this.meetingsAttendances.filter(
       (object) =>
-        object.user_ids.some((uid) => user_ids.includes(uid)) &&
-        object.attendance_id === attendance_id,
+        object.userIds.some((uid) => userIds.includes(uid)) &&
+        object.attendanceId === attendanceId,
     )
   }
 
   async findByUserIdAndDate(
-    user_id: string,
+    userId: string,
     date: Date,
   ): Promise<MeetingAttendance> {
     return this.meetingsAttendances.find(
       (object) =>
-        object.user_ids.includes(user_id) && object.attendances.date === date,
+        object.userIds.includes(userId) && object.attendances.date === date,
     )
   }
 
