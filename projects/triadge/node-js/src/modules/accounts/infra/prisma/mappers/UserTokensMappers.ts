@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { UserTokens } from '@modules/accounts/domain/UserTokens'
 import { UserTokens as RawUserTokens } from '@prisma/client'
 
@@ -8,11 +9,15 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
     return object
   }
 
-  toDomain({ fkUserId, expiresDate, refreshToken }: RawUserTokens): UserTokens {
+  toDomain({
+    fk_user_id,
+    expires_date,
+    refresh_token,
+  }: RawUserTokens): UserTokens {
     return UserTokens.createUserTokens({
-      userId: fkUserId,
-      expiresDate,
-      refreshToken,
+      userId: fk_user_id,
+      expiresDate: expires_date,
+      refreshToken: refresh_token,
     })
   }
 
