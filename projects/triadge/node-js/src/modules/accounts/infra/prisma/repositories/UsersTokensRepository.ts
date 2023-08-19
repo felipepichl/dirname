@@ -7,15 +7,15 @@ import { UserTokensMappers } from '../mappers/UserTokensMappers'
 
 class UsersTokensRepository implements IUsersTokensRepository {
   async create({
-    user_id,
-    expires_date,
-    refresh_token,
+    userId,
+    expiresDate,
+    refreshToken,
   }: UserTokens): Promise<UserTokens> {
     const result = await PrismaSingleton.getInstance().userTokens.create({
       data: {
-        fk_user_id: user_id,
-        expires_date,
-        refresh_token,
+        fk_user_id: userId,
+        expiresDate,
+        refreshToken,
       },
     })
 
@@ -23,11 +23,11 @@ class UsersTokensRepository implements IUsersTokensRepository {
   }
 
   async findByUserIdAndRefreshToken(
-    user_id: string,
-    refresh_token: string,
+    userId: string,
+    refreshToken: string,
   ): Promise<UserTokens> {
     const result = await PrismaSingleton.getInstance().userTokens.findFirst({
-      where: { fk_user_id: user_id, refresh_token },
+      where: { fk_user_id: userId, refreshToken },
     })
 
     return UserTokensMappers.getMapper().toDomain(result)

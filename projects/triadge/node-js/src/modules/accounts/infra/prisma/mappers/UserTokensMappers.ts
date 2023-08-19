@@ -8,15 +8,11 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
     return object
   }
 
-  toDomain({
-    fk_user_id,
-    expires_date,
-    refresh_token,
-  }: RawUserTokens): UserTokens {
+  toDomain({ fkUserId, expiresDate, refreshToken }: RawUserTokens): UserTokens {
     return UserTokens.createUserTokens({
-      user_id: fk_user_id,
-      expires_date,
-      refresh_token,
+      userId: fkUserId,
+      expiresDate,
+      refreshToken,
     })
   }
 

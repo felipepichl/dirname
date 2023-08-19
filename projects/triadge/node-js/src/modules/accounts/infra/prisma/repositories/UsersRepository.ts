@@ -34,9 +34,9 @@ class UsersRepository implements IUsersRepository {
     return UserMappers.getMapper().toDomain(result)
   }
 
-  async findById(user_id: string): Promise<User> {
+  async findById(userId: string): Promise<User> {
     const result = await PrismaSingleton.getInstance().user.findFirst({
-      where: { id: user_id },
+      where: { id: userId },
     })
 
     if (!result) {
@@ -46,11 +46,11 @@ class UsersRepository implements IUsersRepository {
     return UserMappers.getMapper().toDomain(result)
   }
 
-  async findByIds(user_ids: string[]): Promise<User[]> {
+  async findByIds(userIds: string[]): Promise<User[]> {
     const result = await PrismaSingleton.getInstance().user.findMany({
       where: {
         id: {
-          in: user_ids,
+          in: userIds,
         },
       },
     })
