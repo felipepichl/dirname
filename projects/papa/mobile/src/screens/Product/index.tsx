@@ -7,6 +7,7 @@ import animationData from '@assets/hamburger.json'
 
 import { ButtonBack } from '@components/ButtonBack'
 import { Photo } from '@components/Photo'
+import { InputPrice } from '@components/InputPrice'
 
 import { 
   Container,
@@ -71,6 +72,10 @@ export function Product() {
           onPress={handlePickerImage}
         />
       </Upload>
+
+      <InputPrice size='P' />
+      <InputPrice size='M' />
+      <InputPrice size='G' />
     </Container>
   )
 }
