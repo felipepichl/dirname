@@ -6,6 +6,7 @@ import Lottie from 'lottie-react-native'
 import animationData from '@assets/hamburger.json'
 
 import { ButtonBack } from '@components/ButtonBack'
+import { Photo } from '@components/Photo'
 
 import { 
   Container,
@@ -47,15 +48,22 @@ export function Product() {
       </Header>
 
       <Upload>
-        <Lottie
-          source={animationData}
-          loop
-          autoPlay
-          style={{
-            height: 160,
-            width: 160
-          }}
-        />
+
+        {
+          image === '' ? (
+            <Lottie
+              source={animationData}
+              loop
+              autoPlay
+              style={{
+                height: 160,
+                width: 160
+              }}
+            />
+          ) : (
+            <Photo uri={image}/>
+          )
+        }
 
         <PickImageButton
           title='Carregar'
