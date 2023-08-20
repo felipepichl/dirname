@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import { User } from '@modules/accounts/domain/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 
@@ -11,8 +13,12 @@ interface IResponse {
   users: User[]
 }
 
+@injectable()
 class FindUsersByIdsUseCase implements IUseCase<IRequest, IResponse> {
-  constructor(private usersRepository: IUsersRepository) {}
+  constructor(
+    @inject('UsersRepository')
+    private usersRepository: IUsersRepository,
+  ) {}
 
   async execute({ userIds }: IRequest): Promise<IResponse> {
     const users = await this.usersRepository.findByIds(userIds)
