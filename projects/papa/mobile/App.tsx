@@ -3,10 +3,12 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans';
 import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider } from 'styled-components/native';
 
 import { AuthProvider } from '@hooks/auth';
+
 import { SignIn } from '@screens/SignIn';
-import { ThemeProvider } from 'styled-components/native';
+import { Product } from '@screens/Product';
 
 import theme from './src/theme'
 
@@ -27,9 +29,9 @@ export default function App() {
           style='light'
           translucent
           backgroundColor='transparent'
-          />
+        />
         <AuthProvider>
-          <SignIn />
+          <Product />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
