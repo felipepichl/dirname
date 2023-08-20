@@ -7,7 +7,7 @@ class ListAllController {
   async handle(request: Request, response: Response): Promise<Response> {
     const listAllUseCase = container.resolve(ListAllUseCase)
 
-    const result = listAllUseCase.execute()
+    const result = await listAllUseCase.execute()
 
     return response.status(200).json(result)
   }
