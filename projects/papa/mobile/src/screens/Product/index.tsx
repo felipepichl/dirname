@@ -15,7 +15,12 @@ import {
   Title,
   DeleteLable, 
   Upload,
-  PickImageButton
+  PickImageButton,
+  Form,
+  Label,
+  InputGroup,
+  InputGroupHeader,
+  MaxCaracters,
 } from './styles'
 
 export function Product() {
