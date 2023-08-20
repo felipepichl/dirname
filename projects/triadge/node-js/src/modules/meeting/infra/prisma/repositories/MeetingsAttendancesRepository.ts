@@ -59,6 +59,10 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
       },
     )
 
+    if (!result) {
+      return null
+    }
+
     return MeetingAttendanceMapper.getMapper().toDomain(result)
   }
 

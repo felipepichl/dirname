@@ -58,6 +58,7 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
           userId,
           attendanceId,
         )
+
       if (existingMeetingAttendance) {
         throw new AppError(
           `MeetingAttendance for user ID ${userId} and attendance ID ${attendanceId} already exists`,
