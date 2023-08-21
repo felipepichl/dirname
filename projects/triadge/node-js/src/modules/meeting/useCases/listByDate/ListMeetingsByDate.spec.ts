@@ -5,13 +5,13 @@ import { AttendanceRepositoryInMemory } from '@modules/attendance/repositories/i
 import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance'
 import { MeetingsAttendancesRepositoryInMemory } from '@modules/meeting/repositories/in-memory/MeetingsAttendancesRepositoryInMemory'
 
-import { ListByDate } from './ListByDate'
+import { ListMeetingsByDate } from './ListMeetingsByDate'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 let attendanceRepositoryInMemory: AttendanceRepositoryInMemory
 let meetingsAttendancesRepositoryInMemory: MeetingsAttendancesRepositoryInMemory
 
-let listByDate: ListByDate
+let listMeetingsByDate: ListMeetingsByDate
 
 describe('[Meeting] - List Meeting Attendance by Date', () => {
   beforeEach(() => {
@@ -20,7 +20,9 @@ describe('[Meeting] - List Meeting Attendance by Date', () => {
     meetingsAttendancesRepositoryInMemory =
       new MeetingsAttendancesRepositoryInMemory()
 
-    listByDate = new ListByDate(meetingsAttendancesRepositoryInMemory)
+    listMeetingsByDate = new ListMeetingsByDate(
+      meetingsAttendancesRepositoryInMemory,
+    )
   })
 
   it('should be able to list all meeting by date', async () => {
@@ -74,15 +76,15 @@ describe('[Meeting] - List Meeting Attendance by Date', () => {
 
     await meetingsAttendancesRepositoryInMemory.create(meetingsAttendances)
 
-    const meetingsForGivenDate = await listByDate.execute({
+    const meetingsForGivenDate = await listMeetingsByDate.execute({
       date: attendanceDate,
     })
 
-    expect(meetingsForGivenDate.mettingsAttendances).toHaveLength(1)
-    expect(meetingsForGivenDate.mettingsAttendances[0].userIds).toEqual(
+    expect(meetingsForGivenDate.meetingsAttendances).toHaveLength(1)
+    expect(meetingsForGivenDate.meetingsAttendances[0].userIds).toEqual(
       expect.arrayContaining([userId1.toString(), userId2.toString()]),
     )
-    expect(meetingsForGivenDate.mettingsAttendances[0].userIds).not.toContain(
+    expect(meetingsForGivenDate.meetingsAttendances[0].userIds).not.toContain(
       user3.id,
     )
   })

@@ -8,17 +8,17 @@ interface IRequest {
 }
 
 interface IResponse {
-  mettingsAttendances: MeetingAttendance[]
+  meetingsAttendances: MeetingAttendance[]
 }
 
-class ListByDate implements IUseCase<IRequest, IResponse> {
+class ListMeetingsByDate implements IUseCase<IRequest, IResponse> {
   constructor(private meetingsAttendances: IMeetingsAttendancesRepository) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
-    const mettingsAttendances = await this.meetingsAttendances.listByDate(date)
+    const meetingsAttendances = await this.meetingsAttendances.listByDate(date)
 
-    return { mettingsAttendances }
+    return { meetingsAttendances }
   }
 }
 
-export { ListByDate }
+export { ListMeetingsByDate }
