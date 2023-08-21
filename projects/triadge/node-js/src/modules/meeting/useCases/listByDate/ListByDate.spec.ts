@@ -69,6 +69,7 @@ describe('[Meeting] - List Meeting Attendance by Date', () => {
     const meetingsAttendances = MeetingAttendance.createMeetingAttendance({
       userIds,
       attendanceId: attendanceId.toString(),
+      attendance,
     })
 
     await meetingsAttendancesRepositoryInMemory.create(meetingsAttendances)
@@ -79,7 +80,7 @@ describe('[Meeting] - List Meeting Attendance by Date', () => {
 
     expect(meetingsForGivenDate.mettingsAttendances).toHaveLength(1)
     expect(meetingsForGivenDate.mettingsAttendances[0].userIds).toEqual(
-      expect.arrayContaining([userId1, userId2]),
+      expect.arrayContaining([userId1.toString(), userId2.toString()]),
     )
     expect(meetingsForGivenDate.mettingsAttendances[0].userIds).not.toContain(
       user3.id,

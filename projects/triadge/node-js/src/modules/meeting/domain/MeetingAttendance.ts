@@ -37,10 +37,12 @@ class MeetingAttendance extends AggregateRoot<IMeetingAttendanceProps> {
     id,
     userIds,
     attendanceId,
+    attendance,
   }: IMeetingAttendanceProps): MeetingAttendance {
     const meetingAttendancesProps = {
       userIds,
       attendanceId,
+      attendance,
     }
 
     return AggregateRoot.create(
