@@ -5,6 +5,7 @@ export const Container = styled.View`
   width: 100%;
   height: 56px;
   border: 1px solid ${({ theme }) => theme.COLORS.SHAPE};
+  background-color: ${({ theme }) => theme.COLORS.SECONDARY_900};
   border-radius: 12px;
   margin-bottom: 8px;
   flex-direction: row;
@@ -25,7 +26,7 @@ export const Label = styled.Text`
   font-size: 14px;
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
-    color: ${theme.COLORS.SECONDARY_900};
+    color: ${theme.COLORS.PRIMARY_50};
   `}
 `;
 
@@ -33,3 +34,5 @@ export const Input = styled(TextInput)`
   flex: 1;
   margin-left: 7px;
 `;
+
+

@@ -78,9 +78,12 @@ export function Product() {
         />
       </Upload>
 
-      <InputPrice size='P' />
-      <InputPrice size='M' />
-      <InputPrice size='G' />
+      <Form>
+
+        <InputPrice size='P' />
+        <InputPrice size='M' />
+        <InputPrice size='G' />
+      </Form>
     </Container>
   )
 }
