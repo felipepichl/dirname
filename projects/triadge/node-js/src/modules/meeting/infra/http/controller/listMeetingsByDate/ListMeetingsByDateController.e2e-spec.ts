@@ -33,6 +33,13 @@ describe('[E2E] = List Meeting by date', () => {
       password: 'hash123',
       phoneNumber: '51999999999',
     })
+
+    await request(app).post('/users').send({
+      name: 'User 3',
+      email: 'user3@example.com',
+      password: 'hash123',
+      phoneNumber: '51999999999',
+    })
   })
 
   it('should be able to create a new metting', async () => {
@@ -46,6 +53,7 @@ describe('[E2E] = List Meeting by date', () => {
 
     const { _id: userId1 } = userResponse.body.users[1]
     const { _id: userId2 } = userResponse.body.users[2]
+    const { _id: userId3 } = userResponse.body.users[3]
 
     await request(app)
       .post('/attendances')
@@ -84,6 +92,14 @@ describe('[E2E] = List Meeting by date', () => {
         date: new Date(2023, 3, 16),
       })
 
-    console.log(meetingResponse.body)
+    const meetings = meetingResponse.body.meetingsAttendances
+
+    expect(meetings).toHaveLength(1)
+
+    const meeting = meetings[0]
+
+    expect(meeting.userIds).toEqual(expect.arrayContaining([userId1, userId2]))
+    expect(meeting.attendanceId).toBe(attendanceId)
+    expect(meetings).not.toEqual(expect.arrayContaining([userId3]))
   })
 })
