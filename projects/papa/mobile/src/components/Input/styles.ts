@@ -14,7 +14,14 @@ export const Container = styled(TextInput).attrs<Props>(({ theme, type }) => ({
 }))<Props>`
   width: 100%;
   height: 56px;
-  background-color: transparent;
+  
+  ${({ theme, type }) => css`
+    background-color: ${
+        type === 'primary' 
+          ? 'transparent'
+          : theme.COLORS.SECONDARY_900 
+        };
+  `};
   border-radius: 12px;
   font-size: 14px;
   padding: 7px 0;

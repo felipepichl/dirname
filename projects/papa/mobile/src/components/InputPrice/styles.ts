@@ -31,10 +31,11 @@ export const Label = styled.Text`
 `;
 
 export const Input = styled(TextInput).attrs(({ theme }) => ({
-  placeholderTextColor: theme.COLORS.SECONDARY_900  
+  placeholderTextColor: theme.COLORS.SECONDARY_900 
 }))`
   flex: 1;
   margin-left: 7px;
+  color: ${({ theme }) => theme.COLORS.PRIMARY_50};
 `;
 
 

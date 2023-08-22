@@ -31,7 +31,7 @@ export default function App() {
           backgroundColor='transparent'
         />
         <AuthProvider>
-          <SignIn />
+          <Product />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>

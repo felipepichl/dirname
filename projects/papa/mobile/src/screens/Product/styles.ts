@@ -45,7 +45,7 @@ export const Upload = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin: 32px 0;
+  margin: 28px 0;
 `;
 
 export const PickImageButton = styled(Button)`
@@ -65,6 +65,7 @@ export const Label = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
+    font-weight: bold;
   `}
 `;
 
@@ -87,5 +88,6 @@ export const MaxCaracters = styled.Text`
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.SECONDARY_900};
+    font-weight: bold;
   `}
 `;

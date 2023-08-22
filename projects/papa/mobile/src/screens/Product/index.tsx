@@ -86,19 +86,22 @@ export function Product() {
         <Form>
           <InputGroup>
             <Label>Nome</Label>
-            <Input />
+            <Input 
+              type='secondary'
+            />
           </InputGroup>
           
           <InputGroup>
             <InputGroupHeader>
               <Label>Descrição</Label>
-              <MaxCaracters>0 de 60 caracteres</MaxCaracters>
+              <MaxCaracters>0 de 90 caracteres</MaxCaracters>
             
             </InputGroupHeader>
             <Input 
               multiline
-              maxLength={60}
+              maxLength={90}
               style={{ height: 80 }}
+              type='secondary'
             />
           </InputGroup>
 
@@ -112,6 +115,7 @@ export function Product() {
 
           <Button
             title='Cadastrar'
+            type='secondary'
           />
 
         </Form>
