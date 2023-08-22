@@ -9,7 +9,7 @@ class ListMeetingsByDateController {
 
     const listMeetingsByDate = container.resolve(ListMeetingsByDate)
 
-    const result = listMeetingsByDate.execute(date)
+    const result = await listMeetingsByDate.execute(date)
 
     return response.status(200).json(result)
   }
