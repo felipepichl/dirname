@@ -65,13 +65,24 @@ describe('[E2E] = List Meeting by date', () => {
         isPresent: true,
       })
 
+    await request(app)
+      .post('/attendances')
+      .set({
+        Authorization: `Bearer ${token}`,
+      })
+      .send({
+        date: new Date(),
+        isPresent: true,
+      })
+
     const attendanceResponse = await request(app)
       .get('/attendances')
       .set({
         Authorization: `Bearer ${token}`,
       })
 
-    const { _id: attendanceId } = attendanceResponse.body[0]
+    const { _id: attendanceId1 } = attendanceResponse.body[0]
+    const { _id: attendanceId2 } = attendanceResponse.body[1]
 
     await request(app)
       .post('/meeting')
@@ -80,8 +91,22 @@ describe('[E2E] = List Meeting by date', () => {
       })
       .send({
         userIds: [userId1, userId2],
-        attendanceId,
+        attendanceId: attendanceId1,
       })
+
+    await request(app)
+      .post('/meeting')
+      .set({
+        Authorization: `Bearer ${token}`,
+      })
+      .send({
+        userIds: [userId3],
+        attendanceId: attendanceId2,
+      })
+
+    /*
+      GET Method
+    */
 
     const meetingResponse = await request(app)
       .get('/meeting')
@@ -99,7 +124,7 @@ describe('[E2E] = List Meeting by date', () => {
     const meeting = meetings[0]
 
     expect(meeting.userIds).toEqual(expect.arrayContaining([userId1, userId2]))
-    expect(meeting.attendanceId).toBe(attendanceId)
+    expect(meeting.attendanceId).toBe(attendanceId1)
     expect(meetings).not.toEqual(expect.arrayContaining([userId3]))
   })
 })
