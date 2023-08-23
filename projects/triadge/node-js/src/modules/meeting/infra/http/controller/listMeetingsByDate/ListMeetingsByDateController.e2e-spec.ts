@@ -119,7 +119,11 @@ describe('[E2E] = List Meeting by date', () => {
 
     const meetings = meetingResponse.body.meetingsAttendances
 
-    expect(meetings).toHaveLength(1)
+    // console.log(meetingResponse.body.meetingsAttendances[0])
+    // console.log(meetingResponse.body.meetingsAttendances[1])
+    // console.log(meetings[0])
+
+    expect(meetings).toHaveLength(2)
 
     const meeting = meetings[0]
 

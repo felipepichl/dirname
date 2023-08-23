@@ -111,7 +111,6 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
   }
 
   async listByDate(date: Date): Promise<MeetingAttendance[]> {
-    console.log('=> DATE', date)
     const result = await PrismaSingleton.getInstance().userAttendance.findMany({
       include: {
         user: true,
@@ -122,13 +121,9 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
       },
     })
 
-    console.log(result)
+    console.log('=> Repository', result)
 
-    const filteredResults = result.filter(
-      (userAttendance) => userAttendance.attendance.date === date,
-    )
-
-    return MeetingAttendanceMapper.getMapper().toDomainArray(filteredResults)
+    return MeetingAttendanceMapper.getMapper().toDomainArray(result)
   }
 
   async listInDateRange(

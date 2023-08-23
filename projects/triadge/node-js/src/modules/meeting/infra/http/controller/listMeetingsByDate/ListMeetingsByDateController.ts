@@ -13,6 +13,8 @@ class ListMeetingsByDateController {
       date,
     })
 
+    console.log(result)
+
     return response.status(200).json(result)
   }
 }
