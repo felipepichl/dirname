@@ -21,6 +21,8 @@ class ListMeetingsByDate implements IUseCase<IRequest, IResponse> {
   ) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
+    console.log('Date UseCase => ', date)
+
     const meetingsAttendances = await this.meetingsAttendances.listByDate(date)
 
     return { meetingsAttendances }
