@@ -19,8 +19,9 @@ module.exports = function(api) {
             '@assets': './src/assets',
             '@hooks': './src/hooks',
           }
-        }
-      ]
+        },
+      ],
+      'react-native-reanimated/plugin'
     ]
   };
 };

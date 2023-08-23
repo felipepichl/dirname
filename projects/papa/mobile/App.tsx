@@ -1,3 +1,6 @@
+import 'react-native-reanimated'
+import 'react-native-gesture-handler'
+
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans';
