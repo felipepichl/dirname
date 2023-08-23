@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import { IUseCase } from '@shared/core/domain/IUseCase'
 import { MeetingAttendance } from '@modules/meeting/domain/MeetingAttendance'
 
@@ -11,8 +13,12 @@ interface IResponse {
   meetingsAttendances: MeetingAttendance[]
 }
 
+@injectable()
 class ListMeetingsByDate implements IUseCase<IRequest, IResponse> {
-  constructor(private meetingsAttendances: IMeetingsAttendancesRepository) {}
+  constructor(
+    @inject('MeetingsAttendancesRepository')
+    private meetingsAttendances: IMeetingsAttendancesRepository,
+  ) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
     const meetingsAttendances = await this.meetingsAttendances.listByDate(date)

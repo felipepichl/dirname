@@ -116,11 +116,18 @@ class MeetingsAttendancesRepository implements IMeetingsAttendancesRepository {
         user: true,
         attendance: true,
       },
+      where: {
+        attendance: { date },
+      },
     })
+
+    console.log(result)
 
     const filteredResults = result.filter(
       (userAttendance) => userAttendance.attendance.date === date,
     )
+
+    console.log('filter', filteredResults)
 
     return MeetingAttendanceMapper.getMapper().toDomainArray(filteredResults)
   }
