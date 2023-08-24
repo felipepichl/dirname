@@ -10,34 +10,9 @@ export const Container = styled.KeyboardAvoidingView`
   background-color: ${({ theme }) => theme.COLORS.SECONDARY_400};
 `;
 
-export const Header = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT
-}))`
-  width: 100%;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: ${getStatusBarHeight() + 33}px 20px 24px;
-`;
-
-export const Title = styled.Text`
-  font-size: 24px;
-
-  ${({ theme }) => css`
-    font-family: ${theme.FONTS.TITLE};
-    color: ${theme.COLORS.TITLE};
-  `}
-`;
-
-export const DeleteLable = styled.Text`
-  font-size: 14px;
-
-  ${({ theme }) => css`
-    font-family: ${theme.FONTS.TEXT};
-    color: ${theme.COLORS.TITLE};
-  `}
-`;
+export const Content = styled.ScrollView`
+  flex: 1;
+`
 
 export const Upload = styled.View`
   width: 100%;
@@ -55,7 +30,7 @@ export const PickImageButton = styled(Button)`
 export const Form = styled.View`
   width: 100%;
   padding: 24px;
-  /* background-color: red; */
+  align-self: center;
 `;
 
 export const Label = styled.Text`

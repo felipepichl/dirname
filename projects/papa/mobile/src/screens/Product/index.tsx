@@ -15,6 +15,7 @@ import { Button } from '@components/Button'
 
 import { 
   Container,
+  Content,
   Form,
   Label,
   InputGroup,
@@ -48,8 +49,15 @@ export function Product() {
 
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
-      <ScrollView
+      <Header 
+        title='Cadastar'
+      />
+      <Content
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
       >
         {/* <Upload>
           {
@@ -74,11 +82,6 @@ export function Product() {
             onPress={handlePickerImage}
           />
         </Upload> */}
-
-        <Header 
-          title='Cadastar'
-        />
-
         <Form>
           <MotiView
             from={{ translateY: 100, opacity: 0 }}
@@ -171,7 +174,7 @@ export function Product() {
             />
           </MotiView>
         </Form>
-      </ScrollView>
+      </Content>
     </Container>
   )
 }
