@@ -8,19 +8,13 @@ import { Easing } from 'react-native-reanimated'
 // import Lottie from 'lottie-react-native'
 // import animationData from '@assets/hamburger.json'
 
-import { ButtonBack } from '@components/ButtonBack'
-import { Photo } from '@components/Photo'
+import { Header } from '@components/Header'
 import { InputPrice } from '@components/InputPrice'
 import { Input } from '@components/Input'
 import { Button } from '@components/Button'
 
 import { 
   Container,
-  Header,
-  Title,
-  DeleteLable, 
-  Upload,
-  PickImageButton,
   Form,
   Label,
   InputGroup,
@@ -57,22 +51,6 @@ export function Product() {
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
-        <MotiView
-          from={{ translateY: -100, opacity: 0 }}  // 'Header' começa acima
-          animate={{ translateY: 0, opacity: 1 }}
-          transition={{ type: 'timing', duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
-        >
-          <Header>
-            <ButtonBack />
-
-            <Title>Cadastrar</Title>
-              
-              <TouchableOpacity>
-                <DeleteLable>Deletar</DeleteLable>
-              </TouchableOpacity>
-          </Header>
-        </MotiView>
-
         {/* <Upload>
           {
             image === '' ? (
@@ -96,6 +74,10 @@ export function Product() {
             onPress={handlePickerImage}
           />
         </Upload> */}
+
+        <Header 
+          title='Cadastar'
+        />
 
         <Form>
           <MotiView

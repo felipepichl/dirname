@@ -1,12 +1,11 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import { MotiView } from 'moti'
 import { Easing } from 'react-native-reanimated'
+import { MotiView } from 'moti'
 
 import { ButtonBack } from '@components/ButtonBack'
 
 import { Container, Title, DeleteLable } from './styles'
-
 
 type Props = {
   title: string
