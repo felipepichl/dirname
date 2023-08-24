@@ -8,7 +8,6 @@ import { Button } from '@components/Button';
 export const Container = styled.KeyboardAvoidingView`
   flex: 1;
   background-color: ${({ theme }) => theme.COLORS.SECONDARY_400};
-
 `;
 
 export const Header = styled(LinearGradient).attrs(({ theme }) => ({
@@ -56,6 +55,7 @@ export const PickImageButton = styled(Button)`
 export const Form = styled.View`
   width: 100%;
   padding: 24px;
+  /* background-color: red; */
 `;
 
 export const Label = styled.Text`
