@@ -30,7 +30,7 @@ export const PickImageButton = styled(Button)`
 export const Form = styled.View`
   width: 100%;
   padding: 24px;
-  align-self: center;
+  flex: 1;
 `;
 
 export const Label = styled.Text`

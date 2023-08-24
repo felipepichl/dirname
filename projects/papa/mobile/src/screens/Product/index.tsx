@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Platform, TouchableOpacity, ScrollView } from 'react-native'
+import { Platform, Dimensions } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { MotiView } from 'moti'
 
@@ -56,7 +56,8 @@ export function Product() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          minHeight: Dimensions.get('window').height
         }}
       >
         {/* <Upload>
@@ -120,10 +121,8 @@ export function Product() {
               />
             </InputGroup>
           </MotiView>
-
            
           <InputGroup>
-            
             <MotiView 
               from={{ translateY: 100, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
@@ -171,7 +170,7 @@ export function Product() {
               title='Cadastrar'
               type='secondary'
               isLoading={isLoading}
-            />
+            /> 
           </MotiView>
         </Form>
       </Content>
