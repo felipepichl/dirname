@@ -3,6 +3,8 @@ import { Platform, TouchableOpacity, ScrollView } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { MotiView } from 'moti'
 
+import { Easing } from 'react-native-reanimated'
+
 // import Lottie from 'lottie-react-native'
 // import animationData from '@assets/hamburger.json'
 
@@ -55,19 +57,24 @@ export function Product() {
       <ScrollView
         showsVerticalScrollIndicator={false}
       >
-        <Header>
-          <ButtonBack />
+        <MotiView
+          from={{ translateY: -100, opacity: 0 }}  // 'Header' começa acima
+          animate={{ translateY: 0, opacity: 1 }}
+          transition={{ type: 'timing', duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
+        >
+          <Header>
+            <ButtonBack />
 
-          <Title>Cadastrar</Title>
-            
-            <TouchableOpacity>
-              <DeleteLable>Deletar</DeleteLable>
-            </TouchableOpacity>
-        </Header>
+            <Title>Cadastrar</Title>
+              
+              <TouchableOpacity>
+                <DeleteLable>Deletar</DeleteLable>
+              </TouchableOpacity>
+          </Header>
+        </MotiView>
 
-        <Upload>
-
-          {/* {
+        {/* <Upload>
+          {
             image === '' ? (
               <Lottie
                 source={animationData}
@@ -81,59 +88,74 @@ export function Product() {
             ) : (
               <Photo uri={image}/>
             )
-          } */}
+          }
 
           <PickImageButton
             title='Carregar'
             type='secondary'
             onPress={handlePickerImage}
           />
-        </Upload>
+        </Upload> */}
 
         <Form>
-          <InputGroup>
-            <Label>Nome</Label>
-            <Input 
-              type='secondary'
-              onChangeText={setName}
-              value={name}
-            />
-          </InputGroup>
-          
-          <InputGroup>
-            <InputGroupHeader>
-              <Label>Descrição</Label>
-              <MaxCaracters>0 de 90 caracteres</MaxCaracters>
+          <MotiView
+            from={{ translateY: 100, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 1 }}
+            transition={{ type: 'timing', duration: 1000, delay: 200, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
             
-            </InputGroupHeader>
-            <Input 
-              multiline
-              maxLength={90}
-              style={{ height: 80 }}
-              type='secondary'
-              onChangeText={setDescription}
-              value={description}
-            />
-          </InputGroup>
+          >
+            <InputGroup>
+              <Label>Nome</Label>
+              <Input 
+                type='secondary'
+                onChangeText={setName}
+                value={name}
+              />
+            </InputGroup>
+          </MotiView>
 
+          <MotiView
+            from={{ translateY: 100, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 1 }}
+            transition={{ type: 'timing', duration: 1000, delay: 400, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
+          >
+            <InputGroup>
+              <InputGroupHeader>
+                <Label>Descrição</Label>
+                <MaxCaracters>0 de 90 caracteres</MaxCaracters>
+              
+              </InputGroupHeader>
+              <Input 
+                multiline
+                maxLength={90}
+                style={{ height: 80 }}
+                type='secondary'
+                onChangeText={setDescription}
+                value={description}
+              />
+            </InputGroup>
+          </MotiView>
+
+           
           <InputGroup>
-            <Label>Tamanhos e Preços</Label>
             
-            <MotiView
-              from={{ translateX: -100, opacity: 0 }} // Começa fora da tela (esquerda)
-              animate={{ translateX: 0, opacity: 1 }} // Anima para a posição original
-              transition={{ type: 'timing', duration: 1000 }}
+            <MotiView 
+              from={{ translateY: 100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              transition={{ type: 'timing', duration: 1000, delay: 600, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
             >
+              <Label>Tamanhos e Preços</Label>
               <InputPrice 
                 size='P' 
                 onChangeText={setPriceSizeP}
                 value={priceSizeP}  
               />
             </MotiView>
-            <MotiView
-                from={{ translateX: 100, opacity: 0 }}   // 'M' começa à direita
-                animate={{ translateX: 0, opacity: 1 }}
-                transition={{ type: 'timing', duration: 1000, delay: 200 }}
+          
+            <MotiView 
+              from={{ translateY: 100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              transition={{ type: 'timing', duration: 1000, delay: 800, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
             >
               <InputPrice 
                 size='M' 
@@ -141,10 +163,11 @@ export function Product() {
                 value={priceSizeM}  
               />
             </MotiView>
-            <MotiView
-                from={{ translateX: -100, opacity: 0 }}  // 'G' começa à esquerda
-                animate={{ translateX: 0, opacity: 1 }}
-                transition={{ type: 'timing', duration: 1000, delay: 400 }}
+          
+            <MotiView 
+              from={{ translateY: 100, opacity: 0 }}
+              animate={{ translateY: 0, opacity: 1 }}
+              transition={{ type: 'timing', duration: 1000, delay: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
             >
               <InputPrice 
                 size='G' 
@@ -154,12 +177,17 @@ export function Product() {
             </MotiView>
           </InputGroup>
 
-          <Button
-            title='Cadastrar'
-            type='secondary'
-            isLoading={isLoading}
-          />
-
+          <MotiView
+            from={{ translateY: 100, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 1 }}
+            transition={{ type: 'timing', duration: 1000, delay: 1200, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
+          >
+            <Button
+              title='Cadastrar'
+              type='secondary'
+              isLoading={isLoading}
+            />
+          </MotiView>
         </Form>
       </ScrollView>
     </Container>
