@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
-export const Header = styled(LinearGradient).attrs(({ theme }) => ({
+export const Container = styled(LinearGradient).attrs(({ theme }) => ({
   colors: theme.COLORS.GRADIENT
 }))`
   width: 100%;
@@ -19,6 +19,15 @@ export const Title = styled.Text`
 
   ${({ theme }) => css`
     font-family: ${theme.FONTS.TITLE};
+    color: ${theme.COLORS.TITLE};
+  `}
+`;
+
+export const DeleteLable = styled.Text`
+  font-size: 14px;
+
+  ${({ theme }) => css`
+    font-family: ${theme.FONTS.TEXT};
     color: ${theme.COLORS.TITLE};
   `}
 `;
