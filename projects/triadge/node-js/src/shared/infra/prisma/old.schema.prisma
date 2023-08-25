@@ -21,8 +21,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  UsersTokens UserTokens[]
-  Attendances Attendance[]
+  UsersTokens     UserTokens[]
+  UserAttendances UserAttendance[]
 
   Lodge       Lodge?  @relation(fields: [fk_lodge_id], references: [id])
   fk_lodge_id String?
@@ -43,26 +43,25 @@ model UserTokens {
   updatedAt DateTime @updatedAt
 }
 
-model Meeting {
+model Attendance {
   id   String   @id @default(uuid())
   date DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  attendances Attendance[]
+  UserAttendances UserAttendance[]
 }
 
-model Attendance {
-  id        String @id @default(uuid())
-  userId    String
-  meetingId String
+model UserAttendance {
+  present      Boolean
+  userId       String
+  attendanceId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  user       User       @relation(fields: [userId], references: [id])
+  attendance Attendance @relation(fields: [attendanceId], references: [id])
 
-  user    User    @relation(fields: [userId], references: [id])
-  meeting Meeting @relation(fields: [meetingId], references: [id])
+  @@id([userId, attendanceId])
 }
 
 model Lodge {
@@ -73,7 +72,20 @@ model Lodge {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  User User[]
+  User     User[]
+  Meetings Meeting[]
+}
+
+model Meeting {
+  id          String   @id @default(uuid())
+  date        DateTime
+  description String
+
+  lodge       Lodge  @relation(fields: [fk_lodge_id], references: [id])
+  fk_lodge_id String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Address {

@@ -6,17 +6,24 @@ import { PrismaSingleton } from '@shared/infra/prisma'
 import { UserMappers } from '../mappers/UserMappers'
 
 class UsersRepository implements IUsersRepository {
-  async create(user: User): Promise<void> {
+  async create({
+    id,
+    name,
+    email,
+    password,
+    phoneNumber,
+    avatar
+  }: User): Promise<void> {
     const data = {
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      phoneNumber: user.password,
-      avatar: user.avatar,
+      name,
+      email,
+      password,
+      phoneNumber,
+      avatar,
     }
 
     await PrismaSingleton.getInstance().user.upsert({
-      where: { id: user.id.toString() },
+      where: { id: id.toString() },
       create: data,
       update: data,
     })
