@@ -1,38 +1,34 @@
-import { Attendance } from '@modules/attendance/domain/Attendance'
+import { Meeting } from '@modules/meeting/domain/Meeting'
 
-import { IAttendanceRepository } from '../IAttendanceRepository'
+import { IMeetingRepository } from '../IMeetingRepository'
 
-class AttendanceRepositoryInMemory implements IAttendanceRepository {
-  private attendances: Attendance[] = []
+class MeetingRepositoryInMemory implements IMeetingRepository {
+  private meetings: Meeting[] = []
 
-  async create(attenance: Attendance): Promise<void> {
-    this.attendances.push(attenance)
+  async create(meeting: Meeting): Promise<void> {
+    this.meetings.push(meeting)
   }
 
-  async listAll(): Promise<Attendance[]> {
-    return this.attendances
+  async findById(id: string): Promise<Meeting> {
+    return this.meetings.find((meeting) => meeting.id.toString() === id)
   }
 
-  async listInDateRange(startDate: Date, endDate: Date): Promise<Attendance[]> {
-    return this.attendances.filter(
-      (attendance) =>
-        attendance.date >= startDate && attendance.date <= endDate,
-    )
+  async findAll(): Promise<Meeting[]> {
+    return this.meetings
   }
 
-  async findByDate(date: Date): Promise<Attendance> {
-    return this.attendances.find((attendance) => attendance.date === date)
+  async findWithAttendees(date: Date): Promise<Meeting[]> {
+    return this.meetings.filter((meeting) => meeting.date === date)
   }
 
-  async findAllByDate(date: Date): Promise<Attendance[]> {
-    return this.attendances.filter((attendance) => attendance.date === date)
-  }
-
-  async findById(id: string): Promise<Attendance> {
-    return this.attendances.find(
-      (attendance) => attendance.id.toString() === id,
+  async findWithinDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Meeting[]> {
+    return this.meetings.filter(
+      (meeting) => meeting.date >= startDate && meeting.date <= endDate,
     )
   }
 }
 
-export { AttendanceRepositoryInMemory }
+export { MeetingRepositoryInMemory }
