@@ -1,6 +1,6 @@
 import { Meeting } from './Meeting'
 
-describe('[Meeting] - Create a new Meeting', () => {
+describe('[Meeting] - Create a new instance of Meeting', () => {
   it('should be able to create a new instance of meeting', () => {
     const meeting = Meeting.createMeeting({
       date: new Date(),

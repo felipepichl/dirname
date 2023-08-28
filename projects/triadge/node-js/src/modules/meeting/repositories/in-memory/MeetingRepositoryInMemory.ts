@@ -17,7 +17,7 @@ class MeetingRepositoryInMemory implements IMeetingRepository {
     return this.meetings
   }
 
-  async findWithAttendees(date: Date): Promise<Meeting[]> {
+  async findWithAttendeesByDate(date: Date): Promise<Meeting[]> {
     return this.meetings.filter((meeting) => meeting.date === date)
   }
 

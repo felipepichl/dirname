@@ -6,7 +6,7 @@ import { CreateMeetingUseCase } from './CreateMeetingUseCase'
 let meetingRepositoryInMemory: MeetingRepositoryInMemory
 let createMeetingUseCase: CreateMeetingUseCase
 
-describe('[Meeting] - Create a Meeting', () => {
+describe('[Meeting] - Create a new Meeting', () => {
   beforeEach(() => {
     meetingRepositoryInMemory = new MeetingRepositoryInMemory()
 
