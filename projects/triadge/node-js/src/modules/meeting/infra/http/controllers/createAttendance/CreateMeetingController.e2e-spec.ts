@@ -1,5 +1,3 @@
-import { authConfig } from '@config/auth'
-import jwt from 'jsonwebtoken'
 import request from 'supertest'
 
 import { app } from '@shared/infra/http/start/app'
@@ -13,7 +11,7 @@ async function authenticateUser() {
   return token
 }
 
-describe('[E2E] = Create Attendance', () => {
+describe('[E2E] = Create Meeting', () => {
   beforeAll(async () => {
     await request(app).post('/users').send({
       name: 'Jonh Due',
@@ -23,24 +21,21 @@ describe('[E2E] = Create Attendance', () => {
     })
   })
 
-  it('should be able to create a new attendance', async () => {
+  it('should be able to create a new meeting', async () => {
     const token = await authenticateUser()
-    const { sub: userId } = jwt.verify(token, authConfig.secretToken)
 
     const response = await request(app)
-      .post('/attendances')
+      .post('/meetings')
       .set({
         Authorization: `Bearer ${token}`,
       })
       .send({
         date: new Date(),
-        isPresent: true,
-        userId,
       })
 
     expect(response.status).toBe(201)
     expect(response.body).toHaveProperty('message')
-    expect(response.body.message).toBe('Attendance created')
+    expect(response.body.message).toBe('Meeting created')
   })
 
   // it('should not be able to create a new attendance with an invalid token', async () => {
