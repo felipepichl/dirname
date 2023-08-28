@@ -1,19 +1,19 @@
 import { User } from '@modules/accounts/domain/User'
-import { Attendance } from '@modules/attendance/domain/Attendance'
+import { Meeting } from '@modules/meeting/domain/Meeting'
 
 import { AggregateRoot } from '@shared/core/domain/AggregateRoot'
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 
-interface IMeetingAttendanceProps {
+interface IAttendanceProps {
   id?: string
   userIds: string[]
   user?: User[]
-  attendanceId: string
-  attendance?: Attendance
+  meetingId: string
+  meeting?: Meeting
 }
 
-class MeetingAttendance extends AggregateRoot<IMeetingAttendanceProps> {
-  constructor(props: IMeetingAttendanceProps, id?: UniqueEntityID) {
+class Attendance extends AggregateRoot<IAttendanceProps> {
+  constructor(props: IAttendanceProps, id?: UniqueEntityID) {
     super(props, id)
   }
 
@@ -25,31 +25,28 @@ class MeetingAttendance extends AggregateRoot<IMeetingAttendanceProps> {
     return this.props.userIds
   }
 
-  get attendances(): Attendance {
-    return this.props.attendance
+  get meeting(): Meeting {
+    return this.props.meeting
   }
 
-  get attendanceId(): string {
-    return this.props.attendanceId
+  get meetingId(): string {
+    return this.props.meetingId
   }
 
-  static createMeetingAttendance({
+  static createAttendance({
     id,
     userIds,
-    attendanceId,
-    attendance,
-  }: IMeetingAttendanceProps): MeetingAttendance {
-    const meetingAttendancesProps = {
+    meetingId,
+    meeting,
+  }: IAttendanceProps): Attendance {
+    const attendancesProps = {
       userIds,
-      attendanceId,
-      attendance,
+      meetingId,
+      meeting,
     }
 
-    return AggregateRoot.create(
-      { props: meetingAttendancesProps, id },
-      MeetingAttendance,
-    )
+    return AggregateRoot.create({ props: attendancesProps, id }, Attendance)
   }
 }
 
-export { MeetingAttendance }
+export { Attendance }
