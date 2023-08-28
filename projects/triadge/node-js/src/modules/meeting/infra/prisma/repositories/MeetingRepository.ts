@@ -1,27 +1,55 @@
-import { Attendance } from '@modules/attendance/domain/Attendance'
-import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository'
+import { Meeting } from '@modules/meeting/domain/Meeting'
+import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingRepository'
 
 import { PrismaSingleton } from '@shared/infra/prisma'
 
-import { AttendanceMappers } from '../mappers/AttendanceMappers'
+import { MeetingMappers } from '../mappers/MeetingMappers'
 
-class AttendanceRepository implements IAttendanceRepository {
-  async create({ date }: Attendance): Promise<void> {
-    await PrismaSingleton.getInstance().attendance.create({
+class MeetingRepository implements IMeetingRepository {
+  async create({ date }: Meeting): Promise<void> {
+    await PrismaSingleton.getInstance().meeting.create({
       data: {
         date,
       },
     })
   }
 
-  async listAll(): Promise<Attendance[]> {
-    const result = await PrismaSingleton.getInstance().attendance.findMany()
+  async findById(id: string): Promise<Meeting> {
+    const result = await PrismaSingleton.getInstance().meeting.findFirst({
+      where: { id },
+    })
 
-    return AttendanceMappers.getMapper().toDomainArray(result)
+    return MeetingMappers.getMapper().toDomain(result)
   }
 
-  async listInDateRange(startDate: Date, endDate: Date): Promise<Attendance[]> {
-    const result = await PrismaSingleton.getInstance().attendance.findMany({
+  async findAll(): Promise<Meeting[]> {
+    const result = await PrismaSingleton.getInstance().meeting.findMany()
+
+    return MeetingMappers.getMapper().toDomainArray(result)
+  }
+
+  async findWithAttendees(date: Date): Promise<Meeting[]> {
+    const result = await PrismaSingleton.getInstance().meeting.findMany({
+      where: {
+        date,
+      },
+      include: {
+        attendances: {
+          include: {
+            user: true,
+          },
+        },
+      },
+    })
+
+    return MeetingMappers.getMapper().toDomainArray(result)
+  }
+
+  async findWithinDateRange(
+    startDate: Date,
+    endDate: Date,
+  ): Promise<Meeting[]> {
+    const result = await PrismaSingleton.getInstance().meeting.findMany({
       where: {
         date: {
           gte: startDate,
@@ -30,32 +58,8 @@ class AttendanceRepository implements IAttendanceRepository {
       },
     })
 
-    return AttendanceMappers.getMapper().toDomainArray(result)
-  }
-
-  async findByDate(date: Date): Promise<Attendance> {
-    const result = await PrismaSingleton.getInstance().attendance.findFirst({
-      where: { date },
-    })
-
-    return AttendanceMappers.getMapper().toDomain(result)
-  }
-
-  async findAllByDate(date: Date): Promise<Attendance[]> {
-    const result = await PrismaSingleton.getInstance().attendance.findMany({
-      where: { date },
-    })
-
-    return AttendanceMappers.getMapper().toDomainArray(result)
-  }
-
-  async findById(id: string): Promise<Attendance> {
-    const result = await PrismaSingleton.getInstance().attendance.findFirst({
-      where: { id },
-    })
-
-    return AttendanceMappers.getMapper().toDomain(result)
+    return MeetingMappers.getMapper().toDomainArray(result)
   }
 }
 
-export { AttendanceRepository }
+export { MeetingRepository }
