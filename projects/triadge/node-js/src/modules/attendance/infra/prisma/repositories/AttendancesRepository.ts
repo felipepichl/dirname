@@ -20,16 +20,20 @@ class AttendancesRepository implements IAttendancesRepository {
   }
 
   async findById(id: string): Promise<Attendance> {
-    throw new Error('Method not implemented.')
+    const result = await PrismaSingleton.getInstance().attendance.findFirst({
+      where: { id },
+    })
+
+    return AttendanceMapper.getMapper().toDomain(result)
   }
 
   async findAll(): Promise<Attendance[]> {
-    throw new Error('Method not implemented.')
+    const result = await PrismaSingleton.getInstance().attendance.findMany()
+
+    return AttendanceMapper.getMapper().toDomainArray(result)
   }
 
-  async findByUserId(userId: string): Promise<Attendance[]> {
-    throw new Error('Method not implemented.')
-  }
+  async findByUserId(userId: string): Promise<Attendance[]> {}
 
   async findByMeetingId(meetingId: string): Promise<Attendance[]> {
     throw new Error('Method not implemented.')
