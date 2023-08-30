@@ -15,7 +15,7 @@ interface IRequest {
 }
 
 @injectable()
-class CreateMeetingAttendance implements IUseCase<IRequest, void> {
+class CreateAttendance implements IUseCase<IRequest, void> {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -86,4 +86,4 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
   }
 }
 
-export { CreateMeetingAttendance }
+export { CreateAttendance }
