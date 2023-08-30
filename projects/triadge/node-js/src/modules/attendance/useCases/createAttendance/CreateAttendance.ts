@@ -44,25 +44,29 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
       throw new AppError('Meeting not found', 404)
     }
 
-    // const promises = userIds.map(async (userId) => {
-    //   const existingAttendance =
-    //     await this.attendancesRepository.findByUserIdAndMeetingId(
-    //       userId,
-    //       meetingId,
-    //     )
-
-    const existingAttendance =
-      await this.attendancesRepository.findByUserIdAndMeetingId()
-
-    if (existingAttendance) {
-      throw new AppError(
-        `MeetingAttendance for user ID ${userId} and meeting ID ${meetingId} already exists`,
-        409,
+    const existingAttendances =
+      await this.attendancesRepository.findByUserIdsAndMeetingId(
+        userIds,
+        meetingId,
       )
-    }
-    // })
+    if (existingAttendances && existingAttendances.length > 0) {
+      const allExistingUserIds = existingAttendances.flatMap(
+        (attendance) => attendance.userIds,
+      )
 
-    await Promise.all(promises)
+      const overlappingUserIds = userIds.filter((userId) =>
+        allExistingUserIds.includes(userId),
+      )
+
+      if (overlappingUserIds.length > 0) {
+        throw new AppError(
+          `MeetingAttendance for user IDs ${overlappingUserIds.join(
+            ', ',
+          )} and meeting ID ${meetingId} already exist`,
+          409,
+        )
+      }
+    }
 
     const attendances = Attendance.createAttendance({
       userIds,
