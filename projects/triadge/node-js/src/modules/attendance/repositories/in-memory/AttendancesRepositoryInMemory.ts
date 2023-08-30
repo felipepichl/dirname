@@ -42,6 +42,17 @@ class AttendancesRepositoryInMemory implements IAttendancesRepository {
     )
   }
 
+  async findByUserIdsAndMeetingId(
+    userIds: string[],
+    meetingId: string,
+  ): Promise<Attendance[]> {
+    return this.attendances.filter(
+      (attendance) =>
+        userIds.every((userId) => attendance.userIds.includes(userId)) &&
+        attendance.meetingId === meetingId,
+    )
+  }
+
   async findAttendance(userId: string, meetingId: string): Promise<Attendance> {
     return this.attendances.find(
       (attendance) =>

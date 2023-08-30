@@ -20,7 +20,7 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
     @inject('MeetingsRepository')
-    private meetingsAttendances: IMeetingRepository,
+    private meetingsRepository: IMeetingRepository,
     @inject('AttendanceRepository')
     private attendancesRepository: IAttendancesRepository,
   ) {}
@@ -38,11 +38,31 @@ class CreateMeetingAttendance implements IUseCase<IRequest, void> {
       )
     }
 
-    const meeting = await this.meetingsAttendances.findById(meetingId)
+    const meeting = await this.meetingsRepository.findById(meetingId)
 
     if (!meeting) {
       throw new AppError('Meeting not found', 404)
     }
+
+    // const promises = userIds.map(async (userId) => {
+    //   const existingAttendance =
+    //     await this.attendancesRepository.findByUserIdAndMeetingId(
+    //       userId,
+    //       meetingId,
+    //     )
+
+    const existingAttendance =
+      await this.attendancesRepository.findByUserIdAndMeetingId()
+
+    if (existingAttendance) {
+      throw new AppError(
+        `MeetingAttendance for user ID ${userId} and meeting ID ${meetingId} already exists`,
+        409,
+      )
+    }
+    // })
+
+    await Promise.all(promises)
 
     const attendances = Attendance.createAttendance({
       userIds,

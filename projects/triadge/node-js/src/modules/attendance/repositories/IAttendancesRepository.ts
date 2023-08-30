@@ -10,6 +10,10 @@ interface IAttendancesRepository {
     userId: string,
     meetingId: string,
   ): Promise<Attendance>
+  findByUserIdsAndMeetingId(
+    userIds: string[],
+    meetingId: string,
+  ): Promise<Attendance[]>
   findAttendance(userId: string, meetingId: string): Promise<Attendance>
 }
 
