@@ -82,7 +82,7 @@ class CreateAttendance implements IUseCase<IRequest, void> {
       throw new AppError(
         `MeetingAttendance for user IDs ${overlappingUserIds.join(
           ', ',
-        )} and meeting ID ${meetingId} already exist`,
+        )} and meeting ID ${meetingId} already exists`,
         409,
       )
     }

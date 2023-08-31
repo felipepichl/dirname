@@ -124,47 +124,47 @@ describe('[Attendance] - Create Attendance', () => {
     ).rejects.toEqual(new AppError('Meeting not found', 404))
   })
 
-  // it('should prevent duplicate UserAttendance creation', async () => {
-  //   const user = User.createUser({
-  //     name: 'Test User1',
-  //     email: 'user1@test.com',
-  //     password: '123456',
-  //     phoneNumber: '123456789',
-  //   })
+  it('should prevent duplicate attendance creation', async () => {
+    const user = User.createUser({
+      name: 'Test User1',
+      email: 'user1@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    })
 
-  //   await usersRepositoryInMemory.create(user)
+    await usersRepositoryInMemory.create(user)
 
-  //   // const attendanceDate = new Date()
+    const meetingDate = new Date()
 
-  //   // const attendance = Attendance.createAttendance({
-  //   //   date: attendanceDate,
-  //   // })
+    const meeting = Meeting.createMeeting({
+      date: meetingDate,
+    })
 
-  //   // await attendanceRepositoryInMemory.create(attendance)
+    await meetingRepositoryInMemory.create(meeting)
 
-  //   // const { id: userId1 } =
-  //   //   await usersRepositoryInMemory.findByEmail('user1@test.com')
+    const { id: userId1 } =
+      await usersRepositoryInMemory.findByEmail('user1@test.com')
 
-  //   // const { id: attendanceId } =
-  //   //   await attendanceRepositoryInMemory.findByDate(attendanceDate)
+    const { id: meetingId } =
+      await meetingRepositoryInMemory.findByDate(meetingDate)
 
-  //   // const userIds = [userId1.toString()]
+    const userIds = [userId1.toString()]
 
-  //   // await createMeetingAttendance.execute({
-  //   //   userIds,
-  //   //   attendanceId: attendanceId.toString(),
-  //   // })
+    await createAttendance.execute({
+      userIds,
+      meetingId: meetingId.toString(),
+    })
 
-  //   // await expect(
-  //   //   createMeetingAttendance.execute({
-  //   //     userIds,
-  //   //     attendanceId: attendanceId.toString(),
-  //   //   }),
-  //   // ).rejects.toEqual(
-  //   //   new AppError(
-  //   //     `MeetingAttendance for user ID ${userIds[0]} and attendance ID ${attendanceId} already exists`,
-  //   //     409,
-  //   //   ),
-  //   // )
-  // })
+    await expect(
+      createAttendance.execute({
+        userIds,
+        meetingId: meetingId.toString(),
+      }),
+    ).rejects.toEqual(
+      new AppError(
+        `MeetingAttendance for user IDs ${userIds[0]} and meeting ID ${meetingId} already exists`,
+        409,
+      ),
+    )
+  })
 })
