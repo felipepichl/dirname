@@ -28,7 +28,7 @@ describe('[Attendance] - Create Attendance', () => {
     )
   })
 
-  it('should create a new Attendance', async () => {
+  it('should create a new attendance', async () => {
     const user1 = User.createUser({
       name: 'Test User1',
       email: 'user1@test.com',
@@ -86,7 +86,7 @@ describe('[Attendance] - Create Attendance', () => {
     })
   })
 
-  it('should reject creating Attendance for a non-existent user', async () => {
+  it('should reject creating attendance for a non-existent user', async () => {
     const meetingDate = new Date()
     const meeting = Meeting.createMeeting({
       date: meetingDate,
@@ -101,35 +101,28 @@ describe('[Attendance] - Create Attendance', () => {
     ).rejects.toEqual(new AppError(`Users with IDs ${''} not found`, 404))
   })
 
-  // it('should reject creating UserAttendance for a non-existent attendance', async () => {
-  //   const user = User.createUser({
-  //     name: 'Test User',
-  //     email: 'user@test.com',
-  //     password: '123456',
-  //     phoneNumber: '123456789',
-  //   })
+  it('should reject creating attendance for a non-existent meeting', async () => {
+    const user = User.createUser({
+      name: 'Test User',
+      email: 'user@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    })
 
-  //   await usersRepositoryInMemory.create(user)
+    await usersRepositoryInMemory.create(user)
 
-  //   // const attendanceDate = new Date()
-  //   // const attendance = Attendance.createAttendance({
-  //   //   date: attendanceDate,
-  //   // })
+    const { id: userId } =
+      await usersRepositoryInMemory.findByEmail('user@test.com')
 
-  //   // await attendanceRepositoryInMemory.create(attendance)
+    const userIds = [userId.toString()]
 
-  //   // const { id: userId } =
-  //   //   await usersRepositoryInMemory.findByEmail('user@test.com')
-
-  //   // const userIds = [userId.toString()]
-
-  //   // await expect(
-  //   //   createMeetingAttendance.execute({
-  //   //     userIds,
-  //   //     attendanceId: 'non-existent-attendance_id',
-  //   //   }),
-  //   // ).rejects.toEqual(new AppError('Attendance not found', 404))
-  // })
+    await expect(
+      createAttendance.execute({
+        userIds,
+        meetingId: 'non-existent-meeting_id',
+      }),
+    ).rejects.toEqual(new AppError('Meeting not found', 404))
+  })
 
   // it('should prevent duplicate UserAttendance creation', async () => {
   //   const user = User.createUser({
