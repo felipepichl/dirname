@@ -26,9 +26,11 @@ class CreateAttendance implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ userIds, meetingId }: IRequest): Promise<void> {
-    this.validateUsers(userIds)
-    this.validateMeeting(meetingId)
-    this.validateAttendanceOverlap(userIds, meetingId)
+    await Promise.all([
+      this.validateUsers(userIds),
+      this.validateMeeting(meetingId),
+      this.validateAttendanceOverlap(userIds, meetingId),
+    ])
 
     const attendances = Attendance.createAttendance({
       userIds,
@@ -40,6 +42,7 @@ class CreateAttendance implements IUseCase<IRequest, void> {
 
   private async validateUsers(userIds: string[]): Promise<void> {
     const users = await this.usersRepository.findByIds(userIds)
+
     const notFoundUserIds = userIds.filter(
       (id) => !users.some((user) => user.id.toString() === id),
     )
