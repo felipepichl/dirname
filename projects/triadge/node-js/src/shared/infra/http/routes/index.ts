@@ -2,7 +2,7 @@ import { Router } from 'express'
 
 import { authenticateRoutes } from '@modules/accounts/infra/http/routes/authenticate.routes'
 import { usersRouter } from '@modules/accounts/infra/http/routes/users.routes'
-// import { attendancesRouter } from '@modules/attendance/infra/http/routes/attendances.routes'
+import { attendancesRouter } from '@modules/attendance/infra/http/routes/attendances.routes'
 import { meetingsRouter } from '@modules/meeting/infra/http/routes/meetings.routes'
 
 import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
@@ -16,9 +16,9 @@ routes.use('/users', usersRouter)
 routes.use('/sessions', authenticateRoutes)
 
 routes.use(ensureAuthenticated)
-// routes.use('/attendances', attendancesRouter)
 
 routes.use('/meetings', meetingsRouter)
+routes.use('/attendances', attendancesRouter)
 
 // if (process.env.NODE_ENV === 'test') {
 //   const testRoutes = require('../../../test-utils/routes/testRoutes');
