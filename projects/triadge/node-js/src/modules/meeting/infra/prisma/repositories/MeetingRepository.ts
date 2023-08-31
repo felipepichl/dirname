@@ -45,6 +45,14 @@ class MeetingRepository implements IMeetingRepository {
     return MeetingMappers.getMapper().toDomainArray(result)
   }
 
+  async findByDate(date: Date): Promise<Meeting> {
+    const result = await PrismaSingleton.getInstance().meeting.findFirst({
+      where: { date },
+    })
+
+    return MeetingMappers.getMapper().toDomain(result)
+  }
+
   async findWithinDateRange(
     startDate: Date,
     endDate: Date,

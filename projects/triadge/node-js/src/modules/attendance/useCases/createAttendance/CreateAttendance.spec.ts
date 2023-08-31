@@ -15,7 +15,7 @@ let attendancesRepositoryInMemory: AttendancesRepositoryInMemory
 
 let createAttendance: CreateAttendance
 
-describe('[Meeting] - Create User Attendance', () => {
+describe('[Attendance] - Create Attendance', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
     meetingRepositoryInMemory = new MeetingRepositoryInMemory()
@@ -28,7 +28,7 @@ describe('[Meeting] - Create User Attendance', () => {
     )
   })
 
-  it('should create a new UserAttendance', async () => {
+  it('should create a new Attendance', async () => {
     const user1 = User.createUser({
       name: 'Test User1',
       email: 'user1@test.com',
@@ -58,14 +58,14 @@ describe('[Meeting] - Create User Attendance', () => {
     const { id: userId2 } =
       await usersRepositoryInMemory.findByEmail('user2@test.com')
 
-    // const { id: attendanceId } =
-    //   await attendanceRepositoryInMemory.findByDate(attendanceDate)
+    // const { id: mettingId } =
+    //   await meetingRepositoryInMemory.findByDate(meetingDate)
 
     // const userIds = [userId1.toString(), userId2.toString()]
 
-    // await createMeetingAttendance.execute({
+    // await createAttendance.execute({
     //   userIds,
-    //   attendanceId: attendanceId.toString(),
+    //   meetingId: mettingId.toString(),
     // })
 
     // await meetingsAttendancesRepositoryInMemory.findByUserIdsAndAttendanceId(
