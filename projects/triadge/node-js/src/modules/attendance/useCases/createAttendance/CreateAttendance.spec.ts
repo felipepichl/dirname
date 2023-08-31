@@ -58,36 +58,32 @@ describe('[Attendance] - Create Attendance', () => {
     const { id: userId2 } =
       await usersRepositoryInMemory.findByEmail('user2@test.com')
 
-    // const { id: mettingId } =
-    //   await meetingRepositoryInMemory.findByDate(meetingDate)
+    const { id: meetingId } =
+      await meetingRepositoryInMemory.findByDate(meetingDate)
 
-    // const userIds = [userId1.toString(), userId2.toString()]
+    const userIds = [userId1.toString(), userId2.toString()]
 
-    // await createAttendance.execute({
-    //   userIds,
-    //   meetingId: mettingId.toString(),
-    // })
+    await createAttendance.execute({
+      userIds,
+      meetingId: meetingId.toString(),
+    })
 
-    // await meetingsAttendancesRepositoryInMemory.findByUserIdsAndAttendanceId(
-    //   userIds,
-    //   attendanceId.toString(),
-    // )
+    const attendanceRecords =
+      await attendancesRepositoryInMemory.findByUserIdsAndMeetingId(
+        userIds,
+        meeting.id.toString(),
+      )
 
-    // const userAttendanceRecords =
-    //   await meetingsAttendancesRepositoryInMemory.findByUserIdsAndAttendanceId(
-    //     userIds,
-    //     attendanceId.toString(),
-    //   )
+    expect(attendanceRecords).toHaveLength(1)
+    expect(attendancesRepositoryInMemory.findAll()).toHaveLength(1)
 
-    // expect(userAttendanceRecords).toHaveLength(1)
+    const storedUserIds = attendanceRecords.flatMap((ua) => ua.userIds)
+    expect(storedUserIds).toContain(userId1.toString())
+    expect(storedUserIds).toContain(userId2.toString())
 
-    // const storedUserIds = userAttendanceRecords.flatMap((ua) => ua.userIds)
-    // expect(storedUserIds).toContain(userId1.toString())
-    // expect(storedUserIds).toContain(userId2.toString())
-
-    // userAttendanceRecords.forEach((record) => {
-    //   expect(record.attendanceId).toBe(attendanceId.toString())
-    // })
+    attendanceRecords.forEach((record) => {
+      expect(record.meetingId).toBe(meetingId.toString())
+    })
   })
 
   it('should reject creating UserAttendance for a non-existent user', async () => {
