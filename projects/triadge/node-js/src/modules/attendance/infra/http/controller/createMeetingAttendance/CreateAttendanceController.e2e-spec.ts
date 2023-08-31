@@ -11,7 +11,7 @@ async function authenticateUser() {
   return token
 }
 
-describe('[E2E] = Create Meeting', () => {
+describe('[E2E] = Create Attendance', () => {
   beforeAll(async () => {
     await request(app).post('/users').send({
       name: 'Jonh Due',
@@ -35,7 +35,7 @@ describe('[E2E] = Create Meeting', () => {
     })
   })
 
-  it('should be able to create a new metting', async () => {
+  it('should be able to create a new attendance', async () => {
     const token = await authenticateUser()
 
     const userResponse = await request(app)
@@ -48,7 +48,7 @@ describe('[E2E] = Create Meeting', () => {
     const { _id: userId2 } = userResponse.body.users[2]
 
     await request(app)
-      .post('/attendances')
+      .post('/meeting')
       .set({
         Authorization: `Bearer ${token}`,
       })
@@ -57,26 +57,26 @@ describe('[E2E] = Create Meeting', () => {
         isPresent: true,
       })
 
-    const attendanceResponse = await request(app)
-      .get('/attendances')
+    const meetingResponse = await request(app)
+      .get('/meeting')
       .set({
         Authorization: `Bearer ${token}`,
       })
 
-    const { _id: attendanceId } = attendanceResponse.body[0]
+    const { _id: meetingId } = meetingResponse.body[0]
 
     const response = await request(app)
-      .post('/meeting')
+      .post('/attendance')
       .set({
         Authorization: `Bearer ${token}`,
       })
       .send({
         userIds: [userId1, userId2],
-        attendanceId,
+        meetingId,
       })
 
     expect(response.status).toBe(201)
     expect(response.body).toHaveProperty('message')
-    expect(response.body.message).toBe('Meeting created')
+    expect(response.body.message).toBe('Attendance created')
   })
 })
