@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { CreateAttendanceController } from '../controller/createMeetingAttendance/CreateAttendanceController'
+import { CreateAttendanceController } from '../controller/createAttendance/CreateAttendanceController'
 
 const attendancesRouter = Router()
 
