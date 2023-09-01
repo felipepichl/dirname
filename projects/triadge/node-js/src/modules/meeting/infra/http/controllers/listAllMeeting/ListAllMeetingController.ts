@@ -9,7 +9,7 @@ class ListAllMeetingController {
 
     const meetings = await listAllMeeting.execute()
 
-    return response.status(200).json({ meetings })
+    return response.status(200).json(meetings)
   }
 }
 
