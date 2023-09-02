@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  meetings: Meeting
+  meeting: Meeting
   attendees: User[]
 }
 
@@ -17,17 +17,17 @@ class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
   constructor(private meetingsRepository: IMeetingRepository) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
-    const meetings = await this.meetingsRepository.findByDateWithAttendees(date)
+    const meeting = await this.meetingsRepository.findByDateWithAttendees(date)
 
-    if (!meetings) {
+    if (!meeting) {
       throw new AppError('Meeting not found', 404)
     }
 
-    const attendees = meetings.attendances.flatMap(
+    const attendees = meeting.attendances.flatMap(
       (attendance) => attendance.user,
     )
 
-    return { meetings, attendees }
+    return { meeting, attendees }
   }
 }
 
