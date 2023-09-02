@@ -5,6 +5,7 @@ interface IMeetingRepository {
   findById(id: string): Promise<Meeting | null>
   findAll(): Promise<Meeting[]>
   findWithAttendeesByDate(date: Date): Promise<Meeting[]>
+  findByDateWithAttendees(date: Date): Promise<Meeting>
   findByDate(date: Date): Promise<Meeting>
   findWithinDateRange(startDate: Date, endDate: Date): Promise<Meeting[]>
 }
