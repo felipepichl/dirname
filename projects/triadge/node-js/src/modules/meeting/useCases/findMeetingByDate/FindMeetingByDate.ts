@@ -17,13 +17,17 @@ class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
   constructor(private meetingsRepository: IMeetingRepository) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
-    const meeting = this.meetingsRepository.findByDateWithAttendees(date)
+    const meetings = await this.meetingsRepository.findByDateWithAttendees(date)
 
-    if (!meeting) {
+    if (!meetings) {
       throw new AppError('Meeting not found', 404)
     }
 
-    // const attendees = meeting.a
+    const attendees = meetings.attendamces.flatMap(
+      (attendance) => attendance.user,
+    )
+
+    return { meetings, attendees }
   }
 }
 
