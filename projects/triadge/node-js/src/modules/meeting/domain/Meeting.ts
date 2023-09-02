@@ -18,7 +18,7 @@ class Meeting extends AggregateRoot<IMeetingProps> {
     return this.props.date
   }
 
-  get attendamces(): Attendance[] {
+  get attendances(): Attendance[] {
     return this.props.attendences
   }
 
