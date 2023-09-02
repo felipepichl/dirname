@@ -31,36 +31,28 @@ describe('[Meeting] - Find meeting by date', () => {
     // console.log(result)
     // expect(meetings).toHaveLength(2)
 
-    const fakeUsers: User[] = [
-      User.createUser({
-        name: 'Jonh Tre',
-        email: 'johntre@example.com',
-        password: 'hash321',
-        phoneNumber: '51999999999',
-      }),
-      User.createUser({
-        name: 'Jonh Tre',
-        email: 'johntre@example.com',
-        password: 'hash123',
-        phoneNumber: '51999999999',
-      }),
-    ]
+    const fakeDate = new Date(2022, 3, 16)
 
-    const fakeDate = new Date(2022, 6, 20)
+    const fakeAttendance1 = Attendance.createAttendance({
+      userIds: ['fakeUser1', 'fakeUser2'],
+      meetingId: 'fakeMeetingId1',
+    })
+
+    const fakeAttendance2 = Attendance.createAttendance({
+      userIds: ['fakeUser2', 'fakeUser2'],
+      meetingId: 'fakeMeetingId2',
+    })
+
     const fakeMeeting = Meeting.createMeeting({
       date: fakeDate,
+      attendences: [fakeAttendance1, fakeAttendance2],
     })
 
-    const fakeAttendance = Attendance.createAttendance({
-      userIds: [fakeUsers[0].id.toString(), fakeUsers[1].id.toString()],
-      meetingId: fakeMeeting.id.toString(),
-      user: fakeUsers,
-    })
+    await meetingsRepositoryInMemory.create(fakeMeeting)
 
-    const meetings =
+    const meetting =
       await meetingsRepositoryInMemory.findByDateWithAttendees(fakeDate)
 
-    console.log(fakeAttendance)
-    console.log(fakeMeeting)
+    console.log(meetting)
   })
 })

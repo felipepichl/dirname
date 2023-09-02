@@ -23,7 +23,7 @@ class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
       throw new AppError('Meeting not found', 404)
     }
 
-    const attendees = meetings.attendamces.flatMap(
+    const attendees = meetings.attendances.flatMap(
       (attendance) => attendance.user,
     )
 
