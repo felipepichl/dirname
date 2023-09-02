@@ -2,6 +2,7 @@ import { IUseCase } from '@shared/core/domain/IUseCase'
 import { User } from '@modules/accounts/domain/User'
 import { Meeting } from '@modules/meeting/domain/Meeting'
 import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingRepository'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
   date: Date
@@ -15,7 +16,15 @@ interface IResponse {
 class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
   constructor(private meetingsRepository: IMeetingRepository) {}
 
-  execute({ date }: IRequest): Promise<IResponse> {}
+  async execute({ date }: IRequest): Promise<IResponse> {
+    const meeting = this.meetingsRepository.findByDateWithAttendees(date)
+
+    if (!meeting) {
+      throw new AppError('Meeting not found', 404)
+    }
+
+    // const attendees = meeting.a
+  }
 }
 
 export { FindMeetingByDate }
