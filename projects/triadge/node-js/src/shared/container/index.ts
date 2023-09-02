@@ -9,8 +9,8 @@ import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepositor
 import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository'
 import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingRepository'
 import { MeetingRepository } from '@modules/meeting/infra/prisma/repositories/MeetingRepository'
-// import { AttendanceRepository } from '@modules/attendance/infra/prisma/repositories/AttendanceRepository'
-// import { IAttendanceRepository } from '@modules/attendance/repositories/IAttendanceRepository'
+import { AttendancesRepository } from '@modules/attendance/infra/prisma/repositories/AttendancesRepository'
+import { IAttendancesRepository } from '@modules/attendance/repositories/IAttendancesRepository'
 // import { MeetingsAttendancesRepository } from '@modules/meeting/infra/prisma/repositories/MeetingsAttendancesRepository'
 // import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository'
 
@@ -24,10 +24,10 @@ container.registerSingleton<IUsersTokensRepository>(
   UsersTokensRepository,
 )
 
-// container.registerSingleton<IAttendanceRepository>(
-//   'AttendanceRepository',
-//   AttendanceRepository,
-// )
+container.registerSingleton<IAttendancesRepository>(
+  'AttendancesRepository',
+  AttendancesRepository,
+)
 
 container.registerSingleton<IMeetingRepository>(
   'MeetingsRepository',

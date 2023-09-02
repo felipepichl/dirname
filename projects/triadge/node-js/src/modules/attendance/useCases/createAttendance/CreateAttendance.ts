@@ -21,7 +21,7 @@ class CreateAttendance implements IUseCase<IRequest, void> {
     private usersRepository: IUsersRepository,
     @inject('MeetingsRepository')
     private meetingsRepository: IMeetingRepository,
-    @inject('AttendanceRepository')
+    @inject('AttendancesRepository')
     private attendancesRepository: IAttendancesRepository,
   ) {}
 

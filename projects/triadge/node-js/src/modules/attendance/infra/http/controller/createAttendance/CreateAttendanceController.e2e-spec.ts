@@ -48,25 +48,24 @@ describe('[E2E] = Create Attendance', () => {
     const { _id: userId2 } = userResponse.body.users[2]
 
     await request(app)
-      .post('/meeting')
+      .post('/meetings')
       .set({
         Authorization: `Bearer ${token}`,
       })
       .send({
         date: new Date(),
-        isPresent: true,
       })
 
     const meetingResponse = await request(app)
-      .get('/meeting')
+      .get('/meetings')
       .set({
         Authorization: `Bearer ${token}`,
       })
 
-    const { _id: meetingId } = meetingResponse.body[0]
+    const [{ _id: meetingId }] = meetingResponse.body.meetings
 
     const response = await request(app)
-      .post('/attendance')
+      .post('/attendances')
       .set({
         Authorization: `Bearer ${token}`,
       })
