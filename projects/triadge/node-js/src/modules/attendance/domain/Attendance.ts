@@ -36,12 +36,14 @@ class Attendance extends AggregateRoot<IAttendanceProps> {
   static createAttendance({
     id,
     userIds,
+    user,
     meetingId,
     meeting,
   }: IAttendanceProps): Attendance {
     const attendancesProps = {
       userIds,
       meetingId,
+      user,
       meeting,
     }
 
