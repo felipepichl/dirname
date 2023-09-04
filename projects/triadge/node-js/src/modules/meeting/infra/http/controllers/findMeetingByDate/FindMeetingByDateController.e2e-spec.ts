@@ -55,10 +55,18 @@ async function createUser(
 }
 
 async function createMeeting(token: string, date: Date) {
-  return request(app)
+  await request(app)
     .post('/meetings')
     .set({ Authorization: `Bearer ${token}` })
     .send({ date })
+
+  const meetingsResponse = await request(app)
+    .get('/meetings')
+    .set({ Authorization: `Bearer ${token}` })
+
+  const { _id } = meetingsResponse.body.meetings[0]
+
+  return _id
 }
 
 async function createAttendance(
@@ -67,7 +75,7 @@ async function createAttendance(
   meetingId: string,
 ) {
   return request(app)
-    .post('/attendance')
+    .post('/attendances')
     .set({ Authorization: `Bearer ${token}` })
     .send({ userIds, meetingId })
 }
@@ -75,6 +83,7 @@ async function createAttendance(
 describe('[E2E] = Find Meeting By Date', () => {
   let token: string
   const userIds: string[] = []
+  let meetingId: string
 
   beforeAll(async () => {
     const userId1 = await createUser(
@@ -91,9 +100,14 @@ describe('[E2E] = Find Meeting By Date', () => {
     )
     userIds.push(userId1, userId2)
     token = await authenticateUser()
+
+    meetingId = await createMeeting(token, new Date(2022, 3, 16))
+
+    await createAttendance(token, userIds, meetingId)
   })
 
   it('should be able to find a meeting by its date', async () => {
     console.log('UserIDs => ', userIds)
+    console.log('MeetingID => ', meetingId)
   })
 })
