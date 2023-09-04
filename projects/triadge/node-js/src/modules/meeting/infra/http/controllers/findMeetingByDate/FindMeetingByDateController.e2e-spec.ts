@@ -26,6 +26,17 @@ async function createMeeting(token: string, date: Date) {
     .send({ date })
 }
 
+async function createAttendance(
+  token: string,
+  userIds: string[],
+  meetingId: string,
+) {
+  return request(app)
+    .post('/attendance')
+    .set({ Authorization: `Bearer ${token}` })
+    .send({ userIds, meetingId })
+}
+
 describe('[E2E] = Find Meeting By Date', () => {
   let token: string
 

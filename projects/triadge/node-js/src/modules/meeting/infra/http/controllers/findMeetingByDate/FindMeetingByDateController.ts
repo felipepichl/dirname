@@ -10,8 +10,6 @@ class FindMeetingByDateController {
 
     const findMeetingByDate = container.resolve(FindMeetingByDate)
 
-    console.log('Log => ', dateParams)
-
     const meeting = await findMeetingByDate.execute({
       date,
     })
