@@ -38,16 +38,20 @@ async function createUser(
       Authorization: `Bearer ${token}`,
     })
 
-  const { users } = response.body
-
-  const user = users.find((u) => u.props.email === email)
-
-  console.log(response.body)
-
-  if (!user) {
-    throw new Error(`User with email ${email} was not found`)
+  type UserProps = {
+    email: string
   }
-  return user.id
+
+  type UserResponse = {
+    _id: string
+    props: UserProps
+  }
+
+  const users: UserResponse[] = response.body.users
+
+  const user = users.find((account) => account.props.email === email)
+
+  return user._id
 }
 
 async function createMeeting(token: string, date: Date) {
@@ -70,19 +74,26 @@ async function createAttendance(
 
 describe('[E2E] = Find Meeting By Date', () => {
   let token: string
-  let userId: string
+  const userIds: string[] = []
 
   beforeAll(async () => {
-    userId = await createUser(
-      'John Doe',
-      'johndoe@example.com',
+    const userId1 = await createUser(
+      'User1',
+      'user1@example.com',
       'password123',
       '1234567890',
     )
+    const userId2 = await createUser(
+      'User2',
+      'user2@example.com',
+      'password123',
+      '1234567890',
+    )
+    userIds.push(userId1, userId2)
     token = await authenticateUser()
   })
 
   it('should be able to find a meeting by its date', async () => {
-    console.log(userId)
+    console.log('UserIDs => ', userIds)
   })
 })
