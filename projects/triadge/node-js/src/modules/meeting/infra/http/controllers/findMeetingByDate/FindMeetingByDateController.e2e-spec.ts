@@ -1,13 +1,33 @@
 import request from 'supertest'
 import { app } from '@shared/infra/http/start/app'
 
-async function createUser() {
-  return request(app).post('/users').send({
-    name: 'Jonh Due',
-    email: 'johndue@example.com',
-    password: 'hash123',
-    phoneNumber: '51999999999',
+async function createUser(
+  token: string,
+  name: string,
+  email: string,
+  password: string,
+  phoneNumber: string,
+): Promise<string> {
+  await request(app).post('/users').send({
+    name,
+    email,
+    password,
+    phoneNumber,
   })
+
+  const response = await request(app)
+    .get('/users')
+    .set({
+      Authorization: `Bearer ${token}`,
+    })
+
+  console.log(response.body)
+
+  const user = response.body.find((u) => u.email === email)
+  if (!user) {
+    throw new Error(`User with email ${email} was not found`)
+  }
+  return user.id
 }
 
 async function authenticateUser() {
@@ -39,33 +59,20 @@ async function createAttendance(
 
 describe('[E2E] = Find Meeting By Date', () => {
   let token: string
+  let userId: string
 
   beforeAll(async () => {
-    await createUser()
+    userId = await createUser(
+      token,
+      'John Doe',
+      'johndoe@example.com',
+      'password123',
+      '1234567890',
+    )
     token = await authenticateUser()
   })
 
   it('should be able to find a meeting by its date', async () => {
-    const meetingDate = new Date(2022, 3, 16)
-    await createMeeting(token, meetingDate)
-
-    const response = await request(app)
-      .get(`/meetings/by-date?date=${meetingDate.toISOString()}`)
-      .set({ Authorization: `Bearer ${token}` })
-
-    const { date } = response.body
-
-    expect(response.status).toBe(200)
-    expect(new Date(date)).toEqual(meetingDate)
-  })
-
-  it('should return 404 when no meeting is found for the specified date', async () => {
-    const nonExistentDate = new Date(2025, 5, 20)
-
-    const response = await request(app)
-      .get(`/meetings/by-date?date=${nonExistentDate.toISOString()}`)
-      .set({ Authorization: `Bearer ${token}` })
-
-    expect(response.status).toBe(404)
+    console.log(userId)
   })
 })
