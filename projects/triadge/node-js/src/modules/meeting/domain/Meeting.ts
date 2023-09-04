@@ -6,7 +6,7 @@ import { Attendance } from '@modules/attendance/domain/Attendance'
 interface IMeetingProps {
   id?: string
   date: Date
-  attendences?: Attendance[]
+  attendances?: Attendance[]
 }
 
 class Meeting extends AggregateRoot<IMeetingProps> {
@@ -19,17 +19,17 @@ class Meeting extends AggregateRoot<IMeetingProps> {
   }
 
   get attendances(): Attendance[] {
-    return this.props.attendences
+    return this.props.attendances
   }
 
   public static createMeeting({
     id,
     date,
-    attendences,
+    attendances,
   }: IMeetingProps): Meeting {
     const meetingProps = {
       date,
-      attendences,
+      attendances,
     }
 
     return AggregateRoot.create({ props: meetingProps, id }, Meeting)

@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { IUseCase } from '@shared/core/domain/IUseCase'
 import { User } from '@modules/accounts/domain/User'
-import { Meeting } from '@modules/meeting/domain/Meeting'
+
 import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingRepository'
 import { AppError } from '@shared/error/AppError'
 
@@ -11,8 +11,10 @@ interface IRequest {
 }
 
 interface IResponse {
-  meeting: Meeting
-  attendees: User[]
+  meeting: {
+    date: Date
+    attendees: User[]
+  }
 }
 
 @injectable()
@@ -29,11 +31,18 @@ class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
       throw new AppError('Meeting not found', 404)
     }
 
-    const attendees = meeting.attendances.flatMap(
-      (attendance) => attendance.user,
-    )
+    let attendees: User[] = []
 
-    return { meeting, attendees }
+    if (meeting.attendances && meeting.attendances.length > 0) {
+      attendees = meeting.attendances.flatMap((attendance) => attendance.user)
+    }
+
+    return {
+      meeting: {
+        date: meeting.date,
+        attendees,
+      },
+    }
   }
 }
 

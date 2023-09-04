@@ -112,6 +112,6 @@ describe('[E2E] = Find Meeting By Date', () => {
       .get(`/meetings/by-date?date=${meetingDate.toISOString()}`)
       .set({ Authorization: `Bearer ${token}` })
 
-    console.log(response.body)
+    console.log(JSON.stringify(response.body, null, 2))
   })
 })

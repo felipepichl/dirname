@@ -59,8 +59,6 @@ class MeetingRepository implements IMeetingRepository {
       },
     })
 
-    console.log(result)
-
     return MeetingMappers.getMapper().toDomain(result)
   }
 
