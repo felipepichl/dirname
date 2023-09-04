@@ -112,6 +112,16 @@ describe('[E2E] = Find Meeting By Date', () => {
       .get(`/meetings/by-date?date=${meetingDate.toISOString()}`)
       .set({ Authorization: `Bearer ${token}` })
 
-    console.log(JSON.stringify(response.body, null, 2))
+    const { meeting } = response.body
+
+    expect(response.status).toBe(200)
+    expect(new Date(meeting.date)).toEqual(meetingDate)
+    expect(Array.isArray(meeting.attendees)).toBe(true)
+    expect(meeting.attendees).toHaveLength(2)
+
+    // const returnedUserIds = meeting.attendees.map((attendee) => attendee.id)
+    // userIds.forEach((userId) => {
+    //   expect(returnedUserIds).toContain(userId)
+    // })
   })
 })
