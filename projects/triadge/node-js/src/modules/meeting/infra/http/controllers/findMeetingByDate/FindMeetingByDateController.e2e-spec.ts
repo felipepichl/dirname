@@ -1,8 +1,23 @@
 import request from 'supertest'
 import { app } from '@shared/infra/http/start/app'
 
+async function authenticateUser() {
+  await request(app).post('/users').send({
+    name: 'Jonh Due',
+    email: 'johndue@example.com',
+    password: 'hash123',
+    phoneNumber: '51999999999',
+  })
+
+  const response = await request(app).post('/sessions').send({
+    email: 'johndue@example.com',
+    password: 'hash123',
+  })
+  const { token } = response.body
+  return token
+}
+
 async function createUser(
-  token: string,
   name: string,
   email: string,
   password: string,
@@ -15,28 +30,24 @@ async function createUser(
     phoneNumber,
   })
 
+  const token = await authenticateUser()
+
   const response = await request(app)
     .get('/users')
     .set({
       Authorization: `Bearer ${token}`,
     })
 
+  const { users } = response.body
+
+  const user = users.find((u) => u.props.email === email)
+
   console.log(response.body)
 
-  const user = response.body.find((u) => u.email === email)
   if (!user) {
     throw new Error(`User with email ${email} was not found`)
   }
   return user.id
-}
-
-async function authenticateUser() {
-  const response = await request(app).post('/sessions').send({
-    email: 'johndue@example.com',
-    password: 'hash123',
-  })
-  const { token } = response.body
-  return token
 }
 
 async function createMeeting(token: string, date: Date) {
@@ -63,7 +74,6 @@ describe('[E2E] = Find Meeting By Date', () => {
 
   beforeAll(async () => {
     userId = await createUser(
-      token,
       'John Doe',
       'johndoe@example.com',
       'password123',
