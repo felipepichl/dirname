@@ -5,11 +5,12 @@ import { FindMeetingByDate } from '@modules/meeting/useCases/findMeetingByDate/F
 
 class FindMeetingByDateController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { date: dateParams } = request.params
+    const dateParams = request.query.date as string
+    const date = new Date(dateParams)
 
     const findMeetingByDate = container.resolve(FindMeetingByDate)
 
-    const date = new Date(dateParams)
+    console.log('Log => ', dateParams)
 
     const meeting = await findMeetingByDate.execute({
       date,
