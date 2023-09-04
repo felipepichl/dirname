@@ -31,7 +31,7 @@ describe('[Meeting] - Find meeting by date', () => {
 
     const fakeMeeting = Meeting.createMeeting({
       date: fakeDate,
-      attendences: [fakeAttendance1, fakeAttendance2],
+      attendances: [fakeAttendance1, fakeAttendance2],
     })
 
     await meetingsRepositoryInMemory.create(fakeMeeting)
@@ -40,23 +40,18 @@ describe('[Meeting] - Find meeting by date', () => {
       date: fakeDate,
     })
 
-    expect(response.meeting).toEqual(fakeMeeting)
-    expect(response.meeting.date).toEqual(fakeDate)
+    expect(response.meeting.date).toEqual(fakeMeeting.date)
 
-    const retrievedAttendances = response.meeting.attendances
+    const retrievedAttendances = response.meeting.attendees
     expect(retrievedAttendances).toHaveLength(2)
 
-    const attendeesFromAttendance1 = retrievedAttendances[0].userIds
-    const attendeesFromAttendance2 = retrievedAttendances[1].userIds
-
-    expect(attendeesFromAttendance1).toContain('fakeUser1')
-    expect(attendeesFromAttendance2).toContain('fakeUser2')
+    const attendeeIds = retrievedAttendances.map((attendee) => attendee.id)
+    expect(attendeeIds).toContain('fakeUser1')
+    expect(attendeeIds).toContain('fakeUser2')
   })
 
   it('should throw an AppError if no meeting is found for the specified date', async () => {
-    const fakeDate = new Date(2022, 3, 16) // suponha que não há reuniões para esta data
-
-    // Neste caso, não estamos adicionando nenhuma reunião no repositório em memória
+    const fakeDate = new Date(2022, 3, 16)
 
     await expect(
       findMeetingByDate.execute({
