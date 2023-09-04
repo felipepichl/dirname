@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import { IUseCase } from '@shared/core/domain/IUseCase'
 import { User } from '@modules/accounts/domain/User'
 import { Meeting } from '@modules/meeting/domain/Meeting'
@@ -13,8 +15,12 @@ interface IResponse {
   attendees: User[]
 }
 
+@injectable()
 class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
-  constructor(private meetingsRepository: IMeetingRepository) {}
+  constructor(
+    @inject('MeetingsRepository')
+    private meetingsRepository: IMeetingRepository,
+  ) {}
 
   async execute({ date }: IRequest): Promise<IResponse> {
     const meeting = await this.meetingsRepository.findByDateWithAttendees(date)
