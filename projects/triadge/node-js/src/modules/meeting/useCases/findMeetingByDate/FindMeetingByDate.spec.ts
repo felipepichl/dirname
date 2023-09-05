@@ -37,15 +37,11 @@ async function createUser(
 }
 
 async function createMeeting(date: Date): Promise<Meeting> {
-  const meeting = Meeting.createMeeting({
-    date,
-  })
-
+  const meeting = Meeting.createMeeting({ date })
   await meetingsRepositoryInMemory.create(meeting)
 
-  const result = await meetingsRepositoryInMemory.findAll()
-
-  return result[0]
+  const allMeetings = await meetingsRepositoryInMemory.findAll()
+  return allMeetings[0]
 }
 
 async function createAttendance(
@@ -72,7 +68,7 @@ async function createAttendance(
 }
 
 describe('[Meeting] - Find meeting by date', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
     findMeetingByDate = new FindMeetingByDate(meetingsRepositoryInMemory)
 
@@ -93,7 +89,9 @@ describe('[Meeting] - Find meeting by date', () => {
     meetingDate = new Date(2022, 3, 16)
     const meeting = await createMeeting(meetingDate)
 
-    await createAttendance([user1, user2], meeting)
+    const result = await createAttendance([user1, user2], meeting)
+
+    await createMeeting(meetingDate, [result])
   })
 
   it('should return a meeting and its attendees when found by date', async () => {
@@ -123,6 +121,12 @@ describe('[Meeting] - Find meeting by date', () => {
     // const attendeeIds = retrievedAttendances.map((attendee) => attendee.id)
     // expect(attendeeIds).toContain('fakeUser1')
     // expect(attendeeIds).toContain('fakeUser2')
+
+    const result = await findMeetingByDate.execute({
+      date: meetingDate,
+    })
+
+    console.log(result)
   })
 
   it('should throw an AppError if no meeting is found for the specified date', async () => {
