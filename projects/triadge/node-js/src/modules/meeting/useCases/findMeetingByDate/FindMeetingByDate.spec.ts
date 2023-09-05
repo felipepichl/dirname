@@ -34,6 +34,18 @@ async function createUser(
   return result
 }
 
+async function createMeeting(date: Date): Promise<Meeting> {
+  const meeting = Meeting.createMeeting({
+    date,
+  })
+
+  await meetingsRepositoryInMemory.create(meeting)
+
+  const result = await meetingsRepositoryInMemory.findAll()
+
+  return result[0]
+}
+
 describe('[Meeting] - Find meeting by date', () => {
   beforeEach(() => {
     meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
@@ -68,14 +80,25 @@ describe('[Meeting] - Find meeting by date', () => {
     // expect(attendeeIds).toContain('fakeUser1')
     // expect(attendeeIds).toContain('fakeUser2')
 
-    const response = await createUser(
+    const user1 = await createUser(
       'User1',
       'user1@example.com',
       'password123',
       '1234567890',
     )
 
-    console.log(response)
+    const user2 = await createUser(
+      'User2',
+      'user2@example.com',
+      'password123',
+      '1234567890',
+    )
+
+    const meetingDate = new Date(2022, 3, 16)
+    const meeting = await createMeeting(meetingDate)
+
+    console.log(user1, user2)
+    console.log(meeting)
   })
 
   it('should throw an AppError if no meeting is found for the specified date', async () => {
