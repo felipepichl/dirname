@@ -36,7 +36,30 @@ async function createUser(
   return result
 }
 
+async function _createMeeting(
+  date: Date,
+  attendances?: Attendance[],
+): Promise<Meeting> {
+  const meeting = Meeting.createMeeting({ date })
+  await meetingsRepositoryInMemory.create(meeting)
+
+  const originalMeeting = await meetingsRepositoryInMemory.findAll()
+
+  const clonedMeeting = Object.assign(
+    Object.create(Object.getPrototypeOf(originalMeeting[0])),
+    originalMeeting[0],
+  )
+
+  if (attendances && attendances.length > 0) {
+    clonedMeeting.props = { ...clonedMeeting.props, attendances }
+  }
+
+  return clonedMeeting
+}
+
 async function createMeeting(date: Date): Promise<Meeting> {
+  meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
+
   const meeting = Meeting.createMeeting({ date })
   await meetingsRepositoryInMemory.create(meeting)
 
@@ -59,19 +82,30 @@ async function createAttendance(
   })
 
   const attendancesRepository = new AttendancesRepositoryInMemory()
-
   await attendancesRepository.create(attendance)
 
-  const result = await attendancesRepository.findAll()
+  const originalMeeting = await meetingsRepositoryInMemory.findByDate(
+    meeting.date,
+  )
 
+  const clonedMeeting = Object.assign(
+    Object.create(Object.getPrototypeOf(originalMeeting)),
+    originalMeeting,
+  )
+
+  clonedMeeting.props = { ...clonedMeeting.props, attendances: [attendance] }
+
+  meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
+
+  await meetingsRepositoryInMemory.create(clonedMeeting)
+  findMeetingByDate = new FindMeetingByDate(meetingsRepositoryInMemory)
+
+  const result = await attendancesRepository.findAll()
   return result[0]
 }
 
 describe('[Meeting] - Find meeting by date', () => {
   beforeAll(async () => {
-    meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
-    findMeetingByDate = new FindMeetingByDate(meetingsRepositoryInMemory)
-
     const user1 = await createUser(
       'User1',
       'user1@example.com',
@@ -89,9 +123,7 @@ describe('[Meeting] - Find meeting by date', () => {
     meetingDate = new Date(2022, 3, 16)
     const meeting = await createMeeting(meetingDate)
 
-    const result = await createAttendance([user1, user2], meeting)
-
-    await createMeeting(meetingDate, [result])
+    await createAttendance([user1, user2], meeting)
   })
 
   it('should return a meeting and its attendees when found by date', async () => {
