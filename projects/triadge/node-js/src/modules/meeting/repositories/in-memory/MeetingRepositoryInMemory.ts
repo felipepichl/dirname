@@ -5,6 +5,10 @@ import { IMeetingRepository } from '../IMeetingRepository'
 class MeetingRepositoryInMemory implements IMeetingRepository {
   private meetings: Meeting[] = []
 
+  clear(): void {
+    this.meetings = []
+  }
+
   async create(meeting: Meeting): Promise<void> {
     this.meetings.push(meeting)
   }

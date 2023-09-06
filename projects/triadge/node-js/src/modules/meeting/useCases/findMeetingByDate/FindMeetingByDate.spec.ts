@@ -11,6 +11,7 @@ import { FindMeetingByDate } from './FindMeetingByDate'
 import { AppError } from '@shared/error/AppError'
 
 let meetingsRepositoryInMemory: MeetingRepositoryInMemory
+let attendancesRepository: AttendancesRepositoryInMemory
 let findMeetingByDate: FindMeetingByDate
 let meetingDate: Date
 
@@ -31,34 +32,27 @@ async function createUser(
 
   await usersRepository.create(user)
 
-  const result = usersRepository.findByEmail(email)
-
-  return result
+  return user
 }
 
 async function createMeeting(date: Date): Promise<Meeting> {
   const meeting = Meeting.createMeeting({ date })
   await meetingsRepositoryInMemory.create(meeting)
 
-  const allMeetings = await meetingsRepositoryInMemory.findAll()
-  return allMeetings[0]
+  return meeting
 }
 
-async function createAttendance(
-  users: User[],
-  meeting: Meeting,
-): Promise<Attendance> {
-  const userIds = [users[0].id.toString(), users[1].id.toString()]
+async function createAttendanceForUsers(users: User[], meeting: Meeting) {
+  const userIds = users.map((user) => user.id.toString())
   const meetingId = meeting.id.toString()
 
   const attendance = Attendance.createAttendance({
     userIds,
     meetingId,
-    user: [users[0], users[1]],
+    user: users,
     meeting,
   })
 
-  const attendancesRepository = new AttendancesRepositoryInMemory()
   await attendancesRepository.create(attendance)
 
   const originalMeeting = await meetingsRepositoryInMemory.findByDate(
@@ -72,26 +66,29 @@ async function createAttendance(
 
   clonedMeeting.props = { ...clonedMeeting.props, attendances: [attendance] }
 
-  meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
+  meetingsRepositoryInMemory.clear()
 
   await meetingsRepositoryInMemory.create(clonedMeeting)
-  findMeetingByDate = new FindMeetingByDate(meetingsRepositoryInMemory)
-
-  const result = await attendancesRepository.findAll()
-  return result[0]
 }
 
 describe('[Meeting] - Find meeting by date', () => {
+  let user1: User
+  let user2: User
+  let meeting: Meeting
+
   beforeAll(async () => {
     meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
+    attendancesRepository = new AttendancesRepositoryInMemory()
 
-    const user1 = await createUser(
+    findMeetingByDate = new FindMeetingByDate(meetingsRepositoryInMemory)
+
+    user1 = await createUser(
       'User1',
       'user1@example.com',
       'password123',
       '1234567890',
     )
-    const user2 = await createUser(
+    user2 = await createUser(
       'User2',
       'user2@example.com',
       'password123',
@@ -99,9 +96,9 @@ describe('[Meeting] - Find meeting by date', () => {
     )
 
     meetingDate = new Date(2022, 3, 16)
-    const meeting = await createMeeting(meetingDate)
+    meeting = await createMeeting(meetingDate)
 
-    await createAttendance([user1, user2], meeting)
+    await createAttendanceForUsers([user1, user2], meeting)
   })
 
   it('should return a meeting and its attendees when found by date', async () => {
@@ -114,17 +111,17 @@ describe('[Meeting] - Find meeting by date', () => {
     expect(retrievedAttendances).toHaveLength(2)
     expect(response.meeting).toBeDefined()
     expect(response.meeting.attendees).toBeDefined()
-    // const attendeeIds = retrievedAttendances.map((attendee) => attendee.id)
-    // expect(attendeeIds).toContain('fakeUser1')
-    // expect(attendeeIds).toContain('fakeUser2')
+    const [attendeeId1, attendeeId2] = retrievedAttendances.map((attendee) =>
+      attendee.id.toString(),
+    )
+    expect(attendeeId1).toContain(user1.id.toString())
+    expect(attendeeId2).toContain(user2.id.toString())
   })
 
   it('should throw an AppError if no meeting is found for the specified date', async () => {
-    const fakeDate = new Date(2022, 3, 16)
-
     await expect(
       findMeetingByDate.execute({
-        date: fakeDate,
+        date: new Date(2022, 3, 16),
       }),
     ).rejects.toEqual(new AppError('Meeting not found', 404))
   })
