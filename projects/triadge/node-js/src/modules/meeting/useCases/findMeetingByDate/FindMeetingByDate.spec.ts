@@ -37,8 +37,6 @@ async function createUser(
 }
 
 async function createMeeting(date: Date): Promise<Meeting> {
-  meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
-
   const meeting = Meeting.createMeeting({ date })
   await meetingsRepositoryInMemory.create(meeting)
 
@@ -85,13 +83,14 @@ async function createAttendance(
 
 describe('[Meeting] - Find meeting by date', () => {
   beforeAll(async () => {
+    meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
+
     const user1 = await createUser(
       'User1',
       'user1@example.com',
       'password123',
       '1234567890',
     )
-
     const user2 = await createUser(
       'User2',
       'user2@example.com',

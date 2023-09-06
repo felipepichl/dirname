@@ -37,8 +37,6 @@ class FindMeetingByDate implements IUseCase<IRequest, IResponse> {
       attendees = meeting.attendances.flatMap((attendance) => attendance.user)
     }
 
-    console.log(meeting)
-
     return {
       meeting: {
         date: meeting.date,
