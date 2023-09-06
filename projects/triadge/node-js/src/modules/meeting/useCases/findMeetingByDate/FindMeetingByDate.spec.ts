@@ -36,27 +36,6 @@ async function createUser(
   return result
 }
 
-async function _createMeeting(
-  date: Date,
-  attendances?: Attendance[],
-): Promise<Meeting> {
-  const meeting = Meeting.createMeeting({ date })
-  await meetingsRepositoryInMemory.create(meeting)
-
-  const originalMeeting = await meetingsRepositoryInMemory.findAll()
-
-  const clonedMeeting = Object.assign(
-    Object.create(Object.getPrototypeOf(originalMeeting[0])),
-    originalMeeting[0],
-  )
-
-  if (attendances && attendances.length > 0) {
-    clonedMeeting.props = { ...clonedMeeting.props, attendances }
-  }
-
-  return clonedMeeting
-}
-
 async function createMeeting(date: Date): Promise<Meeting> {
   meetingsRepositoryInMemory = new MeetingRepositoryInMemory()
 
@@ -127,38 +106,18 @@ describe('[Meeting] - Find meeting by date', () => {
   })
 
   it('should return a meeting and its attendees when found by date', async () => {
-    // const fakeDate = new Date(2022, 3, 16)
-    // const fakeAttendance1 = Attendance.createAttendance({
-    //   userIds: ['fakeUser1'],
-    //   meetingId: 'fakeMeetingId1',
-    // })
-    // const fakeAttendance2 = Attendance.createAttendance({
-    //   userIds: ['fakeUser2'],
-    //   meetingId: 'fakeMeetingId2',
-    // })
-    // const fakeMeeting = Meeting.createMeeting({
-    //   date: fakeDate,
-    //   attendances: [fakeAttendance1, fakeAttendance2],
-    // })
-    // await meetingsRepositoryInMemory.create(fakeMeeting)
-    // const response = await findMeetingByDate.execute({
-    //   date: fakeDate,
-    // })
-    // console.log(response)
-    // expect(response.meeting.date).toEqual(fakeMeeting.date)
-    // const retrievedAttendances = response.meeting.attendees
-    // expect(retrievedAttendances).toHaveLength(2)
-    // expect(response.meeting).toBeDefined()
-    // expect(response.meeting.attendees).toBeDefined()
-    // const attendeeIds = retrievedAttendances.map((attendee) => attendee.id)
-    // expect(attendeeIds).toContain('fakeUser1')
-    // expect(attendeeIds).toContain('fakeUser2')
-
-    const result = await findMeetingByDate.execute({
+    const response = await findMeetingByDate.execute({
       date: meetingDate,
     })
 
-    console.log(result)
+    expect(response.meeting.date).toEqual(meetingDate)
+    const retrievedAttendances = response.meeting.attendees
+    expect(retrievedAttendances).toHaveLength(2)
+    expect(response.meeting).toBeDefined()
+    expect(response.meeting.attendees).toBeDefined()
+    // const attendeeIds = retrievedAttendances.map((attendee) => attendee.id)
+    // expect(attendeeIds).toContain('fakeUser1')
+    // expect(attendeeIds).toContain('fakeUser2')
   })
 
   it('should throw an AppError if no meeting is found for the specified date', async () => {
