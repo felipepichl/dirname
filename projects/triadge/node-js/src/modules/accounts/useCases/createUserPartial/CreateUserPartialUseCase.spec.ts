@@ -8,7 +8,7 @@ import { CreateUserPartialUseCase } from './CreateUserPartialUseCase'
 let usersRepositoryInMemory: UsersRepositoryInMemory
 let createUserPartialUseCase: CreateUserPartialUseCase
 
-describe('[Account] - Create a user', () => {
+describe('[Account] - Create a partial user', () => {
   beforeEach(() => {
     usersRepositoryInMemory = new UsersRepositoryInMemory()
     createUserPartialUseCase = new CreateUserPartialUseCase(
@@ -16,11 +16,9 @@ describe('[Account] - Create a user', () => {
     )
   })
 
-  it('should be able to create a new user', async () => {
+  it('should be able to create a new partial user', async () => {
     const user = User.createUser({
       name: 'Jonh Due',
-      email: 'johndue@example.com',
-      password: 'hash123',
       phoneNumber: '51999999999',
     })
 
@@ -31,7 +29,7 @@ describe('[Account] - Create a user', () => {
     const userCreated = await usersRepositoryInMemory.findByEmail(email)
 
     expect(userCreated).toBeDefined()
-    expect(userCreated?.email).toEqual(user.email)
+    expect(userCreated?.phoneNumber).toEqual(user.phoneNumber)
   })
 
   it('should not be able to create a new user with same phone number another', async () => {

@@ -21,7 +21,8 @@ class CreateUserPartialUseCase implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ name, phoneNumber }: IRequest): Promise<void> {
-    const userAllReadyExists = await this.usersRepository.findByEmail(email)
+    const userAllReadyExists =
+      await this.usersRepository.findByPhoneNumber(phoneNumber)
 
     if (userAllReadyExists) {
       throw new AppError('Users already exists', 400)
