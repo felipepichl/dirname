@@ -8,8 +8,6 @@ import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
   name: string
-  email: string
-  password: string
   phoneNumber: string
 }
 
