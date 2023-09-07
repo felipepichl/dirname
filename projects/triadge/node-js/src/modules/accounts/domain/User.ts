@@ -4,8 +4,8 @@ import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 interface IUserProps {
   id?: string
   name: string
-  email: string
-  password: string
+  email?: string
+  password?: string
   phoneNumber: string
   avatar?: string
   role?: string
