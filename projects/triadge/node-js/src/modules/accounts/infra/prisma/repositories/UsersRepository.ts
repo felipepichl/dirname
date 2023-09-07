@@ -12,7 +12,7 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     phoneNumber,
-    avatar
+    avatar,
   }: User): Promise<void> {
     const data = {
       name,
@@ -37,6 +37,14 @@ class UsersRepository implements IUsersRepository {
     if (!result) {
       return null
     }
+
+    return UserMappers.getMapper().toDomain(result)
+  }
+
+  async findByPhoneNumber(phoneNumber: string): Promise<User> {
+    const result = await PrismaSingleton.getInstance().user.findFirst({
+      where: { phoneNumber },
+    })
 
     return UserMappers.getMapper().toDomain(result)
   }

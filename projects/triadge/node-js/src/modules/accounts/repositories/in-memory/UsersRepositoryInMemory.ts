@@ -15,6 +15,10 @@ class UsersRepositoryInMemory implements IUsersRepository {
     return user
   }
 
+  async findByPhoneNumber(phoneNumber: string): Promise<User> {
+    return this.users.find((user) => user.phoneNumber === phoneNumber)
+  }
+
   async findById(userId: string): Promise<User> {
     const user = this.users.find((user) => user.id.toString() === userId)
 
