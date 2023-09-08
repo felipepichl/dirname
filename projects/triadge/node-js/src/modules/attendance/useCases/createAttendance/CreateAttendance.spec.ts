@@ -1,13 +1,12 @@
 import { User } from '@modules/accounts/domain/User'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
+import { Meeting } from '@modules/meeting/domain/Meeting'
 import { MeetingRepositoryInMemory } from '@modules/meeting/repositories/in-memory/MeetingRepositoryInMemory'
-import { Attendance } from '@modules/attendance/domain/Attendance'
 import { AttendancesRepositoryInMemory } from '@modules/attendance/repositories/in-memory/AttendancesRepositoryInMemory'
 
 import { CreateAttendance } from '@modules/attendance/useCases/createAttendance/CreateAttendance'
 
 import { AppError } from '@shared/error/AppError'
-import { Meeting } from '@modules/meeting/domain/Meeting'
 
 let usersRepositoryInMemory: UsersRepositoryInMemory
 let meetingRepositoryInMemory: MeetingRepositoryInMemory
