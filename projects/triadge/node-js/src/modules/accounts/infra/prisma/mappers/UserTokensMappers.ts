@@ -5,8 +5,8 @@ import { UserTokens as RawUserTokens } from '@prisma/client'
 import { IMapper } from '@shared/core/infra/Mapper'
 
 class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
-  toPersistence(object: UserTokens): UserTokens {
-    return object
+  toPersistence(usertokens: UserTokens): UserTokens {
+    return usertokens
   }
 
   toDomain({
@@ -21,8 +21,8 @@ class UserTokensMappers implements IMapper<UserTokens, RawUserTokens> {
     })
   }
 
-  toDomainArray(rawArray: RawUserTokens[]): UserTokens[] {
-    return rawArray.map(this.toDomain)
+  toDomainArray(rawUserTokens: RawUserTokens[]): UserTokens[] {
+    return rawUserTokens.map(this.toDomain)
   }
 
   getMapper(): IMapper<UserTokens, RawUserTokens> {

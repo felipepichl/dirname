@@ -4,16 +4,16 @@ import { User as RawUser } from '@prisma/client'
 import { IMapper } from '@shared/core/infra/Mapper'
 
 class UserMappers implements IMapper<User, RawUser> {
-  toPersistence(object: User): User {
-    return object
+  toPersistence(user: User): User {
+    return user
   }
 
   toDomain(raw: RawUser): User {
     return User.createUser(raw)
   }
 
-  toDomainArray(rawArray: RawUser[]): User[] {
-    return rawArray.map(this.toDomain)
+  toDomainArray(rawUsers: RawUser[]): User[] {
+    return rawUsers.map(this.toDomain)
   }
 
   getMapper(): IMapper<User, RawUser> {
