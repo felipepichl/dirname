@@ -1,12 +1,13 @@
-import { authConfig } from '@config/auth'
-import { UserTokens } from '@modules/accounts/domain/UserTokens'
-import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider'
-import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
-import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository'
 import { sign } from 'jsonwebtoken'
 import { inject, injectable } from 'tsyringe'
+import { authConfig } from '@config/auth'
 
+import { UserTokens } from '@modules/accounts/domain/UserTokens'
+import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+import { IHashProvider } from '@modules/accounts/providers/HashProvider/models/IHashProvider'
+import { IUsersTokensRepository } from '@modules/accounts/repositories/IUsersTokensRepository'
 import { IDateProvider } from '@shared/container/providers/DateProvider/models/IDateProvider'
+
 import { IUseCase } from '@shared/core/domain/IUseCase'
 import { AppError } from '@shared/error/AppError'
 

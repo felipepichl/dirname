@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe'
 
 import { User } from '@modules/accounts/domain/User'
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
+
 import { IUseCase } from '@shared/core/domain/IUseCase'
 
 interface IResponse {
