@@ -31,10 +31,8 @@ describe('[Account] - List all users', () => {
     await usersRepositoryInMemory.create(user1)
     await usersRepositoryInMemory.create(user2)
 
-    const { id: userId1 } =
-      await usersRepositoryInMemory.findByEmail('user1@test.com')
-    const { id: userId2 } =
-      await usersRepositoryInMemory.findByEmail('user2@test.com')
+    const { id: userId1 } = user1
+    const { id: userId2 } = user2
 
     const result = await listAllUseCase.execute()
 

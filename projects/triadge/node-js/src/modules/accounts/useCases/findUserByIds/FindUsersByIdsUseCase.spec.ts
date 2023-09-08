@@ -31,10 +31,8 @@ describe('[Account] - Find users by ids', () => {
     await usersRepositoryInMemory.create(user1)
     await usersRepositoryInMemory.create(user2)
 
-    const { id: userId1 } =
-      await usersRepositoryInMemory.findByEmail('user1@test.com')
-    const { id: userId2 } =
-      await usersRepositoryInMemory.findByEmail('user2@test.com')
+    const { id: userId1 } = user1
+    const { id: userId2 } = user2
 
     const result = await findUsersByIdsUseCase.execute({
       userIds: [userId1.toString(), userId2.toString()],
