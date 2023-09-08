@@ -46,6 +46,10 @@ class UsersRepository implements IUsersRepository {
       where: { phoneNumber },
     })
 
+    if (!result) {
+      return null
+    }
+
     return UserMappers.getMapper().toDomain(result)
   }
 
