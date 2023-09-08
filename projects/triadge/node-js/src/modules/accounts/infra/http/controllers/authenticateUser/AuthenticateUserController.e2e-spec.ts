@@ -3,7 +3,7 @@ import request from 'supertest'
 import { app } from '@shared/infra/http/start/app'
 
 describe('[E2E] = Authenticate User', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await request(app).post('/users').send({
       name: 'Jonh Due',
       email: 'johndue@example.com',
