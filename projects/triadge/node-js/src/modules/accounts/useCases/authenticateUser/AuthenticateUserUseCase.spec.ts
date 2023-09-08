@@ -55,6 +55,9 @@ describe('[Account] - Authenticate User', () => {
     })
 
     expect(response).toHaveProperty('token')
+    expect(response.user).toBeDefined()
+    expect(response.user.email).toEqual(email)
+    expect(response.refreshToken).toBeDefined()
   })
 
   it('should not be able to authenticate with non existing user', async () => {
@@ -63,7 +66,7 @@ describe('[Account] - Authenticate User', () => {
         email: 'non_existing@example.com',
         password: 'hash123',
       }),
-    ).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Incorret email/password combination'))
   })
 
   it('should not be able to authenticate with wrong password', async () => {
@@ -83,6 +86,6 @@ describe('[Account] - Authenticate User', () => {
         email,
         password: 'wrong-password',
       }),
-    ).rejects.toBeInstanceOf(AppError)
+    ).rejects.toEqual(new AppError('Incorret email/password combination'))
   })
 })
