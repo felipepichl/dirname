@@ -1,11 +1,11 @@
 import { inject, injectable } from 'tsyringe'
 
-import { IUseCase } from '@shared/core/domain/IUseCase'
-import { AppError } from '@shared/error/AppError'
-
 import { IUsersRepository } from '@modules/accounts/repositories/IUsersRepository'
 import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingRepository'
 import { IAttendancesRepository } from '@modules/attendance/repositories/IAttendancesRepository'
+
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 import { Attendance } from '@modules/attendance/domain/Attendance'
 
