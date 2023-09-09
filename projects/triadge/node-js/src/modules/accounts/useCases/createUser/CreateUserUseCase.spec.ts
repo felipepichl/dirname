@@ -48,8 +48,8 @@ describe('[Account] - Create a user', () => {
 
     await createUserUseCase.execute(user)
 
-    await expect(createUserUseCase.execute(user)).rejects.toBeInstanceOf(
-      AppError,
+    await expect(createUserUseCase.execute(user)).rejects.toEqual(
+      new AppError('Users already exists', 400),
     )
   })
 })
