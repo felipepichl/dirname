@@ -50,4 +50,12 @@ describe('[Account] - Find users by ids', () => {
       ]),
     )
   })
+
+  it('should return an empty array if no users are found', async () => {
+    const { users } = await findUsersByIdsUseCase.execute({
+      userIds: ['non-existing-id-1', 'non-existing-id-2'],
+    })
+
+    expect(users).toHaveLength(0)
+  })
 })
