@@ -19,6 +19,7 @@ import {
   Form,
   Label,
   InputGroup,
+  InputGroupPrice,
   InputGroupHeader,
   MaxCaracters,
 } from './styles'
@@ -50,7 +51,7 @@ export function Product() {
   return (
     <Container behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       <Header 
-        title='Cadastar'
+        title='Cadastrar'
       />
       <Content
         showsVerticalScrollIndicator={false}
@@ -100,12 +101,12 @@ export function Product() {
             </InputGroup>
           </MotiView>
 
+          <InputGroup>
           <MotiView
             from={{ translateY: 100, opacity: 0 }}
             animate={{ translateY: 0, opacity: 1 }}
             transition={{ type: 'timing', duration: 1000, delay: 400, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
           >
-            <InputGroup>
               <InputGroupHeader>
                 <Label>Descrição</Label>
                 <MaxCaracters>0 de 90 caracteres</MaxCaracters>
@@ -119,10 +120,10 @@ export function Product() {
                 onChangeText={setDescription}
                 value={description}
               />
-            </InputGroup>
           </MotiView>
+            </InputGroup>
            
-          <InputGroup>
+          <InputGroupPrice>
             <MotiView 
               from={{ translateY: 100, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
@@ -156,10 +157,10 @@ export function Product() {
               <InputPrice 
                 size='G' 
                 onChangeText={setPriceSizeG}
-                value={priceSizeG}  
+                value={priceSizeG}
               />
             </MotiView>
-          </InputGroup>
+          </InputGroupPrice>
 
           <MotiView
             from={{ translateY: 100, opacity: 0 }}
