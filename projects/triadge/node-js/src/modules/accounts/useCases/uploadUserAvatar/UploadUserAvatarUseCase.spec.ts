@@ -55,6 +55,35 @@ describe('[Account] - Upload Avatar', () => {
     expect(userCreated.avatar).toBe('avatar.jpg')
   })
 
+  it('should be able to override existing avatar', async () => {
+    const user = User.createUser({
+      name: 'Test User',
+      email: 'user@test.com',
+      password: '123456',
+      phoneNumber: '123456789',
+    })
+
+    await usersRepositoryInMemory.create(user)
+
+    const { id: userId } = user
+
+    await uploadUserAvatarUseCase.execute({
+      userId: userId.toString(),
+      avatarFile: 'avatar1.jpg',
+    })
+
+    await uploadUserAvatarUseCase.execute({
+      userId: userId.toString(),
+      avatarFile: 'avatar2.jpg',
+    })
+
+    const updatedUser = await usersRepositoryInMemory.findById(
+      userId.toString(),
+    )
+
+    expect(updatedUser.avatar).toBe('avatar2.jpg')
+  })
+
   it('should be able to upload avatar a non-existing user', async () => {
     await expect(
       uploadUserAvatarUseCase.execute({
