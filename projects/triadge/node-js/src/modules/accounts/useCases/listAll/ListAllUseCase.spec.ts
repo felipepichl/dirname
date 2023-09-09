@@ -48,4 +48,10 @@ describe('[Account] - List all users', () => {
       ]),
     )
   })
+
+  it('should return an empty array if no users exist', async () => {
+    const result = await listAllUseCase.execute()
+
+    expect(result.users).toHaveLength(0)
+  })
 })
