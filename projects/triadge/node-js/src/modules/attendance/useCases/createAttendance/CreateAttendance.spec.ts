@@ -52,13 +52,10 @@ describe('[Attendance] - Create Attendance', () => {
 
     await meetingRepositoryInMemory.create(meeting)
 
-    const { id: userId1 } =
-      await usersRepositoryInMemory.findByEmail('user1@test.com')
-    const { id: userId2 } =
-      await usersRepositoryInMemory.findByEmail('user2@test.com')
+    const { id: userId1 } = user1
+    const { id: userId2 } = user2
 
-    const { id: meetingId } =
-      await meetingRepositoryInMemory.findByDate(meetingDate)
+    const { id: meetingId } = meeting
 
     const userIds = [userId1.toString(), userId2.toString()]
 
@@ -74,7 +71,6 @@ describe('[Attendance] - Create Attendance', () => {
       )
 
     expect(attendanceRecords).toHaveLength(1)
-    // expect(attendancesRepositoryInMemory.findAll()).toHaveLength(1)
 
     const storedUserIds = attendanceRecords.flatMap((ua) => ua.userIds)
     expect(storedUserIds).toContain(userId1.toString())
