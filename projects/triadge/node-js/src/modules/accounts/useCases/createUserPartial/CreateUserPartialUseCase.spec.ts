@@ -42,8 +42,8 @@ describe('[Account] - Create a partial user', () => {
 
     await createUserPartialUseCase.execute(user)
 
-    await expect(createUserPartialUseCase.execute(user)).rejects.toBeInstanceOf(
-      AppError,
+    await expect(createUserPartialUseCase.execute(user)).rejects.toEqual(
+      new AppError('Users already exists', 400),
     )
   })
 })
