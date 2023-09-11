@@ -1,20 +1,42 @@
+import 'react-native-reanimated'
+import 'react-native-gesture-handler'
+
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts, DMSans_400Regular } from '@expo-google-fonts/dm-sans';
+import { DMSerifDisplay_400Regular } from '@expo-google-fonts/dm-serif-display';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { ThemeProvider } from 'styled-components/native';
+
+import { AuthProvider } from '@hooks/auth';
+
+import { SignIn } from '@screens/SignIn';
+import { ProductBase } from '@screens/ProductBase';
+
+import theme from './src/theme'
 
 export default function App() {
+  const [ fontsLoaded ] = useFonts({
+    DMSans_400Regular,
+    DMSerifDisplay_400Regular
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Day One or one day?!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider theme={theme}>
+        <StatusBar 
+          style='light'
+          translucent
+          backgroundColor='transparent'
+        />
+        <AuthProvider>
+          <ProductBase />
+        </AuthProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
