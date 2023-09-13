@@ -14,7 +14,7 @@ export const Container = styled(LinearGradient).attrs(({ theme }) => ({
   padding: ${getStatusBarHeight() + 33}px 20px 24px;
 `;
 
-export const Title = styled.Text`
+export const Logo = styled.Text`
   font-size: 24px;
 
   ${({ theme }) => css`
@@ -23,7 +23,7 @@ export const Title = styled.Text`
   `}
 `;
 
-export const DeleteLable = styled.Text`
+export const Avatar = styled.Text`
   font-size: 14px;
 
   ${({ theme }) => css`

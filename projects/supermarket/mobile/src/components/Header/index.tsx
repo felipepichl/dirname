@@ -5,7 +5,7 @@ import { MotiView } from 'moti'
 
 import { ButtonBack } from '@components/ButtonBack'
 
-import { Container, Title, DeleteLable } from './styles'
+import { Container, Logo, Avatar } from './styles'
 
 type Props = {
   title?: string
@@ -21,10 +21,10 @@ export function Header({ title }: Props) {
       <Container>
         <ButtonBack />
 
-        <Title>{title}</Title>
+        <Logo>{title}</Logo>
           
           <TouchableOpacity>
-            <DeleteLable>Deletar</DeleteLable>
+            <Avatar>Deletar</Avatar>
           </TouchableOpacity>
       </Container>
     </MotiView>
