@@ -8,7 +8,7 @@ import { ButtonBack } from '@components/ButtonBack'
 import { Container, Title, DeleteLable } from './styles'
 
 type Props = {
-  title: string
+  title?: string
 }
 
 export function Header({ title }: Props) {

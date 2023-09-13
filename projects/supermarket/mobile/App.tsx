@@ -10,7 +10,7 @@ import { ThemeProvider } from 'styled-components/native';
 
 import { AuthProvider } from '@hooks/auth';
 
-import { SignIn } from '@screens/SignIn';
+import { Welcome } from '@screens/Welcome';
 
 import theme from './src/theme'
 
@@ -33,7 +33,7 @@ export default function App() {
           backgroundColor='transparent'
         />
         <AuthProvider>
-          <SignIn />
+          <Welcome />
         </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
