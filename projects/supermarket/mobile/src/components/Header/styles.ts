@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Container = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT
+  colors: theme.COLORS.GRADIENT_900
 }))`
   width: 100%;
   flex-direction: row;

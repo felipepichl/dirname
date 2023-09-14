@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 import { MotiView } from 'moti'
 
-import { ButtonBack } from '@components/ButtonBack'
+import { ButtonSignIn } from '@components/ButtonSignIn'
 
 import { Container, Logo, Avatar } from './styles'
 
@@ -19,7 +19,7 @@ export function Header({ title }: Props) {
       transition={{ type: 'timing', duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
     >
       <Container>
-        <ButtonBack />
+        <ButtonSignIn />
 
         <Logo>{title}</Logo>
           

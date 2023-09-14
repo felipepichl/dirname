@@ -23,7 +23,8 @@ export default {
     SHAPE: '#B0B0B0',
     TITLE: '#FFF',
 
-    GRADIENT: ['#4A4A4A', '#282828']
+    GRADIENT: ['#4A4A4A', '#282828'],
+    GRADIENT_900: ['#fff', '#B0B0B0']
   },
 
   FONTS: {
