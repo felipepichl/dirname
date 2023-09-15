@@ -4,12 +4,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 export const Container = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT_900
+  colors: theme.COLORS.GRADIENT_A
 }))`
   width: 100%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  border: 1px solid ${({theme}) => theme.COLORS.PRIMARY_100};
 
   padding: ${getStatusBarHeight() + 33}px 20px 24px;
 `;

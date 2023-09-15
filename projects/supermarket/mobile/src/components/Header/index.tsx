@@ -5,7 +5,7 @@ import { MotiView } from 'moti'
 
 import { ButtonSignIn } from '@components/ButtonSignIn'
 
-import { Container, Logo, Avatar } from './styles'
+import { Container } from './styles'
 
 type Props = {
   title?: string
@@ -20,12 +20,6 @@ export function Header({ title }: Props) {
     >
       <Container>
         <ButtonSignIn />
-
-        <Logo>{title}</Logo>
-          
-          <TouchableOpacity>
-            <Avatar>Deletar</Avatar>
-          </TouchableOpacity>
       </Container>
     </MotiView>
   )

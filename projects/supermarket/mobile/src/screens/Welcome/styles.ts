@@ -3,7 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 export const Container = styled(LinearGradient).attrs(({ theme }) => ({
-  colors: theme.COLORS.GRADIENT,
+  colors: theme.COLORS.GRADIENT_B,
   start: { x: 0, y: 1 },
   end: { x: 0.5, y: 0.5 }
 }))`
