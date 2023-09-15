@@ -24,7 +24,9 @@ export default {
     TITLE: '#FFF',
 
     GRADIENT_A: ['#FFFFFF', '#FAF3E0'],
-    GRADIENT_B: ['#FAF3E0', '#FFFFFF']
+    GRADIENT_B: ['#FAF3E0', '#FFFFFF'],
+
+    TEST: '#146593'
   },
 
   FONTS: {

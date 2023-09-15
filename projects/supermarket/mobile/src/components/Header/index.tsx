@@ -1,11 +1,13 @@
 import React from 'react'
-import { TouchableOpacity } from 'react-native'
+
 import { Easing } from 'react-native-reanimated'
 import { MotiView } from 'moti'
 
+import brandImage from '@assets/brand.png'
+
 import { ButtonSignIn } from '@components/ButtonSignIn'
 
-import { Container } from './styles'
+import { Container, Brand } from './styles'
 
 type Props = {
   title?: string
@@ -19,6 +21,11 @@ export function Header({ title }: Props) {
       transition={{ type: 'timing', duration: 1000, easing: Easing.bezier(0.25, 0.1, 0.25, 1) }}
     >
       <Container>
+
+        <Brand 
+          source={brandImage}
+        />
+
         <ButtonSignIn />
       </Container>
     </MotiView>
