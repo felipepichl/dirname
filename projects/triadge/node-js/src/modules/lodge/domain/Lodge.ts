@@ -10,7 +10,7 @@ interface ILodgeProps {
   avatar?: string
 
   userId?: string
-  user?: User
+  users?: User[]
 }
 
 class Lodge extends AggregateRoot<ILodgeProps> {
@@ -30,13 +30,18 @@ class Lodge extends AggregateRoot<ILodgeProps> {
     return this.props.avatar
   }
 
+  get users(): User[] {
+    return this.props.users
+  }
+
   public static createLodge({
     id,
     name,
     description,
     avatar,
+    users,
   }: ILodgeProps): Lodge {
-    const props = { name, description, avatar }
+    const props = { name, description, avatar, users }
 
     return AggregateRoot.create({ props, id }, Lodge)
   }
