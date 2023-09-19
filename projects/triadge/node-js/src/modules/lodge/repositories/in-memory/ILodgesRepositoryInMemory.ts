@@ -1,5 +1,7 @@
-import { User } from '@modules/accounts/domain/User'
 import { Lodge } from '@modules/lodge/domain/Lodge'
+
+import { User } from '@modules/accounts/domain/User'
+import { UserMappers } from '@modules/accounts/infra/prisma/mappers/UserMappers'
 
 import { ILodgesRepository } from '../ILodgesRepository'
 
@@ -19,10 +21,9 @@ class ILodgesRepositoryInMemory implements ILodgesRepository {
   }
 
   async findUsersByLodgeId(id: string): Promise<User[]> {
-    // const users = this.lodges
-    //   .filter((lodge) => lodge.user && lodge.user.fk_lodge_id === id)
-    //   .map((lodge) => lodge.user)
-    // return users
+    const lodge = this.lodges.find((lodge) => lodge.id.toString() === id)
+
+    return UserMappers.getMapper().toDomainArray(lodge.users)
   }
 }
 
