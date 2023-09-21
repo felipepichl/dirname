@@ -24,11 +24,15 @@ model User {
   UsersTokens UserTokens[]
   Attendances Attendance[]
 
-  Lodge       Lodge?  @relation(fields: [fk_lodge_id], references: [id])
-  fk_lodge_id String?
+  Address     Address? @relation(fields: [fkAddressId], references: [id])
+  fkAddressId String?
 
-  Address       Address? @relation(fields: [fk_address_id], references: [id])
-  fk_address_id String?
+  administeredLodgeId String? @unique()
+  administeredLodge   Lodge?  @relation("AdminLodgeRelation", fields: [administeredLodgeId], references: [id])
+  memberLodgeId       String?
+  memberLodge         Lodge?  @relation("MemberLodgeRelation", fields: [memberLodgeId], references: [id])
+
+  Lodge Lodge[]
 }
 
 model UserTokens {
@@ -66,15 +70,25 @@ model Attendance {
 }
 
 model Lodge {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  avatar      String?
+  id           String    @id @default(uuid())
+  name         String
+  avatar       String?
+  latitude     Float?
+  longitude    Float?
+  foundingDate DateTime?
+  isActive     Boolean?  @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  User User[]
+  admin   User?  @relation("AdminLodgeRelation")
+  members User[] @relation("MemberLodgeRelation")
+
+  Address     Address? @relation(fields: [fkAddressId], references: [id])
+  fkAddressId String?
+
+  User   User?   @relation(fields: [userId], references: [id])
+  userId String?
 }
 
 model Address {
@@ -87,6 +101,7 @@ model Address {
   complement   String?
 
   users User[]
+  lodge Lodge[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
