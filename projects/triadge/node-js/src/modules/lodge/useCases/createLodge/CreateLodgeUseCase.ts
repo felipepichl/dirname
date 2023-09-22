@@ -6,12 +6,14 @@ import { Lodge } from '@modules/lodge/domain/Lodge'
 
 interface IRequest {
   name: string
+  foundingDate: Date
+  isActive: true
 }
 
 class CreateLodgeUseCase implements IUseCase<IRequest, void> {
   constructor(private lodgesRepository: ILodgesRepository) {}
 
-  async execute({ name }: IRequest): Promise<void> {
+  async execute({ name, foundingDate, isActive }: IRequest): Promise<void> {
     const lodgeAlreadyExists = await this.lodgesRepository.searchByName(name)
 
     if (lodgeAlreadyExists) {
@@ -20,7 +22,8 @@ class CreateLodgeUseCase implements IUseCase<IRequest, void> {
 
     const lodge = Lodge.createLodge({
       name,
-      description: '',
+      foundingDate,
+      isActive,
     })
 
     await this.lodgesRepository.create(lodge)
