@@ -23,7 +23,7 @@ class ILodgesRepositoryInMemory implements ILodgesRepository {
   async findUsersByLodgeId(id: string): Promise<User[]> {
     const lodge = this.lodges.find((lodge) => lodge.id.toString() === id)
 
-    return UserMappers.getMapper().toDomainArray(lodge.users)
+    return UserMappers.getMapper().toDomainArray(lodge.members)
   }
 }
 

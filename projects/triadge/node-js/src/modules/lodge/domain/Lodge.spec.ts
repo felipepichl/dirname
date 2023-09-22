@@ -4,7 +4,8 @@ describe('[Account] - Create a Lodge', () => {
   it('should be able to create a new instance of lodge', () => {
     const lodge = Lodge.createLodge({
       name: 'Name Example',
-      description: 'Description Example',
+      foundingDate: new Date(),
+      isActive: true,
     })
 
     expect(lodge instanceof Lodge).toBe(true)

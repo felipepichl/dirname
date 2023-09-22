@@ -6,11 +6,16 @@ import { User } from '@prisma/client'
 interface ILodgeProps {
   id?: string
   name: string
-  description: string
   avatar?: string
+  latitude?: number
+  longitude?: number
+  foundingDate: Date
+  isActive: boolean
 
-  userId?: string
-  users?: User[]
+  adminUserId?: string
+  admin?: User
+
+  members?: User[]
 }
 
 class Lodge extends AggregateRoot<ILodgeProps> {
@@ -22,26 +27,31 @@ class Lodge extends AggregateRoot<ILodgeProps> {
     return this.props.name
   }
 
-  get description(): string {
-    return this.props.description
+  get foundingDate(): Date {
+    return this.props.foundingDate
+  }
+
+  get isActive(): boolean {
+    return this.props.isActive
   }
 
   get avatar(): string {
     return this.props.avatar
   }
 
-  get users(): User[] {
-    return this.props.users
+  get members(): User[] {
+    return this.props.members
   }
 
   public static createLodge({
     id,
     name,
-    description,
     avatar,
-    users,
+    foundingDate,
+    isActive,
+    members,
   }: ILodgeProps): Lodge {
-    const props = { name, description, avatar, users }
+    const props = { name, foundingDate, isActive, avatar, members }
 
     return AggregateRoot.create({ props, id }, Lodge)
   }
