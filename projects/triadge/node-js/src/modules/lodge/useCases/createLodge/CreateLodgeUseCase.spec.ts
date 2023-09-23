@@ -8,7 +8,7 @@ import { CreateLodgeUseCase } from './CreateLodgeUseCase'
 let lodgesRepositoryInMemory: LodgesRepositoryInMemory
 let createLodgeUseCase: CreateLodgeUseCase
 
-describe('[Lodge] - Create Lodge', () => {
+describe('[Lodge] - Create a Lodge', () => {
   beforeEach(() => {
     lodgesRepositoryInMemory = new LodgesRepositoryInMemory()
 
