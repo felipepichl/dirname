@@ -1,10 +1,10 @@
-import { ILodgesRepositoryInMemory } from '@modules/lodge/repositories/in-memory/ILodgesRepositoryInMemory'
+import { LodgesRepositoryInMemory } from '@modules/lodge/repositories/in-memory/LodgesRepositoryInMemory'
 
-let lodgesRepositoryInMemory: ILodgesRepositoryInMemory
+let lodgesRepositoryInMemory: LodgesRepositoryInMemory
 
 describe('[Lodge] - Create Lodge', () => {
   beforeEach(() => {
-    lodgesRepositoryInMemory = new ILodgesRepositoryInMemory()
+    lodgesRepositoryInMemory = new LodgesRepositoryInMemory()
   })
 
   it('should be able to create a new Lodge', () => {})

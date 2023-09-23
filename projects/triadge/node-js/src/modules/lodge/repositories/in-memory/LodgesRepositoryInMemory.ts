@@ -5,7 +5,7 @@ import { UserMappers } from '@modules/accounts/infra/prisma/mappers/UserMappers'
 
 import { ILodgesRepository } from '../ILodgesRepository'
 
-class ILodgesRepositoryInMemory implements ILodgesRepository {
+class LodgesRepositoryInMemory implements ILodgesRepository {
   private lodges: Lodge[] = []
 
   async create(lodge: Lodge): Promise<void> {
@@ -27,4 +27,4 @@ class ILodgesRepositoryInMemory implements ILodgesRepository {
   }
 }
 
-export { ILodgesRepositoryInMemory }
+export { LodgesRepositoryInMemory }
