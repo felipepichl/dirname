@@ -17,7 +17,7 @@ class CreateLodgeUseCase implements IUseCase<IRequest, void> {
     const lodgeAlreadyExists = await this.lodgesRepository.searchByName(name)
 
     if (lodgeAlreadyExists) {
-      throw new AppError('Logde already exists', 400)
+      throw new AppError('Lodge already exists', 400)
     }
 
     const lodge = Lodge.createLodge({
