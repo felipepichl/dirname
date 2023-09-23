@@ -7,7 +7,7 @@ import { Lodge } from '@modules/lodge/domain/Lodge'
 interface IRequest {
   name: string
   foundingDate: Date
-  isActive: true
+  isActive: boolean
 }
 
 class CreateLodgeUseCase implements IUseCase<IRequest, void> {
