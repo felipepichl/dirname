@@ -1,6 +1,9 @@
-import { User } from '@modules/accounts/domain/User'
-import { Lodge } from '@modules/lodge/domain/Lodge'
 import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
+
+import { User } from '@modules/accounts/domain/User'
+import { UserMappers } from '@modules/accounts/infra/prisma/mappers/UserMappers'
+import { Lodge } from '@modules/lodge/domain/Lodge'
+import { LodgeMapper } from '../mappers/LodgeMapper'
 
 import { PrismaSingleton } from '@shared/infra/prisma'
 
@@ -15,16 +18,38 @@ class LodgesRepository implements ILodgesRepository {
     })
   }
 
-  findAll(): Promise<Lodge[]> {
-    throw new Error('Method not implemented.')
+  async findAll(): Promise<Lodge[]> {
+    const result = await PrismaSingleton.getInstance().lodge.findMany()
+
+    if (!result) {
+      return null
+    }
+
+    return LodgeMapper.getMapper().toDomainArray(result)
   }
 
-  searchByName(name: string): Promise<Lodge> {
-    throw new Error('Method not implemented.')
+  async searchByName(name: string): Promise<Lodge> {
+    const result = await PrismaSingleton.getInstance().lodge.findFirst({
+      where: { name },
+    })
+
+    if (!result) {
+      return null
+    }
+    return LodgeMapper.getMapper().toDomain(result)
   }
 
-  findUsersByLodgeId(id: string): Promise<User[]> {
-    throw new Error('Method not implemented.')
+  async findUsersByLodgeId(id: string): Promise<User[]> {
+    const result = await PrismaSingleton.getInstance().lodge.findUnique({
+      where: { id },
+      include: { members: true },
+    })
+
+    if (!result) {
+      return null
+    }
+
+    return UserMappers.getMapper().toDomainArray(result.members)
   }
 }
 
