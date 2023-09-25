@@ -81,13 +81,13 @@ model Attendance {
 }
 
 model Lodge {
-  id           String    @id @default(uuid())
+  id           String   @id @default(uuid())
   name         String
   avatar       String?
   latitude     Float?
   longitude    Float?
-  foundingDate DateTime?
-  isActive     Boolean?  @default(true)
+  foundingDate DateTime
+  isActive     Boolean  @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -95,8 +95,8 @@ model Lodge {
   Address     Address? @relation(fields: [fkAddressId], references: [id])
   fkAddressId String?
 
-  adminUserId String @unique
-  admin       User   @relation("AdminLodgeRelation", fields: [adminUserId], references: [id])
+  adminUserId String? @unique
+  admin       User?   @relation("AdminLodgeRelation", fields: [adminUserId], references: [id])
 
   members User[] @relation("MemberLodgeRelation")
 }
