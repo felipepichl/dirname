@@ -11,6 +11,9 @@ import { IMeetingRepository } from '@modules/meeting/repositories/IMeetingReposi
 import { MeetingRepository } from '@modules/meeting/infra/prisma/repositories/MeetingRepository'
 import { AttendancesRepository } from '@modules/attendance/infra/prisma/repositories/AttendancesRepository'
 import { IAttendancesRepository } from '@modules/attendance/repositories/IAttendancesRepository'
+import { LodgesRepository } from '@modules/lodge/infra/prisma/repositories/LodgesRepository'
+import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
+
 // import { MeetingsAttendancesRepository } from '@modules/meeting/infra/prisma/repositories/MeetingsAttendancesRepository'
 // import { IMeetingsAttendancesRepository } from '@modules/meeting/repositories/IMeetingsAttendancesRepository'
 
@@ -32,4 +35,9 @@ container.registerSingleton<IAttendancesRepository>(
 container.registerSingleton<IMeetingRepository>(
   'MeetingsRepository',
   MeetingRepository,
+)
+
+container.registerSingleton<ILodgesRepository>(
+  'LodgesRepository',
+  LodgesRepository,
 )

@@ -1,8 +1,10 @@
-import { IUseCase } from '@shared/core/domain/IUseCase'
+import { inject, injectable } from 'tsyringe'
 
-import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
-import { AppError } from '@shared/error/AppError'
 import { Lodge } from '@modules/lodge/domain/Lodge'
+import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
+
+import { IUseCase } from '@shared/core/domain/IUseCase'
+import { AppError } from '@shared/error/AppError'
 
 interface IRequest {
   name: string
@@ -10,8 +12,12 @@ interface IRequest {
   isActive: boolean
 }
 
+@injectable()
 class CreateLodgeUseCase implements IUseCase<IRequest, void> {
-  constructor(private lodgesRepository: ILodgesRepository) {}
+  constructor(
+    @inject('LodgesRepository')
+    private lodgesRepository: ILodgesRepository,
+  ) {}
 
   async execute({ name, foundingDate, isActive }: IRequest): Promise<void> {
     const lodgeAlreadyExists = await this.lodgesRepository.searchByName(name)
