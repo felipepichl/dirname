@@ -10,7 +10,7 @@ interface IResponse {
 }
 
 @injectable()
-class ListAllLodges implements IUseCase<void, IResponse> {
+class ListAllLodgesUseCase implements IUseCase<void, IResponse> {
   constructor(
     @inject('LodgesRepository')
     private lodgesRepository: ILodgesRepository,
@@ -25,4 +25,4 @@ class ListAllLodges implements IUseCase<void, IResponse> {
   }
 }
 
-export { ListAllLodges }
+export { ListAllLodgesUseCase }
