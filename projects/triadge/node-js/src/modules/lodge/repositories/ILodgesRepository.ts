@@ -6,7 +6,7 @@ interface ILodgesRepository {
   create(lodge: Lodge): Promise<void>
   findAll(): Promise<Lodge[]>
   searchByName(name: string): Promise<Lodge>
-  findUsersByLodgeId(id: string): Promise<User[]>
+  getMembersByLodgeId(id: string): Promise<User[]>
 }
 
 export { ILodgesRepository }

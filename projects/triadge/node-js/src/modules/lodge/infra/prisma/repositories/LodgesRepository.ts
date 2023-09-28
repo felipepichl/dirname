@@ -39,7 +39,7 @@ class LodgesRepository implements ILodgesRepository {
     return LodgeMapper.getMapper().toDomain(result)
   }
 
-  async findUsersByLodgeId(id: string): Promise<User[]> {
+  async getMembersByLodgeId(id: string): Promise<User[]> {
     const result = await PrismaSingleton.getInstance().lodge.findUnique({
       where: { id },
       include: { members: true },

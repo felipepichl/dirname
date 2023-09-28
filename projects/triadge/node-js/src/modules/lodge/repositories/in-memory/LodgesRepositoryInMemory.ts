@@ -20,7 +20,7 @@ class LodgesRepositoryInMemory implements ILodgesRepository {
     return this.lodges.find((lodge) => lodge.name === name)
   }
 
-  async findUsersByLodgeId(id: string): Promise<User[]> {
+  async getMembersByLodgeId(id: string): Promise<User[]> {
     const lodge = this.lodges.find((lodge) => lodge.id.toString() === id)
 
     return UserMappers.getMapper().toDomainArray(lodge.members)
