@@ -42,7 +42,7 @@ async function createLodge(token: string) {
     })
 }
 
-describe('[E2E] - List all lodges', () => {
+describe('[E2E] = List all lodges', () => {
   let token: string
 
   beforeEach(async () => {
@@ -57,10 +57,8 @@ describe('[E2E] - List all lodges', () => {
         Authorization: `Bearer ${token}`,
       })
 
-    console.log(response.body)
-
     expect(response.status).toBe(200)
     expect(Array.isArray(response.body.lodges)).toBe(true)
-    // expect(response.body.users.length).toBe(4)
+    expect(response.body.lodges.length).toBe(2)
   })
 })
