@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@shared/core/domain/AggregateRoot'
 import { UniqueEntityID } from '@shared/core/domain/UniqueEntityID'
 
-import { User } from '@prisma/client'
+import { User } from '@modules/accounts/domain/User'
 
 interface ILodgeProps {
   id?: string
