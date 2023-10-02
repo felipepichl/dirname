@@ -16,6 +16,10 @@ class LodgesRepositoryInMemory implements ILodgesRepository {
     return this.lodges
   }
 
+  async findById(lodgeId: string): Promise<Lodge> {
+    return this.lodges.find((lodge) => lodge.id.toString() === lodgeId)
+  }
+
   async searchByName(name: string): Promise<Lodge> {
     return this.lodges.find((lodge) => lodge.name === name)
   }

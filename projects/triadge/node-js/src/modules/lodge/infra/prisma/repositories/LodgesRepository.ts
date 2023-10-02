@@ -28,6 +28,14 @@ class LodgesRepository implements ILodgesRepository {
     return LodgeMapper.getMapper().toDomainArray(result)
   }
 
+  async findById(lodgeId: string): Promise<Lodge> {
+    const result = await PrismaSingleton.getInstance().lodge.findFirst({
+      where: { id: lodgeId },
+    })
+
+    return LodgeMapper.getMapper().toDomain(result)
+  }
+
   async searchByName(name: string): Promise<Lodge> {
     const result = await PrismaSingleton.getInstance().lodge.findFirst({
       where: { name },

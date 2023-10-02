@@ -27,5 +27,7 @@ describe('[Lodge] - Get members by lodgeId', () => {
     const result = await getMembersByLodgeId.execute({
       lodgeId: id.toString(),
     })
+
+    console.log(result)
   })
 })
