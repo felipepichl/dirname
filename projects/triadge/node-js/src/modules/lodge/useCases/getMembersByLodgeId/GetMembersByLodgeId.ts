@@ -1,4 +1,5 @@
 import { User } from '@modules/accounts/domain/User'
+import { Lodge } from '@modules/lodge/domain/Lodge'
 import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
 
 import { IUseCase } from '@shared/core/domain/IUseCase'
@@ -9,6 +10,7 @@ interface IRequest {
 }
 
 interface IResponse {
+  lodge: Lodge
   users: User[]
 }
 
@@ -25,6 +27,7 @@ class GetMembersByLodgeId implements IUseCase<IRequest, IResponse> {
     const members = await this.lodgesRepository.getMembersByLodgeId(lodgeId)
 
     return {
+      lodge,
       users: members,
     }
   }
