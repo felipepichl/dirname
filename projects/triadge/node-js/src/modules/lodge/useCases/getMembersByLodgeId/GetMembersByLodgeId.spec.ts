@@ -3,6 +3,8 @@ import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memor
 import { Lodge } from '@modules/lodge/domain/Lodge'
 import { LodgesRepositoryInMemory } from '@modules/lodge/repositories/in-memory/LodgesRepositoryInMemory'
 
+import { AppError } from '@shared/error/AppError'
+
 import { GetMembersByLodgeId } from './GetMembersByLodgeId'
 
 let lodgesRepositoryInMemory: LodgesRepositoryInMemory
@@ -76,5 +78,13 @@ describe('[Lodge] - Get members by lodgeId', () => {
     )
     expect(member1).toContain(user1.id.toString())
     expect(member2).toContain(user2.id.toString())
+  })
+
+  it('should not be able to get members with non existing lodge', async () => {
+    await expect(
+      getMembersByLodgeId.execute({
+        lodgeId: 'non-existing',
+      }),
+    ).rejects.toEqual(new AppError('Lodge not found', 404))
   })
 })
