@@ -69,10 +69,10 @@ describe('[Lodge] - Get members by lodgeId', () => {
       lodgeId: id.toString(),
     })
 
-    const retrievedAttendances = result.users
+    const retrievedAttendances = result.members
     expect(retrievedAttendances).toHaveLength(2)
     expect(result.lodge).toBeDefined()
-    expect(result.users).toBeDefined()
+    expect(result.members).toBeDefined()
     const [member1, member2] = retrievedAttendances.map((members) =>
       members.id.toString(),
     )

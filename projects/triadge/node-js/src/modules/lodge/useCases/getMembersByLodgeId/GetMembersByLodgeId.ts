@@ -1,3 +1,5 @@
+import { inject, injectable } from 'tsyringe'
+
 import { User } from '@modules/accounts/domain/User'
 import { Lodge } from '@modules/lodge/domain/Lodge'
 import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository'
@@ -11,11 +13,15 @@ interface IRequest {
 
 interface IResponse {
   lodge: Lodge
-  users: User[]
+  members: User[]
 }
 
+@injectable()
 class GetMembersByLodgeId implements IUseCase<IRequest, IResponse> {
-  constructor(private lodgesRepository: ILodgesRepository) {}
+  constructor(
+    @inject('LodgesRepository')
+    private lodgesRepository: ILodgesRepository,
+  ) {}
 
   async execute({ lodgeId }: IRequest): Promise<IResponse> {
     const lodge = await this.lodgesRepository.findById(lodgeId)
@@ -28,7 +34,7 @@ class GetMembersByLodgeId implements IUseCase<IRequest, IResponse> {
 
     return {
       lodge,
-      users: members,
+      members,
     }
   }
 }
