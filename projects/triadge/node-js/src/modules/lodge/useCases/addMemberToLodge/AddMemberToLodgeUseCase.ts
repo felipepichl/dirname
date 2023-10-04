@@ -27,6 +27,8 @@ class AddMemberToLodgeUseCase implements IUseCase<IRequest, void> {
     if (!lodge) {
       throw new AppError('Lodge not found', 404)
     }
+
+    await this.lodgesRepository.addMembersToLodge()
   }
 }
 

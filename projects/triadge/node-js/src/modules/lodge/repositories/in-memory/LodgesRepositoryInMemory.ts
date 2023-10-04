@@ -30,7 +30,20 @@ class LodgesRepositoryInMemory implements ILodgesRepository {
     return members
   }
 
-  async addMembersToLodge(lodgeId: string, userId: string): Promise<void> {}
+  async addMembersToLodge(lodgeId: string, userId: string): Promise<void> {
+    const lodge = this.lodges.find((lodge) => lodge.id.toString() === lodgeId)
+
+    console.log(lodge)
+
+    const clonedLodge = Object.assign(
+      Object.create(Object.getPrototypeOf(lodge)),
+      lodge,
+    )
+
+    clonedLodge.props = { ...clonedLodge.props, members: [userId] }
+
+    console.log(clonedLodge)
+  }
 }
 
 export { LodgesRepositoryInMemory }
