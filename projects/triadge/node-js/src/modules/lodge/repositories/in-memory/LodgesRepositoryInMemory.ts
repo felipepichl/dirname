@@ -29,6 +29,8 @@ class LodgesRepositoryInMemory implements ILodgesRepository {
 
     return members
   }
+
+  async addMembersToLodge(lodgeId: string, userId: string): Promise<void> {}
 }
 
 export { LodgesRepositoryInMemory }

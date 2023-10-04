@@ -59,6 +59,17 @@ class LodgesRepository implements ILodgesRepository {
 
     return UserMappers.getMapper().toDomainArray(result.members)
   }
+
+  async addMembersToLodge(lodgeId: string, userId: string): Promise<void> {
+    await PrismaSingleton.getInstance().lodge.update({
+      where: { id: lodgeId },
+      data: {
+        members: {
+          connect: { id: userId },
+        },
+      },
+    })
+  }
 }
 
 export { LodgesRepository }
