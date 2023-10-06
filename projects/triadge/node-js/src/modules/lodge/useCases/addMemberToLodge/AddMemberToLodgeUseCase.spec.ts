@@ -3,14 +3,18 @@ import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memor
 import { Lodge } from '@modules/lodge/domain/Lodge'
 import { LodgesRepositoryInMemory } from '@modules/lodge/repositories/in-memory/LodgesRepositoryInMemory'
 
+import { AddMemberToLodgeUseCase } from './AddMemberToLodgeUseCase'
+
+let lodgesRepositoryInMemory: LodgesRepositoryInMemory
+let usersRepository: UsersRepositoryInMemory
+let addMemberToLodgeUseCase: AddMemberToLodgeUseCase
+
 async function createUser(
   name: string,
   email: string,
   password: string,
   phoneNumber: string,
 ): Promise<User> {
-  const usersRepository = new UsersRepositoryInMemory()
-
   const user = User.createUser({
     name,
     email,
@@ -28,8 +32,6 @@ async function createLodge(
   foundingDate: Date,
   isActive: boolean,
 ): Promise<Lodge> {
-  const lodgesRepositoryInMemory = new LodgesRepositoryInMemory()
-
   const lodge = Lodge.createLodge({
     name,
     foundingDate,
@@ -47,6 +49,14 @@ describe('[Lodge] - Add member to Lodge', () => {
   let lodge: Lodge
 
   beforeEach(async () => {
+    usersRepository = new UsersRepositoryInMemory()
+    lodgesRepositoryInMemory = new LodgesRepositoryInMemory()
+
+    addMemberToLodgeUseCase = new AddMemberToLodgeUseCase(
+      lodgesRepositoryInMemory,
+      usersRepository,
+    )
+
     member1 = await createUser(
       'User1',
       'user1@example.com',
@@ -64,9 +74,21 @@ describe('[Lodge] - Add member to Lodge', () => {
     lodge = await createLodge('lodgeName', new Date(2022, 3, 16), true)
   })
 
-  it('should be able to add a member to lodge', () => {
-    console.log(member1)
-    console.log(member2)
-    console.log(lodge)
+  it('should be able to add a member to lodge', async () => {
+    const { id: lodgeId } = lodge
+    const { id: userId } = member1
+
+    console.log(lodgeId.toString(), userId.toString())
+
+    await addMemberToLodgeUseCase.execute({
+      lodgeId: lodgeId.toString(),
+      userId: userId.toString(),
+    })
+
+    const lodgeCreated = await lodgesRepositoryInMemory.getMembersByLodgeId(
+      lodgeId.toString(),
+    )
+
+    console.log(lodgeCreated)
   })
 })

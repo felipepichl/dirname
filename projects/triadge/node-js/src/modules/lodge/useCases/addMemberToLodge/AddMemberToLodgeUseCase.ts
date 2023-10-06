@@ -16,6 +16,8 @@ class AddMemberToLodgeUseCase implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ lodgeId, userId }: IRequest): Promise<void> {
+    console.log('=>', lodgeId, userId)
+
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
@@ -28,7 +30,7 @@ class AddMemberToLodgeUseCase implements IUseCase<IRequest, void> {
       throw new AppError('Lodge not found', 404)
     }
 
-    await this.lodgesRepository.addMembersToLodge()
+    await this.lodgesRepository.addMembersToLodge(lodgeId, userId)
   }
 }
 
