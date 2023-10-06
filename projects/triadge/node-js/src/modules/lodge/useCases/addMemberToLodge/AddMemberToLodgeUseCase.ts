@@ -16,8 +16,6 @@ class AddMemberToLodgeUseCase implements IUseCase<IRequest, void> {
   ) {}
 
   async execute({ lodgeId, userId }: IRequest): Promise<void> {
-    console.log('=>', lodgeId, userId)
-
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {

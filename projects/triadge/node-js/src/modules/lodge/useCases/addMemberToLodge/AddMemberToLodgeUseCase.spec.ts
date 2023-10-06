@@ -2,6 +2,7 @@ import { User } from '@modules/accounts/domain/User'
 import { UsersRepositoryInMemory } from '@modules/accounts/repositories/in-memory/UsersRepositoryInMemory'
 import { Lodge } from '@modules/lodge/domain/Lodge'
 import { LodgesRepositoryInMemory } from '@modules/lodge/repositories/in-memory/LodgesRepositoryInMemory'
+import { AppError } from '@shared/error/AppError'
 
 import { AddMemberToLodgeUseCase } from './AddMemberToLodgeUseCase'
 
@@ -44,8 +45,7 @@ async function createLodge(
 }
 
 describe('[Lodge] - Add member to Lodge', () => {
-  let member1: User
-  let member2: User
+  let member: User
   let lodge: Lodge
 
   beforeEach(async () => {
@@ -57,16 +57,9 @@ describe('[Lodge] - Add member to Lodge', () => {
       usersRepository,
     )
 
-    member1 = await createUser(
+    member = await createUser(
       'User1',
       'user1@example.com',
-      'password123',
-      '1234567890',
-    )
-
-    member2 = await createUser(
-      'User2',
-      'user2@example.com',
       'password123',
       '1234567890',
     )
@@ -76,19 +69,37 @@ describe('[Lodge] - Add member to Lodge', () => {
 
   it('should be able to add a member to lodge', async () => {
     const { id: lodgeId } = lodge
-    const { id: userId } = member1
-
-    console.log(lodgeId.toString(), userId.toString())
+    const { id: userId } = member
 
     await addMemberToLodgeUseCase.execute({
       lodgeId: lodgeId.toString(),
       userId: userId.toString(),
     })
 
-    const lodgeCreated = await lodgesRepositoryInMemory.getMembersByLodgeId(
-      lodgeId.toString(),
-    )
+    const lodgeCreated = await lodgesRepositoryInMemory.findAll()
 
-    console.log(lodgeCreated)
+    // console.log(JSON.stringify(lodgeCreated, null, 2))
+
+    expect(lodgeCreated).toBeDefined()
+    expect(lodgeCreated[0].id).toEqual(lodge.id)
+    expect(lodgeCreated[0].members[0]).toEqual(member.id.toString())
+  })
+
+  it('should not be able to add members with non existing user', async () => {
+    await expect(
+      addMemberToLodgeUseCase.execute({
+        userId: 'non-existing',
+        lodgeId: 'fake',
+      }),
+    ).rejects.toEqual(new AppError('User not found', 404))
+  })
+
+  it('should not be able to add members with non existing lodge', async () => {
+    await expect(
+      addMemberToLodgeUseCase.execute({
+        userId: member.id.toString(),
+        lodgeId: 'non-existing',
+      }),
+    ).rejects.toEqual(new AppError('Lodge not found', 404))
   })
 })
