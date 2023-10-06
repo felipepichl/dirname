@@ -6,7 +6,7 @@ import { AddMemberToLodgeUseCase } from '@modules/lodge/useCases/addMemberToLodg
 class AddMemberToLodgeController {
   async handle(request: Request, response: Response): Promise<Response> {
     const {
-      params: { lodgeId },
+      params: { id: lodgeId },
       body: { userId },
     } = request
 
