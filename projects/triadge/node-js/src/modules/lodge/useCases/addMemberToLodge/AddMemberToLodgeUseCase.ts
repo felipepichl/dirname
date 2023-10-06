@@ -3,15 +3,19 @@ import { ILodgesRepository } from '@modules/lodge/repositories/ILodgesRepository
 
 import { IUseCase } from '@shared/core/domain/IUseCase'
 import { AppError } from '@shared/error/AppError'
+import { inject, injectable } from 'tsyringe'
 
 interface IRequest {
   lodgeId: string
   userId: string
 }
 
+@injectable()
 class AddMemberToLodgeUseCase implements IUseCase<IRequest, void> {
   constructor(
+    @inject('LodgesRepository')
     private lodgesRepository: ILodgesRepository,
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
 
