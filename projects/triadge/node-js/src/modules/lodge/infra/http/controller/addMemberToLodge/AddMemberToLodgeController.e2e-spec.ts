@@ -74,8 +74,8 @@ describe('[E2E] = Add member to Lodge', () => {
     const member = await createUserAndListAll(token)
     const lodge = await createLodgeAndListAll(token)
 
-    // console.log(member)
-    // console.log(lodge)
+    console.log(member)
+    console.log(lodge)
 
     // expect(response.status).toBe(201)
     // expect(response.body).toHaveProperty('message')

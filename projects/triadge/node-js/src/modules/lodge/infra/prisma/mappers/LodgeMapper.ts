@@ -8,8 +8,8 @@ class LodgeMapper implements IMapper<Lodge, RawLodge> {
     return object
   }
 
-  toDomain({ name, foundingDate, isActive }: RawLodge): Lodge {
-    return Lodge.createLodge({ name, foundingDate, isActive })
+  toDomain(raw: RawLodge): Lodge {
+    return Lodge.createLodge(raw)
   }
 
   toDomainArray(rawArray: RawLodge[]): Lodge[] {
