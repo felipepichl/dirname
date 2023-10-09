@@ -12,6 +12,11 @@ import { ensureAuthenticated } from '../middlewares/ensureAuthenticated'
 
 const routes = Router()
 
+// routes.use((req, res, next) => {
+//   console.log(`${req.method} ${req.originalUrl}`)
+//   next()
+// })
+
 routes.use('/users', usersRouter)
 
 routes.use('/sessions', authenticateRoutes)

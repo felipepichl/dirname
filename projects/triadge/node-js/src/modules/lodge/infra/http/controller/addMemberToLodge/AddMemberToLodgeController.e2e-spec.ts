@@ -74,11 +74,17 @@ describe('[E2E] = Add member to Lodge', () => {
     const member = await createUserAndListAll(token)
     const lodge = await createLodgeAndListAll(token)
 
-    console.log(member)
-    console.log(lodge)
+    const response = await request(app)
+      .post(`/lodges/${lodge}/members`)
+      .set({
+        Authorization: `Bearer ${token}`,
+      })
+      .send({
+        userId: member,
+      })
 
-    // expect(response.status).toBe(201)
-    // expect(response.body).toHaveProperty('message')
-    // expect(response.body.message).toBe('Lodge created')
+    expect(response.status).toBe(201)
+    expect(response.body).toHaveProperty('message')
+    expect(response.body.message).toBe('User added to the lodge successfully.')
   })
 })
