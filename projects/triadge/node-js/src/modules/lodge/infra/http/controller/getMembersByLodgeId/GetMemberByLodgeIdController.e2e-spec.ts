@@ -97,6 +97,20 @@ describe('[E2E] = Get member by lodgeId', () => {
         Authorization: `Bearer ${token}`,
       })
 
-    console.log(JSON.stringify(response.body, null, 2))
+    // console.log(JSON.stringify(response.body, null, 2))
+
+    expect(response.status).toBe(200)
+    expect(response.body).toHaveProperty('lodge')
+    expect(response.body).toHaveProperty('members')
+    expect(response.body.lodge).toHaveProperty('_id', lodgeId)
+    expect(response.body.lodge.props).toHaveProperty('name')
+    expect(response.body.lodge.props).toHaveProperty('foundingDate')
+    expect(response.body.members).toBeInstanceOf(Array)
+    expect(response.body.members.length).toBeGreaterThan(0)
+
+    const member = response.body.members.find(
+      (m: { _id: string }) => m._id === userId,
+    )
+    expect(member).toBeDefined()
   })
 })
