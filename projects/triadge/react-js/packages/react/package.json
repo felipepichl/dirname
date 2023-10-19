@@ -11,6 +11,7 @@
   "license": "MIT",
   "devDependencies": {
     "@triadge-iu/tokens": "*",
+    "@triadge-iu/ts-config": "*",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   }
