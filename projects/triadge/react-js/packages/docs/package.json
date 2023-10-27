@@ -9,7 +9,10 @@
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "@triadge-iu/react": "*",
+    "@triadge-iu/tokens": "*",
+    "@triadge-iu/eslint-config": "*"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.5.1",
