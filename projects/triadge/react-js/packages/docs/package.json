@@ -1,33 +1,40 @@
 {
-  "name": "@triadge-iu/docs",
+  "name": "@triadge-ui/docs",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "license": "MIT",
   "scripts": {
-    "dev": "storybook dev -p 6006",
-    "build": "storybook build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "start-storybook -p 6006",
+    "deploy-storybook": "storybook-to-ghpages",
+    "build": "build-storybook"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-interactions": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-vite": "^0.2.3",
+    "@storybook/react": "^6.5.12",
+    "@storybook/storybook-deployer": "^2.8.12",
+    "@storybook/testing-library": "^0.0.13",
+    "@vitejs/plugin-react": "^2.1.0",
+    "babel-loader": "^8.2.5",
+    "vite": "^3.1.4"
   },
   "dependencies": {
+    "@triadge-ui/eslint-config": "*",
+    "@triadge-ui/react": "*",
+    "@triadge-ui/tokens": "*",
+    "@triadge-ui/ts-config": "*",
+    "@storybook/addon-a11y": "^6.5.12",
+    "phosphor-react": "^1.4.1",
+    "polished": "^4.2.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@triadge-iu/react": "*",
-    "@triadge-iu/tokens": "*",
-    "@triadge-iu/eslint-config": "*"
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^7.5.1",
-    "@storybook/addon-interactions": "^7.5.1",
-    "@storybook/addon-links": "^7.5.1",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.5.1",
-    "@storybook/react": "^7.5.1",
-    "@storybook/react-vite": "^7.5.1",
-    "@storybook/testing-library": "^0.2.2",
-    "@vitejs/plugin-react": "^4.1.0",
-    "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "storybook": "^7.5.1",
-    "vite": "^4.5.0"
+    "react-dom": "^18.2.0"
   }
 }

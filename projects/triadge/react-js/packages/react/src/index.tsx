@@ -1,5 +1,3 @@
 export function Button() {
-  return (
-    <h1>Button</h1>
-  )
+  return <h1>Button</h1>
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@triadge-iu/tokens",
+  "name": "@triadge-ui/tokens",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,8 +11,8 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@triadge-iu/ts-config": "*",
-    "@triadge-iu/eslint-config": "*",
+    "@triadge-ui/ts-config": "*",
+    "@triadge-ui/eslint-config": "*",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
   }

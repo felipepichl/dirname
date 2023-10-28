@@ -1,5 +1,5 @@
 {
-  "extends": "@triadge-iu/ts-config/base.json",
+  "extends": "@triadge-ui/ts-config/base.json",
   "include": [
     "src"
   ]

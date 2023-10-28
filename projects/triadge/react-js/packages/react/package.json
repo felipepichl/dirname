@@ -1,5 +1,5 @@
 {
-  "name": "@triadge-iu/react",
+  "name": "@triadge-ui/react",
   "version": "1.0.0",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -11,9 +11,9 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@triadge-iu/eslint-config": "*",
-    "@triadge-iu/tokens": "*",
-    "@triadge-iu/ts-config": "*",
+    "@triadge-ui/eslint-config": "*",
+    "@triadge-ui/tokens": "*",
+    "@triadge-ui/ts-config": "*",
     "@types/react": "^18.2.32",
     "@types/react-dom": "^18.2.14",
     "react": "^18.2.0",
