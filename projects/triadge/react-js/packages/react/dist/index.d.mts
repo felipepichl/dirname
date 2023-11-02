@@ -1,6 +1,7 @@
 import * as _stitches_react_types_styled_component from '@stitches/react/types/styled-component';
 import * as _stitches_react_types_css_util from '@stitches/react/types/css-util';
 import { ComponentProps, ElementType } from 'react';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 
 declare const Box: _stitches_react_types_styled_component.StyledComponent<"div", {}, {}, _stitches_react_types_css_util.CSS<{}, {
     colors: {
@@ -623,4 +624,6 @@ interface HeadingProps extends ComponentProps<typeof Heading> {
     as?: ElementType;
 }
 
-export { Box, BoxProps, Heading, HeadingProps, Text, TextProps };
+declare function Avatar(): react_jsx_runtime.JSX.Element;
+
+export { Avatar, Box, BoxProps, Heading, HeadingProps, Text, TextProps };
