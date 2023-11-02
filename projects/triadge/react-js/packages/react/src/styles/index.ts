@@ -8,7 +8,7 @@ import {
   lineHeights,
   radii,
   space,
-} from '@triadge-iu/tokens'
+} from '@triadge-ui/tokens'
 
 export const {
   styled,
