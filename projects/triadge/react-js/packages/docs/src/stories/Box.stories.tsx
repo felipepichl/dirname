@@ -1,18 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { Box, BoxProps } from '@triadge-ui/react'
+import { Box, BoxProps, Text } from '@triadge-ui/react'
 
 export default {
   title: 'Surfaces/Box',
   component: Box,
-  // args: {
-  //   children: <Text>Testando o elemento Box</Text>,
-  // },
   args: {
-    children: (
-      <>
-        <p>Testando o elemento</p>
-      </>
-    )
+    children: <Text>Testando o elemento Box</Text>,
   },
   argTypes: {
     children: {
