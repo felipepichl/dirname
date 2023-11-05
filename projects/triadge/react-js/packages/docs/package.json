@@ -27,11 +27,11 @@
     "vite": "^3.1.4"
   },
   "dependencies": {
+    "@storybook/addon-a11y": "^6.5.12",
     "@triadge-ui/eslint-config": "*",
     "@triadge-ui/react": "*",
     "@triadge-ui/tokens": "*",
     "@triadge-ui/ts-config": "*",
-    "@storybook/addon-a11y": "^6.5.12",
     "phosphor-react": "^1.4.1",
     "polished": "^4.2.2",
     "react": "^18.2.0",
