@@ -1,11 +1,7 @@
 import { FormEvent, useContext, useState } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
 
-import { styled } from '@/styles'
-
-const Button = styled('button', {
-  backgroundColor: '$triadge',
-})
+import { Button } from '@/components/Button'
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('')
@@ -36,7 +32,7 @@ export default function SignIn() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="submit">Entrar</Button>
+      <Button title="Entrar" type="submit" />
     </form>
   )
 }

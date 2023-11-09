@@ -1,6 +1,6 @@
 import { styled } from '@/styles'
 
-export const Button = styled('button', {
+export const ButtonContainer = styled('button', {
   background: '$gold500',
   color: '$gray600',
   borderRadius: '$md',
