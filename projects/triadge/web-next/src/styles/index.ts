@@ -1,6 +1,14 @@
 import { createStitches } from '@stitches/react'
 
-import { colors, radii } from '@/tokens'
+import {
+  colors,
+  fonts,
+  fontSizes,
+  fontWeights,
+  lineHeights,
+  radii,
+  space,
+} from '@/tokens'
 
 export const {
   config,
@@ -14,6 +22,11 @@ export const {
 } = createStitches({
   theme: {
     colors,
+    fonts,
+    fontSizes,
+    fontWeights,
+    lineHeights,
     radii,
+    space,
   },
 })
