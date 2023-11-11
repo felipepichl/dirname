@@ -1,15 +1,20 @@
 import { styled } from '@/styles'
 
 export const ButtonContainer = styled('button', {
-  background: '$gold500',
-  color: '$gray600',
+  background: '$gold700',
   borderRadius: '$md',
+  border: 0,
+  height: '$12',
+  width: '100%',
+  marginTop: '$4',
+  padding: '0 $4',
+  fontSize: '$md',
+  fontWeight: '$bold',
+  color: '$gray600',
 
-  // height: 56px;
+  transition: 'all 0.2s ease-in-out',
 
-  // border: 0;
-  // padding: 0 16px;
-  // width: 100%;
-  // font-weight: 500;
-  // margin-top: 16px;
+  '&:hover': {
+    background: '$gold500',
+  },
 })
