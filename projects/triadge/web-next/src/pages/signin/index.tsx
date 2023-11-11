@@ -2,6 +2,7 @@ import { FormEvent, useContext, useState } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
 
 import { Button } from '@/components/Button'
+import { TextInput } from '@/components/TextInput'
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>('')
@@ -29,18 +30,10 @@ export default function SignIn() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        padding: 100,
       }}
     >
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <TextInput />
       <Button title="Entrar" type="submit" />
     </form>
   )
