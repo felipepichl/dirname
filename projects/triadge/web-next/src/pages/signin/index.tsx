@@ -4,6 +4,15 @@ import { AuthContext } from '@/contexts/AuthContext'
 import { Button } from '@/components/Button'
 import { TextInput } from '@/components/TextInput'
 
+import signInBackground from '@/assets/sign-up-background.png'
+
+import {
+  Container,
+  Content,
+  Background,
+  AnimationContainer,
+} from '@/styles/pages/signin'
+
 export default function SignIn() {
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -22,19 +31,21 @@ export default function SignIn() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        maxWidth: 340,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 100,
-      }}
-    >
-      <TextInput />
-      <Button title="Entrar" type="submit" />
-    </form>
+    <Container>
+      <Content>
+        <AnimationContainer>
+          <form>
+            <h1>Faça seu login</h1>
+
+            <TextInput name="email" />
+            <TextInput name="password" />
+
+            <Button title="Entrar" />
+          </form>
+        </AnimationContainer>
+      </Content>
+
+      <Background src={signInBackground} alt="" width={780} height={840} />
+    </Container>
   )
 }
