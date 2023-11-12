@@ -39,7 +39,12 @@ export default function SignIn() {
             <h1>Faça seu login</h1>
 
             <TextInput name="id" icon={FiCreditCard} placeholder="Matrícula" />
-            <TextInput name="password" icon={FiLock} placeholder="Senha" />
+            <TextInput
+              name="password"
+              icon={FiLock}
+              placeholder="Senha"
+              type="password"
+            />
 
             <Button title="Entrar" />
           </form>
