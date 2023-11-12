@@ -29,6 +29,10 @@ export const AnimationContainer = styled('div', {
     margin: '80 0',
     width: '340px',
     textAlign: 'center',
+
+    h1: {
+      marginBottom: '$6',
+    },
   },
 })
 

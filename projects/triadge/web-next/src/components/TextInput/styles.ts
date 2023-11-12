@@ -4,12 +4,20 @@ export const TextInputContainer = styled('div', {
   background: '$gray700',
   borderRadius: '$md',
   padding: '$4',
-  width: '100%',
+  width: 'auto',
 
   color: '$gray200',
 
   display: 'flex',
   alignItems: 'center',
+
+  '&+div': {
+    marginTop: '$2',
+  },
+
+  svg: {
+    marginRight: '$4',
+  },
 })
 
 export const Input = styled('input', {

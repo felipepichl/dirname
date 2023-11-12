@@ -1,5 +1,6 @@
 import { FormEvent, useContext, useState } from 'react'
 import { AuthContext } from '@/contexts/AuthContext'
+import { FiCreditCard, FiLock } from 'react-icons/fi'
 
 import { Button } from '@/components/Button'
 import { TextInput } from '@/components/TextInput'
@@ -37,8 +38,8 @@ export default function SignIn() {
           <form>
             <h1>Faça seu login</h1>
 
-            <TextInput name="email" />
-            <TextInput name="password" />
+            <TextInput name="id" icon={FiCreditCard} placeholder="Matrícula" />
+            <TextInput name="password" icon={FiLock} placeholder="Senha" />
 
             <Button title="Entrar" />
           </form>
