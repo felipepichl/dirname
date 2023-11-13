@@ -51,7 +51,13 @@ export default function SignIn() {
         </AnimationContainer>
       </Content>
 
-      <Background src={signInBackground} alt="" width={780} height={840} />
+      <Background
+        src={signInBackground}
+        alt=""
+        width={780}
+        height={840}
+        // layout="responsive"
+      />
     </Container>
   )
 }
