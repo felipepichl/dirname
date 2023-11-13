@@ -44,16 +44,16 @@ export const AnimationContainer = styled('div', {
 })
 
 export const Background = styled(Image, {
-  filter: 'blur(0)', // Valor inicial de desfoque
+  filter: 'blur(0)',
+  objectFit: 'cover',
+  width: '100%',
+  height: '100%',
 
   '@media (min-width: 778px) and (min-height: 840px)': {
     filter: 'blur(10px)', // Aplica o desfoque quando a tela for maior que a imagem
     display: 'block',
-    width: '100%',
-    height: '100%',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
-    objectFit: 'cover',
   },
 
   '@media (max-width: 767px)': {
