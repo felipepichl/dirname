@@ -48,11 +48,6 @@ export default function SignIn() {
 
             <Button title="Entrar" />
           </form>
-
-          <footer>
-            <span>Ou entre com</span>
-            <Button title="Google" />
-          </footer>
         </AnimationContainer>
       </Content>
 
