@@ -10,10 +10,18 @@ export default function Home() {
   return (
     <HomeContainer>
       <Product>
-        <Image src={shirt1} width={520} height={480} alt=""/>
+        
+        <Image 
+          src={shirt1} 
+          width={520} 
+          height={480}
+          alt=""
+          layout="responsive"
+          objectFit="cover"
+        />
         
         <footer>
-          <strong>Shirt 1</strong>
+          <strong>BellaFity - Prettier</strong>
           <span>R$ 79,99</span>
         </footer>
       </Product>

@@ -5,23 +5,22 @@ export const HomeContainer = styled('main', {
   width: '100%',
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
-  minHeight: 656
+  minHeight: '50%',
 })
 
 export const Product = styled('a', {
-  background: 'linear-gradient(180deg, #1ea483 0%, #7465d4 100%)',
+  background: 'linear-gradient(180deg, #ff96a8 0%, #7465d4 100%)',
   borderRadius: 8,
   cursor: 'pointer',
   position: 'relative',
   minHeight: 540,
+  minWidth: 480,
+
+  overflow: 'hidden',
 
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   justifyContent: 'center',
-
-  img: {
-    objectFit: 'cover'
-  },
 
   footer: {
     position: 'absolute',
@@ -58,5 +57,5 @@ export const Product = styled('a', {
       transform: 'translateY(0%)',
       opacity: 1,
     }
-  }
+  },
 })
