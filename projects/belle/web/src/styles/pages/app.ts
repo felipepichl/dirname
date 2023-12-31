@@ -4,22 +4,17 @@ export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  justifyContent: 'center',
+  padding: '4rem 0', 
   minHeight: '100vh',
-
-  '@media (max-width: 768px)': {
-    alignItems: 'stretch', 
-  },
 })
 
 export const Header = styled('header', {
-  padding: '2rem 0',
+  padding: '2rem',
   width: '100%',
-  maxWidth: 1180,
-  margin: '0 auto',
+  backgroundColor: '$gray900',
+  position: 'fixed',
+  top: 0,
+  zIndex: 1000,
 
-  
-  '@media (max-width: 768px)': {
-    padding: '1rem', 
-  },
+  borderBottom: '1px solid #7465d4'
 })

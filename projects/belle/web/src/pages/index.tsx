@@ -2,9 +2,7 @@ import Image from "next/image"
 
 import { HomeContainer, Product } from "@/styles/pages/home"
 
-import shirt1 from '@/assets/camisetas/1.png'
-import shirt2 from '@/assets/camisetas/2.png'
-import shirt3 from '@/assets/camisetas/3.png'
+import ilustration1 from '@/assets/ilustration/ilustration1.png'
 
 export default function Home() {
   return (
@@ -12,7 +10,7 @@ export default function Home() {
       <Product>
         
         <Image 
-          src={shirt1} 
+          src={ilustration1} 
           width={520} 
           height={480}
           alt=""
