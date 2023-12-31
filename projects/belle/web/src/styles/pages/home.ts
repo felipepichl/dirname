@@ -6,8 +6,12 @@ export const HomeContainer = styled('main', {
   maxWidth: 'calc(100vw - ((100vw - 1180px) / 2))',
   marginLeft: 'auto',
 
-  minHeight: 'calc(100vh - 4rem)', // Ajuste para considerar a altura do Header
-  padding: '4rem 2rem 0',
+  minHeight: 'calc(100vh - 4rem)', 
+  padding: '8rem 2rem 0',
+
+  '@media (max-width: 600px)': {
+    minHeight: 'auto', 
+  },
 })
 
 export const Product = styled('a', {
@@ -15,10 +19,12 @@ export const Product = styled('a', {
   borderRadius: 8,
   cursor: 'pointer',
   position: 'relative',
+
   minHeight: 540,
   minWidth: 480,
   maxHeight: 540,
   maxWidth: 480,
+  
   overflow: 'hidden',
 
   display: 'flex',

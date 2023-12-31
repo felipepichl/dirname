@@ -16,5 +16,7 @@ export const Header = styled('header', {
   top: 0,
   zIndex: 1000,
 
+  minHeight: 'auto',
+
   borderBottom: '1px solid #7465d4'
 })
