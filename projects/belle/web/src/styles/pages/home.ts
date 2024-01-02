@@ -119,10 +119,8 @@ export const Container = styled('div', {
     objectFit: 'cover',
   },
 
-  '.swiper_container': {
-    // height: '52rem',
-    // padding: '2rem 0',
-    // position: 'relative',
+  '.swiper-3d': {
+    perspective: 1020,
   },
 
 
