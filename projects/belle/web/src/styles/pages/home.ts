@@ -75,22 +75,15 @@ export const Container = styled('div', {
   padding: '8rem 2rem 0',
   margin: '0 auto',
 
-  // img: {
-  //   width: 520,
-  //   height: 520,
-  //   borderRadius: '2rem',
-  //   objectFit: 'cover',
-  // },
-
   '.swiper-slide': {
-      width: '37rem',
-      height: '42rem',
+      width: '52.571rem',
+      height: '52.571rem',
       position: 'relative',
   },
 
   '.swiper-slide img': {
-    width: '37rem',
-    height: '42rem',
+    width: '52.571rem',
+    height: '52.571rem',
     borderRadius: '2rem',
     objectFit: 'cover',
   },
