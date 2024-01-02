@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image"
 
 import {Swiper, SwiperSlide } from 'swiper/react';
@@ -5,8 +6,7 @@ import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 
 import { 
   HomeContainer, 
-  Product, 
-  ProductFooter, 
+  Product,
   Container 
 } from "@/styles/pages/home"
 
@@ -17,14 +17,33 @@ import ilustration4 from '@/assets/ilustration/ilustration4.png'
 
 // const data = [ilustration1, ilustration2, ilustration3, ilustration4]
 const data = [
-  { id: 1, description: 'Bellafit - Carina', img: ilustration1 },
-  { id: 1, description: 'Bellafit - Ammirare', img: ilustration2 },
-  { id: 1, description: 'Bellafit - Serenità', img: ilustration3 },
-  { id: 1, description: 'Bellafit - Curatta', img: ilustration4 }
+  { 
+    id: 1, 
+    description: 'Bellafit - Carina', 
+    img: ilustration1, 
+    price: 79.99 
+  },
+  { 
+    id: 1, 
+    description: 'Bellafit - Ammirare', 
+    img: ilustration2, 
+    price: 79.99 
+  },
+  { 
+    id: 1, 
+    description: 'Bellafit - Serenità', 
+    img: ilustration3, 
+    price: 79.99 
+  },
+  { 
+    id: 1, 
+    description: 'Bellafit - Curatta', 
+    img: ilustration4, 
+    price: 129.99 
+  }
 ]
 
 export default function Home() {
-  
 
   return (
       <Container>
@@ -33,12 +52,12 @@ export default function Home() {
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={'auto'}
-        // coverflowEffect={{
-        //   rotate: 0,
-        //   stretch: 0,
-        //   depth: 100,
-        //   modifier: 2.5,
-        // }}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.5,
+        }}
         // pagination={{ el: '.swiper-pagination', clickable: true }}
         // navigation={{
         //   nextEl: '.swiper-button-next',
@@ -64,7 +83,7 @@ export default function Home() {
               {/* <img src={item.img.src} alt="" /> */}
               <footer>
                 <strong>{item.description}</strong>
-                <span>R$ 79,99</span>
+                <span>R$ {item.price}</span>
               </footer>
               </Product>
             </SwiperSlide>
