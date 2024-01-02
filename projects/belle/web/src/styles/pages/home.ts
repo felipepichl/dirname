@@ -17,15 +17,9 @@ export const HomeContainer = styled('main', {
 
 export const Product = styled('a', {
   background: 'linear-gradient(180deg, #ff96a8 0%, #7465d4 100%)',
-  borderRadius: 8,
-  cursor: 'pointer',
+  borderRadius: '2rem',
   position: 'relative',
 
-  minHeight: 540,
-  minWidth: 480,
-  maxHeight: 540,
-  maxWidth: 480,
-  
   overflow: 'hidden',
 
   display: 'flex',
@@ -40,7 +34,8 @@ export const Product = styled('a', {
     padding: '2rem',
     overflow: 'hidden',
 
-    borderRadius: 6,
+    borderBottomLeftRadius: '2rem',
+    borderBottomRightRadius: '2rem',
 
     display: 'flex',
     alignItems: 'center',
@@ -52,11 +47,11 @@ export const Product = styled('a', {
     transition: 'all 0.3s ease-in-out',
 
     strong: {
-      fontSize: '$lg'
+      fontSize: '$lg !important'
     },
 
     span: {
-      fontSize: '$xl',
+      fontSize: '$xl !important',
       fontWeight: 'bold',
       color: '$green300'
     }
@@ -70,17 +65,48 @@ export const Product = styled('a', {
   },
 })
 
+export const ProductFooter = styled('footer', {
+  position: 'absolute',
+  // bottom: '0.25rem',
+  // left: '0.25rem',
+  // right: '0.25rem',
+  padding: '4rem',
+  overflow: 'hidden',
+
+  borderBottomLeftRadius: '2rem',
+  borderBottomRightRadius: '2rem',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  backgroundColor: 'rgba(0,0,0,0.6)',
+
+  transform: 'translateY(110%)',
+  opacity: 0,
+  transition: 'all 0.3s ease-in-out',
+
+  strong: {
+    fontSize: '$lg'
+  },
+
+  span: {
+    fontSize: '$xl',
+    fontWeight: 'bold',
+    color: '$green300'
+  }
+})
+
 export const Container = styled('div', {
   maxWidth: '124rem',
   padding: '8rem 2rem 0',
   margin: '0 auto',
 
   '.swiper-slide': {
-      width: '52.571rem',
-      height: '52.571rem',
-      position: 'relative',
+    width: '52.571rem',
+    height: '52.571rem',
+    position: 'relative',
   },
-
+  
   '.swiper-slide img': {
     width: '52.571rem',
     height: '52.571rem',
@@ -91,7 +117,6 @@ export const Container = styled('div', {
   '.swiper-slide-shadow-left, .swiper-slide-shadow-right': {
     display: 'none'
   },
-
   
   '@media (max-width: 500px)': {
     '.swiper_container': {
