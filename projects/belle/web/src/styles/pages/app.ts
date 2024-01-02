@@ -1,11 +1,11 @@
 import { styled } from '..'
 
 export const Container = styled('div', {
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'flex-start',
-  padding: '4rem 0', 
-  // minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  padding: '2rem 0', 
+  minHeight: '100vh',
 })
 
 export const Header = styled('header', {
@@ -17,6 +17,4 @@ export const Header = styled('header', {
   zIndex: 1000,
 
   minHeight: 'auto',
-
-  borderBottom: '1px solid #7465d4'
 })

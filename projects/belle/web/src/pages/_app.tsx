@@ -10,12 +10,12 @@ globalStyles()
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    // <Container>
-    //   <Header>
-    //     <Image src={logo} alt="" />
-    //   </Header>
+    <Container>
+      <Header>
+        <Image src={logo} alt="" />
+      </Header>
 
-    // </Container>
-    <Component {...pageProps} />
+      <Component {...pageProps} />
+    </Container>
   )
 }
