@@ -16,7 +16,12 @@ import ilustration3 from '@/assets/ilustration/ilustration3.png'
 import ilustration4 from '@/assets/ilustration/ilustration4.png'
 
 // const data = [ilustration1, ilustration2, ilustration3, ilustration4]
-const data = [ilustration1, ilustration2, ilustration3, ilustration4]
+const data = [
+  { id: 1, description: 'Bellafit - Carina', img: ilustration1 },
+  { id: 1, description: 'Bellafit - Ammirare', img: ilustration2 },
+  { id: 1, description: 'Bellafit - Serenità', img: ilustration3 },
+  { id: 1, description: 'Bellafit - Curatta', img: ilustration4 }
+]
 
 export default function Home() {
   
@@ -27,14 +32,13 @@ export default function Home() {
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}
-        // loop={true}
         slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
-        }}
+        // coverflowEffect={{
+        //   rotate: 0,
+        //   stretch: 0,
+        //   depth: 100,
+        //   modifier: 2.5,
+        // }}
         // pagination={{ el: '.swiper-pagination', clickable: true }}
         // navigation={{
         //   nextEl: '.swiper-button-next',
@@ -46,20 +50,20 @@ export default function Home() {
       >
           {
           data.map(item => (
-            <SwiperSlide key={item.src}>  
+            <SwiperSlide key={item.id}>  
               <Product>
-              {/* <Image 
-                src={item.src} 
-                // layout="responsive"
+              <Image 
+                src={item.img.src} 
+                layout="responsive"
                 width={520} 
                 height={480}
                 alt=""
                 objectFit="cover"
-              />  */}
+              /> 
 
-              <img src={item.src} alt="" />
+              {/* <img src={item.img.src} alt="" /> */}
               <footer>
-                <strong>BellaFity - Prettier</strong>
+                <strong>{item.description}</strong>
                 <span>R$ 79,99</span>
               </footer>
               </Product>

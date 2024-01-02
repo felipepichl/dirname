@@ -23,14 +23,16 @@ export const Product = styled('a', {
   overflow: 'hidden',
 
   display: 'flex',
-  alignItems: 'flex-start',
+  alignItems: 'center',
   justifyContent: 'center',
 
   footer: {
     position: 'absolute',
-    bottom: '0.25rem',
-    left: '0.25rem',
-    right: '0.25rem',
+    
+    bottom: '0.28rem',
+    left: '0.28rem',
+    right: '0.28rem',
+    
     height: '6.2rem',
     padding: '2rem',
     overflow: 'hidden',
@@ -43,10 +45,10 @@ export const Product = styled('a', {
     justifyContent: 'space-between',
     backgroundColor: 'rgba(0,0,0,0.6)',
 
-    // transform: 'translateY(110%)',
-    // opacity: 0,
-    transform: 'translateY(0%)',
-    opacity: 1,
+    transform: 'translateY(110%)',
+    opacity: 0,
+    // transform: 'translateY(0%)',
+    // opacity: 1,
     transition: 'all 0.3s ease-in-out',
 
     strong: {
@@ -116,6 +118,13 @@ export const Container = styled('div', {
     borderRadius: '2rem',
     objectFit: 'cover',
   },
+
+  '.swiper_container': {
+    // height: '52rem',
+    // padding: '2rem 0',
+    // position: 'relative',
+  },
+
 
   '.swiper-slide-shadow-left, .swiper-slide-shadow-right': {
     display: 'none'

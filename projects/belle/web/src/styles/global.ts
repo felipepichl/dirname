@@ -48,64 +48,23 @@ export const globalStyles = globalCss({
     }
   },
 
-  // '::-webkit-scrollbar': {
-  //   width: '1.3rem',
-  // },
+  '::-webkit-scrollbar': {
+    width: '1.3rem',
+  },
   
-  // '::-webkit-scrollbar-thumb': {
-  //   borderRadius: '1rem',
-  //   backgroundColor: '#797979',
-  //   transition: 'all 0.5s ease-in-out',
-  // },
+  '::-webkit-scrollbar-thumb': {
+    borderRadius: '1rem',
+    backgroundColor: '#797979',
+    transition: 'all 0.5s ease-in-out',
+  },
 
-  // '::-webkit-scrollbar-thumb:hover': {
-  //   background: '#222224',
-  // },
+  '::-webkit-scrollbar-thumb:hover': {
+    background: '#222224',
+  },
   
-  // '::-webkit-scrollbar-track': {
-  //   background: '#f9f9f9',
-  // },
-
-  // 'body, input, textarea, button': {
-  //   fontFamily: 'Roboto',
-  //   fontWeight: 'bold',
-  //   fontSize: '1.6rem'
-  // },
-
-  // '.container': {
-  //   maxWidth: '124rem',
-  //   // padding: '4rem 1rem',
-  //   padding: '8rem 2rem 0',
-  //   margin: '0 auto',
-  // },
-  
-  // '.swiper_container': {
-  //   height: '52rem',
-  //   padding: '2rem 0',
-  //   position: 'relative',
-  // },
-  
-  // '.swiper-slide': {
-  //   width: '37rem',
-  //   height: '42rem',
-  //   position: 'relative',
-  // },
-
-  // '@media (max-width: 500px)': {
-  //   '.swiper_container': {
-  //     height: '47rem',
-  //   },
-    
-  //   '.swiper-slide': {
-  //     width: '28rem !important',
-  //     height: '36rem !important',
-  //   },
-    
-  //   '.swiper-slide img': {
-  //     width: '28rem !important',
-  //     height: '36rem !important',
-  //   },
-  // },
+  '::-webkit-scrollbar-track': {
+    background: '#f9f9f9',
+  },
 
   // '.swiper-slide img': {
   //   width: '37rem',
@@ -129,28 +88,6 @@ export const globalStyles = globalCss({
   // '.slider-controler .swiper-button-next': {
   //   left: '58% !important',
   //   transform: 'translateX(-58%) !important',
-  // },
-
-  // '@media (max-width: 990px)': {
-  //   '.slider-controler .swiper-button-next': {
-  //     left: '70% !important',
-  //     transform: 'translateX(-70%) !important',
-  //   },
-  //   '.slider-controler .swiper-button-prev': {
-  //     left: '30% !important',
-  //     transform: 'translateX(-30%) !important',
-  //   }
-  // },
-  
-  // '@media (max-width: 450px)': {
-  //   '.slider-controler .swiper-button-next': {
-  //     left: '80% !important',
-  //     transform: 'translateX(-80%) !important',
-  //   },
-  //   '.slider-controler .swiper-button-prev': {
-  //     left: '20% !important',
-  //     transform: 'translateX(-20%) !important',
-  //   }
   // },
 
   // '.slider-controler .slider-arrow': {
