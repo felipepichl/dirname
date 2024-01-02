@@ -48,17 +48,20 @@ export default function Home() {
           data.map(item => (
             <SwiperSlide key={item.src}>  
               <Product>
-              <Image 
+              {/* <Image 
                 src={item.src} 
+                // layout="responsive"
                 width={520} 
                 height={480}
                 alt=""
-                layout="responsive"
                 objectFit="cover"
-              /> 
-              <ProductFooter>
-                
-              </ProductFooter>
+              />  */}
+
+              <img src={item.src} alt="" />
+              <footer>
+                <strong>BellaFity - Prettier</strong>
+                <span>R$ 79,99</span>
+              </footer>
               </Product>
             </SwiperSlide>
           ))

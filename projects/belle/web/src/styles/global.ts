@@ -24,23 +24,29 @@ export const globalStyles = globalCss({
     'webkit-font-smoothing': 'antialiased',
   },
 
-  // '@media (min-width: 1440px)': {
-  //   'html': {
-  //     zoom: 1.5,
-  //   }
-  // },
+  'body, input, textarea, button': {
+    fontFamily: 'Roboto',
+    fontWeight: 'bold',
+    fontSize: '1.6rem'
+  },
 
-  // '@media (min-width: 2560px)': {
-  //   'html': {
-  //     zoom: 1.7,
-  //   }
-  // },
+  '@media (min-width: 1440px)': {
+    'html': {
+      zoom: 1.5,
+    }
+  },
+
+  '@media (min-width: 2560px)': {
+    'html': {
+      zoom: 1.7,
+    }
+  },
   
-  // '@media (min-width: 3860px)': {
-  //   'html': {
-  //     zoom: 2.5,
-  //   }
-  // },
+  '@media (min-width: 3860px)': {
+    'html': {
+      zoom: 2.5,
+    }
+  },
 
   // '::-webkit-scrollbar': {
   //   width: '1.3rem',

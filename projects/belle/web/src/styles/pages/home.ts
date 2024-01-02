@@ -31,6 +31,7 @@ export const Product = styled('a', {
     bottom: '0.25rem',
     left: '0.25rem',
     right: '0.25rem',
+    height: '6.2rem',
     padding: '2rem',
     overflow: 'hidden',
 
@@ -42,16 +43,18 @@ export const Product = styled('a', {
     justifyContent: 'space-between',
     backgroundColor: 'rgba(0,0,0,0.6)',
 
-    transform: 'translateY(110%)',
-    opacity: 0,
+    // transform: 'translateY(110%)',
+    // opacity: 0,
+    transform: 'translateY(0%)',
+    opacity: 1,
     transition: 'all 0.3s ease-in-out',
 
     strong: {
-      fontSize: '$lg !important'
+      fontSize: '$lg'
     },
 
     span: {
-      fontSize: '$xl !important',
+      fontSize: '$xl',
       fontWeight: 'bold',
       color: '$green300'
     }
@@ -131,6 +134,7 @@ export const Container = styled('div', {
     '.swiper-slide img': {
       width: '28rem !important',
       height: '36rem !important',
+      objectFit: 'contain',
     },
   },
 
