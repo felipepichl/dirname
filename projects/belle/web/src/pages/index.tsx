@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa'
 import Image from "next/image"
 
 import {Swiper, SwiperSlide } from 'swiper/react';
@@ -7,7 +8,10 @@ import { EffectCoverflow, Pagination, Navigation } from 'swiper';
 import { 
   HomeContainer, 
   Product,
-  Container 
+  Container, 
+  SliderController,
+  SliderArrow,
+  SliderPagination
 } from "@/styles/pages/home"
 
 import ilustration1 from '@/assets/ilustration/ilustration1.png'
@@ -58,37 +62,57 @@ export default function Home() {
           depth: 100,
           modifier: 2.5,
         }}
-        // pagination={{ el: '.swiper-pagination', clickable: true }}
-        // navigation={{
-        //   nextEl: '.swiper-button-next',
-        //   prevEl: '.swiper-button-prev',
-        //   // clickable: true,
-        // }}
+        pagination={{ el: '.swiper-pagination', clickable: true }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+          // clickable: true,
+        }}
         modules={[EffectCoverflow, Pagination, Navigation]}
         // className="swiper_container"
       >
           {
-          data.map(item => (
-            <SwiperSlide key={item.id}>  
-              <Product>
-              <Image 
-                src={item.img.src} 
-                layout="responsive"
-                width={520} 
-                height={480}
-                alt=""
-                objectFit="cover"
-              /> 
+            data.map(item => (
+              <SwiperSlide key={item.id}>  
+                <Product>
+                <Image 
+                  src={item.img.src} 
+                  layout="responsive"
+                  width={520} 
+                  height={480}
+                  alt=""
+                  objectFit="cover"
+                /> 
 
-              {/* <img src={item.img.src} alt="" /> */}
-              <footer>
-                <strong>{item.description}</strong>
-                <span>R$ {item.price}</span>
-              </footer>
-              </Product>
-            </SwiperSlide>
-          ))
-        }
+                {/* <img src={item.img.src} alt="" /> */}
+                <footer>
+                  <strong>{item.description}</strong>
+                  <span>R$ {item.price}</span>
+                </footer>
+                </Product>
+              </SwiperSlide>   
+            ))
+          }
+           <div className="slider-controler">
+            <div className="swiper-button-prev slider-arrow">
+              {/* <ion-icon name="arrow-back-outline"></ion-icon> */}
+              <FaArrowLeft color="#222224"/>
+            </div>
+            <div className="swiper-button-next slider-arrow">
+              {/* <ion-icon name="arrow-forward-outline"></ion-icon> */}
+              <FaArrowRight color="#222224"/>
+            </div>
+            <div className="swiper-pagination"></div>
+          </div>          
+          {/* <SliderController>
+            <SliderArrow>
+              <FaArrowLeft color="#222224"/>
+            </SliderArrow>
+            <SliderPagination />
+            <SliderArrow>
+              <FaArrowRight color="#222224"/>
+            </SliderArrow>
+          </SliderController> */}
         </Swiper>
       </Container>
   )

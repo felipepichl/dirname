@@ -127,4 +127,85 @@ export const Container = styled('div', {
       transform: 'translateX(-20%) !important',
     }
   },
+
+  '.slider-controler .slider-arrow': {
+    background: '$white',
+    width: '3.5rem',
+    height: '3.5re',
+    borderRadius: '50%',
+    left: '42%',
+    transform: 'translateX(-42%)',
+    filter: 'drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1))',
+
+    // marginTop: '3rem',
+  },
+  
+  '.slider-controler': {
+    position: 'relative',
+    bottom: '2rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  '.slider-controler .slider-arrow svg': {
+    fontSize: '2rem',
+    color: '#222224',
+  },
+  
+  '.slider-controler .slider-arrow::after': {
+    content: '',
+  },
+  
+  '.swiper-pagination': {
+    position: 'relative',
+    width: '15rem !important',
+    bottom: '1rem',
+  },
+  
+  '.swiper-pagination .swiper-pagination-bullet': {
+    filter: 'drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1))',
+  },
+  
+  '.swiper-pagination .swiper-pagination-bullet-active': {
+    background: '$gray100',
+  },
+})
+
+export const SliderController = styled('div', {
+  position: 'relative',
+  bottom: '2rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  marginTop: '3rem'
+})
+
+export const SliderArrow = styled('div', {
+  background: '$white',
+  width: '3.5rem',
+  height: '3.5rem',
+  borderRadius: '50%',
+  left: '42%',
+  transform: 'translateX(-42%)',
+  filter: 'drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1))',
+
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+})
+
+export const SliderPagination = styled('div', {
+  position: "relative",
+  width: '15rem !important',
+  bottom: '1rem',
+
+  '.swiper-pagination-bullet': {
+    filter: 'drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1))',
+  },
+
+  '.swiper-pagination-bullet-active': {
+    background: '$gray100',
+  }
 })
