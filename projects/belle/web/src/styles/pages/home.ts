@@ -83,6 +83,12 @@ export const Container = styled('div', {
   '.swiper-3d': {
     perspective: 1020,
   },
+  
+  '.swiper': {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
 
 
   '.swiper-slide-shadow-left, .swiper-slide-shadow-right': {
@@ -106,48 +112,61 @@ export const Container = styled('div', {
     },
   },
 
-  '@media (max-width: 990px)': {
-    '.slider-controler .swiper-button-next': {
-      left: '70% !important',
-      transform: 'translateX(-70%) !important',
-    },
-    '.slider-controler .swiper-button-prev': {
-      left: '30% !important',
-      transform: 'translateX(-30%) !important',
-    }
-  },
+  // '@media (max-width: 990px)': {
+  //   '.slider-controler .swiper-button-next': {
+  //     left: '70% !important',
+  //     transform: 'translateX(-70%) !important',
+  //   },
+  //   '.slider-controler .swiper-button-prev': {
+  //     left: '30% !important',
+  //     transform: 'translateX(-30%) !important',
+  //   }
+  // },
   
-  '@media (max-width: 450px)': {
-    '.slider-controler .swiper-button-next': {
-      left: '80% !important',
-      transform: 'translateX(-80%) !important',
-    },
-    '.slider-controler .swiper-button-prev': {
-      left: '20% !important',
-      transform: 'translateX(-20%) !important',
-    }
+  // '@media (max-width: 450px)': {
+  //   '.slider-controler .swiper-button-next': {
+  //     left: '80% !important',
+  //     transform: 'translateX(-80%) !important',
+  //   },
+  //   '.slider-controler .swiper-button-prev': {
+  //     left: '20% !important',
+  //     transform: 'translateX(-20%) !important',
+  //   }
+  // },
+
+  '.slider-controler': {
+    position: 'relative',
+    bottom: '2rem',
+
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    marginTop: '4.5rem',
+
+    width: '250px'
   },
+
+  // '.swiper-button-next': {
+  //   left: '80% !important',
+  //   transform: 'translateX(-80%) !important',
+  // },
+
+  // '.swiper-button-prev': {
+  //   left: '20% !important',
+  //   transform: 'translateX(-20%) !important',
+  // },
 
   '.slider-controler .slider-arrow': {
     background: '$white',
     width: '3.5rem',
-    height: '3.5re',
+    height: '3.5rem',
     borderRadius: '50%',
-    left: '42%',
-    transform: 'translateX(-42%)',
+    // left: '42%',
+    // transform: 'translateX(-42%)',
     filter: 'drop-shadow(0px 8px 24px rgba(18, 28, 53, 0.1))',
-
-    // marginTop: '3rem',
   },
   
-  '.slider-controler': {
-    position: 'relative',
-    bottom: '2rem',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
   '.slider-controler .slider-arrow svg': {
     fontSize: '2rem',
     color: '#222224',
@@ -168,18 +187,12 @@ export const Container = styled('div', {
   },
   
   '.swiper-pagination .swiper-pagination-bullet-active': {
-    background: '$gray100',
+    background: '$green300',
   },
 })
 
-export const SliderController = styled('div', {
-  position: 'relative',
-  bottom: '2rem',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-
-  marginTop: '3rem'
+export const SliderControllerContainer = styled('div', {
+  maxWidth: '280px'
 })
 
 export const SliderArrow = styled('div', {

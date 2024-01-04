@@ -11,7 +11,8 @@ import {
   Container, 
   SliderController,
   SliderArrow,
-  SliderPagination
+  SliderPagination,
+  SliderControllerContainer
 } from "@/styles/pages/home"
 
 import ilustration1 from '@/assets/ilustration/ilustration1.png'
@@ -93,6 +94,9 @@ export default function Home() {
               </SwiperSlide>   
             ))
           }
+          <SliderControllerContainer>
+
+          
            <div className="slider-controler">
             <div className="swiper-button-prev slider-arrow">
               {/* <ion-icon name="arrow-back-outline"></ion-icon> */}
@@ -104,6 +108,7 @@ export default function Home() {
             </div>
             <div className="swiper-pagination"></div>
           </div>          
+          </SliderControllerContainer>
           {/* <SliderController>
             <SliderArrow>
               <FaArrowLeft color="#222224"/>
