@@ -15,6 +15,9 @@ export const HomeContainer = styled('main', {
   // },
 })
 
+/**
+ * WIN
+ */
 export const Product = styled('a', {
   background: 'linear-gradient(180deg, #ff96a8 0%, #7465d4 100%)',
   borderRadius: '2rem',
@@ -60,7 +63,6 @@ export const Product = styled('a', {
     }
   },
 })
-
 
 export const Container = styled('div', {
   maxWidth: '124rem',
